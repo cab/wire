@@ -93,7 +93,7 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
       ByteString unknownFields) {
     super(ADAPTER, unknownFields);
     this.f = f;
-    this.fooext = Internal.immutableCopyOf("fooext", fooext);
+    this.fooext = Internal.INSTANCE.immutableCopyOf("fooext", fooext);
     this.barext = barext;
     this.bazext = bazext;
     this.nested_message_ext = nested_message_ext;
@@ -104,7 +104,7 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
   public Builder newBuilder() {
     Builder builder = new Builder();
     builder.f = f;
-    builder.fooext = Internal.copyOf("fooext", fooext);
+    builder.fooext = Internal.INSTANCE.copyOf("fooext", fooext);
     builder.barext = barext;
     builder.bazext = bazext;
     builder.nested_message_ext = nested_message_ext;
@@ -119,12 +119,12 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
     if (!(other instanceof ExternalMessage)) return false;
     ExternalMessage o = (ExternalMessage) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(f, o.f)
+        && Internal.INSTANCE.equals(f, o.f)
         && fooext.equals(o.fooext)
-        && Internal.equals(barext, o.barext)
-        && Internal.equals(bazext, o.bazext)
-        && Internal.equals(nested_message_ext, o.nested_message_ext)
-        && Internal.equals(nested_enum_ext, o.nested_enum_ext);
+        && Internal.INSTANCE.equals(barext, o.barext)
+        && Internal.INSTANCE.equals(bazext, o.bazext)
+        && Internal.INSTANCE.equals(nested_message_ext, o.nested_message_ext)
+        && Internal.INSTANCE.equals(nested_enum_ext, o.nested_enum_ext);
   }
 
   @Override
@@ -169,7 +169,7 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
     public SimpleMessage.NestedEnum nested_enum_ext;
 
     public Builder() {
-      fooext = Internal.newMutableList();
+      fooext = Internal.INSTANCE.newMutableList();
     }
 
     public Builder f(Float f) {
@@ -178,7 +178,7 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
     }
 
     public Builder fooext(List<Integer> fooext) {
-      Internal.checkElementsNotNull(fooext);
+      Internal.INSTANCE.checkElementsNotNull(fooext);
       this.fooext = fooext;
       return this;
     }

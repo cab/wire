@@ -316,7 +316,7 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
     this.swift_prefix = builder.swift_prefix;
     this.php_class_prefix = builder.php_class_prefix;
     this.php_namespace = builder.php_namespace;
-    this.uninterpreted_option = Internal.immutableCopyOf("uninterpreted_option", builder.uninterpreted_option);
+    this.uninterpreted_option = Internal.INSTANCE.immutableCopyOf("uninterpreted_option", builder.uninterpreted_option);
   }
 
   @Override
@@ -340,7 +340,7 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
     builder.swift_prefix = swift_prefix;
     builder.php_class_prefix = php_class_prefix;
     builder.php_namespace = php_namespace;
-    builder.uninterpreted_option = Internal.copyOf("uninterpreted_option", uninterpreted_option);
+    builder.uninterpreted_option = Internal.INSTANCE.copyOf("uninterpreted_option", uninterpreted_option);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -351,24 +351,24 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
     if (!(other instanceof FileOptions)) return false;
     FileOptions o = (FileOptions) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(java_package, o.java_package)
-        && Internal.equals(java_outer_classname, o.java_outer_classname)
-        && Internal.equals(java_multiple_files, o.java_multiple_files)
-        && Internal.equals(java_generate_equals_and_hash, o.java_generate_equals_and_hash)
-        && Internal.equals(java_string_check_utf8, o.java_string_check_utf8)
-        && Internal.equals(optimize_for, o.optimize_for)
-        && Internal.equals(go_package, o.go_package)
-        && Internal.equals(cc_generic_services, o.cc_generic_services)
-        && Internal.equals(java_generic_services, o.java_generic_services)
-        && Internal.equals(py_generic_services, o.py_generic_services)
-        && Internal.equals(php_generic_services, o.php_generic_services)
-        && Internal.equals(deprecated, o.deprecated)
-        && Internal.equals(cc_enable_arenas, o.cc_enable_arenas)
-        && Internal.equals(objc_class_prefix, o.objc_class_prefix)
-        && Internal.equals(csharp_namespace, o.csharp_namespace)
-        && Internal.equals(swift_prefix, o.swift_prefix)
-        && Internal.equals(php_class_prefix, o.php_class_prefix)
-        && Internal.equals(php_namespace, o.php_namespace)
+        && Internal.INSTANCE.equals(java_package, o.java_package)
+        && Internal.INSTANCE.equals(java_outer_classname, o.java_outer_classname)
+        && Internal.INSTANCE.equals(java_multiple_files, o.java_multiple_files)
+        && Internal.INSTANCE.equals(java_generate_equals_and_hash, o.java_generate_equals_and_hash)
+        && Internal.INSTANCE.equals(java_string_check_utf8, o.java_string_check_utf8)
+        && Internal.INSTANCE.equals(optimize_for, o.optimize_for)
+        && Internal.INSTANCE.equals(go_package, o.go_package)
+        && Internal.INSTANCE.equals(cc_generic_services, o.cc_generic_services)
+        && Internal.INSTANCE.equals(java_generic_services, o.java_generic_services)
+        && Internal.INSTANCE.equals(py_generic_services, o.py_generic_services)
+        && Internal.INSTANCE.equals(php_generic_services, o.php_generic_services)
+        && Internal.INSTANCE.equals(deprecated, o.deprecated)
+        && Internal.INSTANCE.equals(cc_enable_arenas, o.cc_enable_arenas)
+        && Internal.INSTANCE.equals(objc_class_prefix, o.objc_class_prefix)
+        && Internal.INSTANCE.equals(csharp_namespace, o.csharp_namespace)
+        && Internal.INSTANCE.equals(swift_prefix, o.swift_prefix)
+        && Internal.INSTANCE.equals(php_class_prefix, o.php_class_prefix)
+        && Internal.INSTANCE.equals(php_namespace, o.php_namespace)
         && uninterpreted_option.equals(o.uninterpreted_option);
   }
 
@@ -466,7 +466,7 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
     public List<UninterpretedOption> uninterpreted_option;
 
     public Builder() {
-      uninterpreted_option = Internal.newMutableList();
+      uninterpreted_option = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -648,7 +648,7 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
      * See the documentation for the "Options" section above.
      */
     public Builder uninterpreted_option(List<UninterpretedOption> uninterpreted_option) {
-      Internal.checkElementsNotNull(uninterpreted_option);
+      Internal.INSTANCE.checkElementsNotNull(uninterpreted_option);
       this.uninterpreted_option = uninterpreted_option;
       return this;
     }
@@ -815,7 +815,7 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
     @Override
     public FileOptions redact(FileOptions value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

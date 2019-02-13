@@ -61,8 +61,8 @@ public final class OuterMessage extends Message<OuterMessage, OuterMessage.Build
     if (!(other instanceof OuterMessage)) return false;
     OuterMessage o = (OuterMessage) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(outer_number_before, o.outer_number_before)
-        && Internal.equals(embedded_message, o.embedded_message);
+        && Internal.INSTANCE.equals(outer_number_before, o.outer_number_before)
+        && Internal.INSTANCE.equals(embedded_message, o.embedded_message);
   }
 
   @Override

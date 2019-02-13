@@ -101,7 +101,7 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
       Long negative_int_value, Double double_value, ByteString string_value, String aggregate_value,
       ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.name = Internal.immutableCopyOf("name", name);
+    this.name = Internal.INSTANCE.immutableCopyOf("name", name);
     this.identifier_value = identifier_value;
     this.positive_int_value = positive_int_value;
     this.negative_int_value = negative_int_value;
@@ -113,7 +113,7 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.name = Internal.copyOf("name", name);
+    builder.name = Internal.INSTANCE.copyOf("name", name);
     builder.identifier_value = identifier_value;
     builder.positive_int_value = positive_int_value;
     builder.negative_int_value = negative_int_value;
@@ -131,12 +131,12 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
     UninterpretedOption o = (UninterpretedOption) other;
     return unknownFields().equals(o.unknownFields())
         && name.equals(o.name)
-        && Internal.equals(identifier_value, o.identifier_value)
-        && Internal.equals(positive_int_value, o.positive_int_value)
-        && Internal.equals(negative_int_value, o.negative_int_value)
-        && Internal.equals(double_value, o.double_value)
-        && Internal.equals(string_value, o.string_value)
-        && Internal.equals(aggregate_value, o.aggregate_value);
+        && Internal.INSTANCE.equals(identifier_value, o.identifier_value)
+        && Internal.INSTANCE.equals(positive_int_value, o.positive_int_value)
+        && Internal.INSTANCE.equals(negative_int_value, o.negative_int_value)
+        && Internal.INSTANCE.equals(double_value, o.double_value)
+        && Internal.INSTANCE.equals(string_value, o.string_value)
+        && Internal.INSTANCE.equals(aggregate_value, o.aggregate_value);
   }
 
   @Override
@@ -185,11 +185,11 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
     public String aggregate_value;
 
     public Builder() {
-      name = Internal.newMutableList();
+      name = Internal.INSTANCE.newMutableList();
     }
 
     public Builder name(List<NamePart> name) {
-      Internal.checkElementsNotNull(name);
+      Internal.INSTANCE.checkElementsNotNull(name);
       this.name = name;
       return this;
     }
@@ -335,7 +335,7 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
       public NamePart build() {
         if (name_part == null
             || is_extension == null) {
-          throw Internal.missingRequiredFields(name_part, "name_part",
+          throw Internal.INSTANCE.missingRequiredFields(name_part, "name_part",
               is_extension, "is_extension");
         }
         return new NamePart(name_part, is_extension, super.buildUnknownFields());
@@ -445,7 +445,7 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
     @Override
     public UninterpretedOption redact(UninterpretedOption value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.name, NamePart.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.name, NamePart.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

@@ -51,7 +51,7 @@ public final class HeresAllTheDataResponse extends Message<HeresAllTheDataRespon
     if (!(other instanceof HeresAllTheDataResponse)) return false;
     HeresAllTheDataResponse o = (HeresAllTheDataResponse) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(data, o.data);
+        && Internal.INSTANCE.equals(data, o.data);
   }
 
   @Override

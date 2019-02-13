@@ -49,7 +49,7 @@ public final class H extends Message<H, H.Builder> {
     if (!(other instanceof H)) return false;
     H o = (H) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(ef, o.ef);
+        && Internal.INSTANCE.equals(ef, o.ef);
   }
 
   @Override

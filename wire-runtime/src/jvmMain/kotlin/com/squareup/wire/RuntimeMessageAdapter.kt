@@ -15,13 +15,13 @@
  */
 package com.squareup.wire
 
-import com.squareup.wire.internal.Internal
 import java.io.IOException
 import java.lang.reflect.Field
 import java.util.Collections
 import java.util.LinkedHashMap
 
 import com.squareup.wire.Message.Builder
+import com.squareup.wire.internal.Internal
 
 internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(private val messageType: Class<M>, private val builderType: Class<B>,
                                                                            private val fieldBindings: Map<Int, FieldBinding<M, B>>) : ProtoAdapter<M>(FieldEncoding.LENGTH_DELIMITED, messageType) {
@@ -82,7 +82,7 @@ internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(priva
                 }
             } else if (isMessage && fieldBinding.label.isRepeated) {
 
-                val values = fieldBinding.getFromBuilder(builder) as List<Any>
+                val values = fieldBinding.getFromBuilder(builder) as MutableList<Any>
 
                 val adapter = fieldBinding.singleAdapter() as ProtoAdapter<Any>
                 Internal.redactElements(values, adapter)

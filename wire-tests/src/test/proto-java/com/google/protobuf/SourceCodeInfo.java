@@ -86,13 +86,13 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
 
   public SourceCodeInfo(List<Location> location, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.location = Internal.immutableCopyOf("location", location);
+    this.location = Internal.INSTANCE.immutableCopyOf("location", location);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.location = Internal.copyOf("location", location);
+    builder.location = Internal.INSTANCE.copyOf("location", location);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -128,7 +128,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
     public List<Location> location;
 
     public Builder() {
-      location = Internal.newMutableList();
+      location = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -177,7 +177,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
      *   be recorded in the future.
      */
     public Builder location(List<Location> location) {
-      Internal.checkElementsNotNull(location);
+      Internal.INSTANCE.checkElementsNotNull(location);
       this.location = location;
       return this;
     }
@@ -320,21 +320,21 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
         String trailing_comments, List<String> leading_detached_comments,
         ByteString unknownFields) {
       super(ADAPTER, unknownFields);
-      this.path = Internal.immutableCopyOf("path", path);
-      this.span = Internal.immutableCopyOf("span", span);
+      this.path = Internal.INSTANCE.immutableCopyOf("path", path);
+      this.span = Internal.INSTANCE.immutableCopyOf("span", span);
       this.leading_comments = leading_comments;
       this.trailing_comments = trailing_comments;
-      this.leading_detached_comments = Internal.immutableCopyOf("leading_detached_comments", leading_detached_comments);
+      this.leading_detached_comments = Internal.INSTANCE.immutableCopyOf("leading_detached_comments", leading_detached_comments);
     }
 
     @Override
     public Builder newBuilder() {
       Builder builder = new Builder();
-      builder.path = Internal.copyOf("path", path);
-      builder.span = Internal.copyOf("span", span);
+      builder.path = Internal.INSTANCE.copyOf("path", path);
+      builder.span = Internal.INSTANCE.copyOf("span", span);
       builder.leading_comments = leading_comments;
       builder.trailing_comments = trailing_comments;
-      builder.leading_detached_comments = Internal.copyOf("leading_detached_comments", leading_detached_comments);
+      builder.leading_detached_comments = Internal.INSTANCE.copyOf("leading_detached_comments", leading_detached_comments);
       builder.addUnknownFields(unknownFields());
       return builder;
     }
@@ -347,8 +347,8 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
       return unknownFields().equals(o.unknownFields())
           && path.equals(o.path)
           && span.equals(o.span)
-          && Internal.equals(leading_comments, o.leading_comments)
-          && Internal.equals(trailing_comments, o.trailing_comments)
+          && Internal.INSTANCE.equals(leading_comments, o.leading_comments)
+          && Internal.INSTANCE.equals(trailing_comments, o.trailing_comments)
           && leading_detached_comments.equals(o.leading_detached_comments);
     }
 
@@ -390,9 +390,9 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
       public List<String> leading_detached_comments;
 
       public Builder() {
-        path = Internal.newMutableList();
-        span = Internal.newMutableList();
-        leading_detached_comments = Internal.newMutableList();
+        path = Internal.INSTANCE.newMutableList();
+        span = Internal.INSTANCE.newMutableList();
+        leading_detached_comments = Internal.INSTANCE.newMutableList();
       }
 
       /**
@@ -421,7 +421,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
        * of the label to the terminating semicolon).
        */
       public Builder path(List<Integer> path) {
-        Internal.checkElementsNotNull(path);
+        Internal.INSTANCE.checkElementsNotNull(path);
         this.path = path;
         return this;
       }
@@ -434,7 +434,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
        * 1 to each before displaying to a user.
        */
       public Builder span(List<Integer> span) {
-        Internal.checkElementsNotNull(span);
+        Internal.INSTANCE.checkElementsNotNull(span);
         this.span = span;
         return this;
       }
@@ -499,7 +499,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
       }
 
       public Builder leading_detached_comments(List<String> leading_detached_comments) {
-        Internal.checkElementsNotNull(leading_detached_comments);
+        Internal.INSTANCE.checkElementsNotNull(leading_detached_comments);
         this.leading_detached_comments = leading_detached_comments;
         return this;
       }
@@ -604,7 +604,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
     @Override
     public SourceCodeInfo redact(SourceCodeInfo value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.location, Location.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.location, Location.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

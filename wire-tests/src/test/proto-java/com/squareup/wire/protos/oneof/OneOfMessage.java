@@ -60,7 +60,7 @@ public final class OneOfMessage extends Message<OneOfMessage, OneOfMessage.Build
 
   public OneOfMessage(Integer foo, String bar, String baz, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    if (Internal.countNonNull(foo, bar, baz) > 1) {
+    if (Internal.INSTANCE.countNonNull(foo, bar, baz) > 1) {
       throw new IllegalArgumentException("at most one of foo, bar, baz may be non-null");
     }
     this.foo = foo;
@@ -84,9 +84,9 @@ public final class OneOfMessage extends Message<OneOfMessage, OneOfMessage.Build
     if (!(other instanceof OneOfMessage)) return false;
     OneOfMessage o = (OneOfMessage) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(foo, o.foo)
-        && Internal.equals(bar, o.bar)
-        && Internal.equals(baz, o.baz);
+        && Internal.INSTANCE.equals(foo, o.foo)
+        && Internal.INSTANCE.equals(bar, o.bar)
+        && Internal.INSTANCE.equals(baz, o.baz);
   }
 
   @Override

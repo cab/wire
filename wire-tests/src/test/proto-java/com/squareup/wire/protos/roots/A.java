@@ -72,8 +72,8 @@ public final class A extends Message<A, A.Builder> {
     if (!(other instanceof A)) return false;
     A o = (A) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(c, o.c)
-        && Internal.equals(d, o.d);
+        && Internal.INSTANCE.equals(c, o.c)
+        && Internal.INSTANCE.equals(d, o.d);
   }
 
   @Override

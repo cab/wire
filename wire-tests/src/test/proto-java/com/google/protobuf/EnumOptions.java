@@ -81,7 +81,7 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
     super(ADAPTER, unknownFields);
     this.allow_alias = allow_alias;
     this.deprecated = deprecated;
-    this.uninterpreted_option = Internal.immutableCopyOf("uninterpreted_option", uninterpreted_option);
+    this.uninterpreted_option = Internal.INSTANCE.immutableCopyOf("uninterpreted_option", uninterpreted_option);
     this.enum_option = enum_option;
   }
 
@@ -90,7 +90,7 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
     Builder builder = new Builder();
     builder.allow_alias = allow_alias;
     builder.deprecated = deprecated;
-    builder.uninterpreted_option = Internal.copyOf("uninterpreted_option", uninterpreted_option);
+    builder.uninterpreted_option = Internal.INSTANCE.copyOf("uninterpreted_option", uninterpreted_option);
     builder.enum_option = enum_option;
     builder.addUnknownFields(unknownFields());
     return builder;
@@ -102,10 +102,10 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
     if (!(other instanceof EnumOptions)) return false;
     EnumOptions o = (EnumOptions) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(allow_alias, o.allow_alias)
-        && Internal.equals(deprecated, o.deprecated)
+        && Internal.INSTANCE.equals(allow_alias, o.allow_alias)
+        && Internal.INSTANCE.equals(deprecated, o.deprecated)
         && uninterpreted_option.equals(o.uninterpreted_option)
-        && Internal.equals(enum_option, o.enum_option);
+        && Internal.INSTANCE.equals(enum_option, o.enum_option);
   }
 
   @Override
@@ -142,7 +142,7 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
     public Boolean enum_option;
 
     public Builder() {
-      uninterpreted_option = Internal.newMutableList();
+      uninterpreted_option = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -170,7 +170,7 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
      * The parser stores options it doesn't recognize here. See above.
      */
     public Builder uninterpreted_option(List<UninterpretedOption> uninterpreted_option) {
-      Internal.checkElementsNotNull(uninterpreted_option);
+      Internal.INSTANCE.checkElementsNotNull(uninterpreted_option);
       this.uninterpreted_option = uninterpreted_option;
       return this;
     }
@@ -233,7 +233,7 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
     @Override
     public EnumOptions redact(EnumOptions value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

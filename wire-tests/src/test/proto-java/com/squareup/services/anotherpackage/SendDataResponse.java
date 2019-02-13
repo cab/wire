@@ -51,7 +51,7 @@ public final class SendDataResponse extends Message<SendDataResponse, SendDataRe
     if (!(other instanceof SendDataResponse)) return false;
     SendDataResponse o = (SendDataResponse) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(data, o.data);
+        && Internal.INSTANCE.equals(data, o.data);
   }
 
   @Override

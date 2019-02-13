@@ -144,16 +144,16 @@ public final class Message extends com.squareup.wire.Message<Message, Message.Bu
     if (!(other_ instanceof Message)) return false;
     Message o_ = (Message) other_;
     return unknownFields().equals(o_.unknownFields())
-        && Internal.equals(unknownFields, o_.unknownFields)
-        && Internal.equals(other, o_.other)
-        && Internal.equals(o, o_.o)
-        && Internal.equals(result, o_.result)
-        && Internal.equals(hashCode, o_.hashCode)
-        && Internal.equals(serialVersionUID_, o_.serialVersionUID_)
-        && Internal.equals(ADAPTER_, o_.ADAPTER_)
-        && Internal.equals(MESSAGE_OPTIONS_, o_.MESSAGE_OPTIONS_)
-        && Internal.equals(this_, o_.this_)
-        && Internal.equals(message, o_.message);
+        && Internal.INSTANCE.equals(unknownFields, o_.unknownFields)
+        && Internal.INSTANCE.equals(other, o_.other)
+        && Internal.INSTANCE.equals(o, o_.o)
+        && Internal.INSTANCE.equals(result, o_.result)
+        && Internal.INSTANCE.equals(hashCode, o_.hashCode)
+        && Internal.INSTANCE.equals(serialVersionUID_, o_.serialVersionUID_)
+        && Internal.INSTANCE.equals(ADAPTER_, o_.ADAPTER_)
+        && Internal.INSTANCE.equals(MESSAGE_OPTIONS_, o_.MESSAGE_OPTIONS_)
+        && Internal.INSTANCE.equals(this_, o_.this_)
+        && Internal.INSTANCE.equals(message, o_.message);
   }
 
   @Override

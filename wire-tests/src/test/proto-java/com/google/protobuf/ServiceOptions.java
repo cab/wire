@@ -58,14 +58,14 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
       ByteString unknownFields) {
     super(ADAPTER, unknownFields);
     this.deprecated = deprecated;
-    this.uninterpreted_option = Internal.immutableCopyOf("uninterpreted_option", uninterpreted_option);
+    this.uninterpreted_option = Internal.INSTANCE.immutableCopyOf("uninterpreted_option", uninterpreted_option);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
     builder.deprecated = deprecated;
-    builder.uninterpreted_option = Internal.copyOf("uninterpreted_option", uninterpreted_option);
+    builder.uninterpreted_option = Internal.INSTANCE.copyOf("uninterpreted_option", uninterpreted_option);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -76,7 +76,7 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
     if (!(other instanceof ServiceOptions)) return false;
     ServiceOptions o = (ServiceOptions) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(deprecated, o.deprecated)
+        && Internal.INSTANCE.equals(deprecated, o.deprecated)
         && uninterpreted_option.equals(o.uninterpreted_option);
   }
 
@@ -106,7 +106,7 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
     public List<UninterpretedOption> uninterpreted_option;
 
     public Builder() {
-      uninterpreted_option = Internal.newMutableList();
+      uninterpreted_option = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -128,7 +128,7 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
      * The parser stores options it doesn't recognize here. See above.
      */
     public Builder uninterpreted_option(List<UninterpretedOption> uninterpreted_option) {
-      Internal.checkElementsNotNull(uninterpreted_option);
+      Internal.INSTANCE.checkElementsNotNull(uninterpreted_option);
       this.uninterpreted_option = uninterpreted_option;
       return this;
     }
@@ -180,7 +180,7 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
     @Override
     public ServiceOptions redact(ServiceOptions value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

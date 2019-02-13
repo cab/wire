@@ -79,20 +79,20 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
       ByteString unknownFields) {
     super(ADAPTER, unknownFields);
     this.name = name;
-    this.value = Internal.immutableCopyOf("value", value);
+    this.value = Internal.INSTANCE.immutableCopyOf("value", value);
     this.options = options;
-    this.reserved_range = Internal.immutableCopyOf("reserved_range", reserved_range);
-    this.reserved_name = Internal.immutableCopyOf("reserved_name", reserved_name);
+    this.reserved_range = Internal.INSTANCE.immutableCopyOf("reserved_range", reserved_range);
+    this.reserved_name = Internal.INSTANCE.immutableCopyOf("reserved_name", reserved_name);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
     builder.name = name;
-    builder.value = Internal.copyOf("value", value);
+    builder.value = Internal.INSTANCE.copyOf("value", value);
     builder.options = options;
-    builder.reserved_range = Internal.copyOf("reserved_range", reserved_range);
-    builder.reserved_name = Internal.copyOf("reserved_name", reserved_name);
+    builder.reserved_range = Internal.INSTANCE.copyOf("reserved_range", reserved_range);
+    builder.reserved_name = Internal.INSTANCE.copyOf("reserved_name", reserved_name);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -103,9 +103,9 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
     if (!(other instanceof EnumDescriptorProto)) return false;
     EnumDescriptorProto o = (EnumDescriptorProto) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(name, o.name)
+        && Internal.INSTANCE.equals(name, o.name)
         && value.equals(o.value)
-        && Internal.equals(options, o.options)
+        && Internal.INSTANCE.equals(options, o.options)
         && reserved_range.equals(o.reserved_range)
         && reserved_name.equals(o.reserved_name);
   }
@@ -148,9 +148,9 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
     public List<String> reserved_name;
 
     public Builder() {
-      value = Internal.newMutableList();
-      reserved_range = Internal.newMutableList();
-      reserved_name = Internal.newMutableList();
+      value = Internal.INSTANCE.newMutableList();
+      reserved_range = Internal.INSTANCE.newMutableList();
+      reserved_name = Internal.INSTANCE.newMutableList();
     }
 
     public Builder name(String name) {
@@ -159,7 +159,7 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
     }
 
     public Builder value(List<EnumValueDescriptorProto> value) {
-      Internal.checkElementsNotNull(value);
+      Internal.INSTANCE.checkElementsNotNull(value);
       this.value = value;
       return this;
     }
@@ -175,7 +175,7 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
      * overlap.
      */
     public Builder reserved_range(List<EnumReservedRange> reserved_range) {
-      Internal.checkElementsNotNull(reserved_range);
+      Internal.INSTANCE.checkElementsNotNull(reserved_range);
       this.reserved_range = reserved_range;
       return this;
     }
@@ -185,7 +185,7 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
      * be reserved once.
      */
     public Builder reserved_name(List<String> reserved_name) {
-      Internal.checkElementsNotNull(reserved_name);
+      Internal.INSTANCE.checkElementsNotNull(reserved_name);
       this.reserved_name = reserved_name;
       return this;
     }
@@ -256,8 +256,8 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
       if (!(other instanceof EnumReservedRange)) return false;
       EnumReservedRange o = (EnumReservedRange) other;
       return unknownFields().equals(o.unknownFields())
-          && Internal.equals(start, o.start)
-          && Internal.equals(end, o.end);
+          && Internal.INSTANCE.equals(start, o.start)
+          && Internal.INSTANCE.equals(end, o.end);
     }
 
     @Override
@@ -407,9 +407,9 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
     @Override
     public EnumDescriptorProto redact(EnumDescriptorProto value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.value, EnumValueDescriptorProto.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.value, EnumValueDescriptorProto.ADAPTER);
       if (builder.options != null) builder.options = EnumOptions.ADAPTER.redact(builder.options);
-      Internal.redactElements(builder.reserved_range, EnumReservedRange.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.reserved_range, EnumReservedRange.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

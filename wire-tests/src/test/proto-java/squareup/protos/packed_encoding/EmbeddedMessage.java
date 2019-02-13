@@ -44,14 +44,14 @@ public final class EmbeddedMessage extends Message<EmbeddedMessage, EmbeddedMess
   public EmbeddedMessage(List<Integer> inner_repeated_number, Integer inner_number_after,
       ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.inner_repeated_number = Internal.immutableCopyOf("inner_repeated_number", inner_repeated_number);
+    this.inner_repeated_number = Internal.INSTANCE.immutableCopyOf("inner_repeated_number", inner_repeated_number);
     this.inner_number_after = inner_number_after;
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.inner_repeated_number = Internal.copyOf("inner_repeated_number", inner_repeated_number);
+    builder.inner_repeated_number = Internal.INSTANCE.copyOf("inner_repeated_number", inner_repeated_number);
     builder.inner_number_after = inner_number_after;
     builder.addUnknownFields(unknownFields());
     return builder;
@@ -64,7 +64,7 @@ public final class EmbeddedMessage extends Message<EmbeddedMessage, EmbeddedMess
     EmbeddedMessage o = (EmbeddedMessage) other;
     return unknownFields().equals(o.unknownFields())
         && inner_repeated_number.equals(o.inner_repeated_number)
-        && Internal.equals(inner_number_after, o.inner_number_after);
+        && Internal.INSTANCE.equals(inner_number_after, o.inner_number_after);
   }
 
   @Override
@@ -93,11 +93,11 @@ public final class EmbeddedMessage extends Message<EmbeddedMessage, EmbeddedMess
     public Integer inner_number_after;
 
     public Builder() {
-      inner_repeated_number = Internal.newMutableList();
+      inner_repeated_number = Internal.INSTANCE.newMutableList();
     }
 
     public Builder inner_repeated_number(List<Integer> inner_repeated_number) {
-      Internal.checkElementsNotNull(inner_repeated_number);
+      Internal.INSTANCE.checkElementsNotNull(inner_repeated_number);
       this.inner_repeated_number = inner_repeated_number;
       return this;
     }

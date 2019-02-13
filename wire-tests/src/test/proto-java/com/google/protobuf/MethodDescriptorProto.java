@@ -116,12 +116,12 @@ public final class MethodDescriptorProto extends Message<MethodDescriptorProto, 
     if (!(other instanceof MethodDescriptorProto)) return false;
     MethodDescriptorProto o = (MethodDescriptorProto) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(name, o.name)
-        && Internal.equals(input_type, o.input_type)
-        && Internal.equals(output_type, o.output_type)
-        && Internal.equals(options, o.options)
-        && Internal.equals(client_streaming, o.client_streaming)
-        && Internal.equals(server_streaming, o.server_streaming);
+        && Internal.INSTANCE.equals(name, o.name)
+        && Internal.INSTANCE.equals(input_type, o.input_type)
+        && Internal.INSTANCE.equals(output_type, o.output_type)
+        && Internal.INSTANCE.equals(options, o.options)
+        && Internal.INSTANCE.equals(client_streaming, o.client_streaming)
+        && Internal.INSTANCE.equals(server_streaming, o.server_streaming);
   }
 
   @Override

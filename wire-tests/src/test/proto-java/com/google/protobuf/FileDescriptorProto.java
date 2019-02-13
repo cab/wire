@@ -156,13 +156,13 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
     super(ADAPTER, unknownFields);
     this.name = name;
     this.package_ = package_;
-    this.dependency = Internal.immutableCopyOf("dependency", dependency);
-    this.public_dependency = Internal.immutableCopyOf("public_dependency", public_dependency);
-    this.weak_dependency = Internal.immutableCopyOf("weak_dependency", weak_dependency);
-    this.message_type = Internal.immutableCopyOf("message_type", message_type);
-    this.enum_type = Internal.immutableCopyOf("enum_type", enum_type);
-    this.service = Internal.immutableCopyOf("service", service);
-    this.extension = Internal.immutableCopyOf("extension", extension);
+    this.dependency = Internal.INSTANCE.immutableCopyOf("dependency", dependency);
+    this.public_dependency = Internal.INSTANCE.immutableCopyOf("public_dependency", public_dependency);
+    this.weak_dependency = Internal.INSTANCE.immutableCopyOf("weak_dependency", weak_dependency);
+    this.message_type = Internal.INSTANCE.immutableCopyOf("message_type", message_type);
+    this.enum_type = Internal.INSTANCE.immutableCopyOf("enum_type", enum_type);
+    this.service = Internal.INSTANCE.immutableCopyOf("service", service);
+    this.extension = Internal.INSTANCE.immutableCopyOf("extension", extension);
     this.options = options;
     this.source_code_info = source_code_info;
     this.syntax = syntax;
@@ -173,13 +173,13 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
     Builder builder = new Builder();
     builder.name = name;
     builder.package_ = package_;
-    builder.dependency = Internal.copyOf("dependency", dependency);
-    builder.public_dependency = Internal.copyOf("public_dependency", public_dependency);
-    builder.weak_dependency = Internal.copyOf("weak_dependency", weak_dependency);
-    builder.message_type = Internal.copyOf("message_type", message_type);
-    builder.enum_type = Internal.copyOf("enum_type", enum_type);
-    builder.service = Internal.copyOf("service", service);
-    builder.extension = Internal.copyOf("extension", extension);
+    builder.dependency = Internal.INSTANCE.copyOf("dependency", dependency);
+    builder.public_dependency = Internal.INSTANCE.copyOf("public_dependency", public_dependency);
+    builder.weak_dependency = Internal.INSTANCE.copyOf("weak_dependency", weak_dependency);
+    builder.message_type = Internal.INSTANCE.copyOf("message_type", message_type);
+    builder.enum_type = Internal.INSTANCE.copyOf("enum_type", enum_type);
+    builder.service = Internal.INSTANCE.copyOf("service", service);
+    builder.extension = Internal.INSTANCE.copyOf("extension", extension);
     builder.options = options;
     builder.source_code_info = source_code_info;
     builder.syntax = syntax;
@@ -193,8 +193,8 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
     if (!(other instanceof FileDescriptorProto)) return false;
     FileDescriptorProto o = (FileDescriptorProto) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(name, o.name)
-        && Internal.equals(package_, o.package_)
+        && Internal.INSTANCE.equals(name, o.name)
+        && Internal.INSTANCE.equals(package_, o.package_)
         && dependency.equals(o.dependency)
         && public_dependency.equals(o.public_dependency)
         && weak_dependency.equals(o.weak_dependency)
@@ -202,9 +202,9 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
         && enum_type.equals(o.enum_type)
         && service.equals(o.service)
         && extension.equals(o.extension)
-        && Internal.equals(options, o.options)
-        && Internal.equals(source_code_info, o.source_code_info)
-        && Internal.equals(syntax, o.syntax);
+        && Internal.INSTANCE.equals(options, o.options)
+        && Internal.INSTANCE.equals(source_code_info, o.source_code_info)
+        && Internal.INSTANCE.equals(syntax, o.syntax);
   }
 
   @Override
@@ -273,13 +273,13 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
     public String syntax;
 
     public Builder() {
-      dependency = Internal.newMutableList();
-      public_dependency = Internal.newMutableList();
-      weak_dependency = Internal.newMutableList();
-      message_type = Internal.newMutableList();
-      enum_type = Internal.newMutableList();
-      service = Internal.newMutableList();
-      extension = Internal.newMutableList();
+      dependency = Internal.INSTANCE.newMutableList();
+      public_dependency = Internal.INSTANCE.newMutableList();
+      weak_dependency = Internal.INSTANCE.newMutableList();
+      message_type = Internal.INSTANCE.newMutableList();
+      enum_type = Internal.INSTANCE.newMutableList();
+      service = Internal.INSTANCE.newMutableList();
+      extension = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -302,7 +302,7 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
      * Names of files imported by this file.
      */
     public Builder dependency(List<String> dependency) {
-      Internal.checkElementsNotNull(dependency);
+      Internal.INSTANCE.checkElementsNotNull(dependency);
       this.dependency = dependency;
       return this;
     }
@@ -311,7 +311,7 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
      * Indexes of the public imported files in the dependency list above.
      */
     public Builder public_dependency(List<Integer> public_dependency) {
-      Internal.checkElementsNotNull(public_dependency);
+      Internal.INSTANCE.checkElementsNotNull(public_dependency);
       this.public_dependency = public_dependency;
       return this;
     }
@@ -321,7 +321,7 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
      * For Google-internal migration only. Do not use.
      */
     public Builder weak_dependency(List<Integer> weak_dependency) {
-      Internal.checkElementsNotNull(weak_dependency);
+      Internal.INSTANCE.checkElementsNotNull(weak_dependency);
       this.weak_dependency = weak_dependency;
       return this;
     }
@@ -330,25 +330,25 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
      * All top-level definitions in this file.
      */
     public Builder message_type(List<DescriptorProto> message_type) {
-      Internal.checkElementsNotNull(message_type);
+      Internal.INSTANCE.checkElementsNotNull(message_type);
       this.message_type = message_type;
       return this;
     }
 
     public Builder enum_type(List<EnumDescriptorProto> enum_type) {
-      Internal.checkElementsNotNull(enum_type);
+      Internal.INSTANCE.checkElementsNotNull(enum_type);
       this.enum_type = enum_type;
       return this;
     }
 
     public Builder service(List<ServiceDescriptorProto> service) {
-      Internal.checkElementsNotNull(service);
+      Internal.INSTANCE.checkElementsNotNull(service);
       this.service = service;
       return this;
     }
 
     public Builder extension(List<FieldDescriptorProto> extension) {
-      Internal.checkElementsNotNull(extension);
+      Internal.INSTANCE.checkElementsNotNull(extension);
       this.extension = extension;
       return this;
     }
@@ -455,10 +455,10 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
     @Override
     public FileDescriptorProto redact(FileDescriptorProto value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.message_type, DescriptorProto.ADAPTER);
-      Internal.redactElements(builder.enum_type, EnumDescriptorProto.ADAPTER);
-      Internal.redactElements(builder.service, ServiceDescriptorProto.ADAPTER);
-      Internal.redactElements(builder.extension, FieldDescriptorProto.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.message_type, DescriptorProto.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.enum_type, EnumDescriptorProto.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.service, ServiceDescriptorProto.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.extension, FieldDescriptorProto.ADAPTER);
       if (builder.options != null) builder.options = FileOptions.ADAPTER.redact(builder.options);
       if (builder.source_code_info != null) builder.source_code_info = SourceCodeInfo.ADAPTER.redact(builder.source_code_info);
       builder.clearUnknownFields();

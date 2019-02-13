@@ -65,8 +65,8 @@ public final class ForeignMessage extends Message<ForeignMessage, ForeignMessage
     if (!(other instanceof ForeignMessage)) return false;
     ForeignMessage o = (ForeignMessage) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(i, o.i)
-        && Internal.equals(j, o.j);
+        && Internal.INSTANCE.equals(i, o.i)
+        && Internal.INSTANCE.equals(j, o.j);
   }
 
   @Override

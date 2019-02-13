@@ -93,10 +93,10 @@ public final class Redacted extends Message<Redacted, Redacted.Builder> {
     if (!(other instanceof Redacted)) return false;
     Redacted o = (Redacted) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(a, o.a)
-        && Internal.equals(b, o.b)
-        && Internal.equals(c, o.c)
-        && Internal.equals(extension, o.extension);
+        && Internal.INSTANCE.equals(a, o.a)
+        && Internal.INSTANCE.equals(b, o.b)
+        && Internal.INSTANCE.equals(c, o.c)
+        && Internal.INSTANCE.equals(extension, o.extension);
   }
 
   @Override

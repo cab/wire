@@ -256,7 +256,7 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
     this.lazy = builder.lazy;
     this.deprecated = builder.deprecated;
     this.weak = builder.weak;
-    this.uninterpreted_option = Internal.immutableCopyOf("uninterpreted_option", builder.uninterpreted_option);
+    this.uninterpreted_option = Internal.INSTANCE.immutableCopyOf("uninterpreted_option", builder.uninterpreted_option);
     this.my_field_option_one = builder.my_field_option_one;
     this.my_field_option_two = builder.my_field_option_two;
     this.my_field_option_three = builder.my_field_option_three;
@@ -277,7 +277,7 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
     builder.lazy = lazy;
     builder.deprecated = deprecated;
     builder.weak = weak;
-    builder.uninterpreted_option = Internal.copyOf("uninterpreted_option", uninterpreted_option);
+    builder.uninterpreted_option = Internal.INSTANCE.copyOf("uninterpreted_option", uninterpreted_option);
     builder.my_field_option_one = my_field_option_one;
     builder.my_field_option_two = my_field_option_two;
     builder.my_field_option_three = my_field_option_three;
@@ -297,22 +297,22 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
     if (!(other instanceof FieldOptions)) return false;
     FieldOptions o = (FieldOptions) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(ctype, o.ctype)
-        && Internal.equals(packed, o.packed)
-        && Internal.equals(jstype, o.jstype)
-        && Internal.equals(lazy, o.lazy)
-        && Internal.equals(deprecated, o.deprecated)
-        && Internal.equals(weak, o.weak)
+        && Internal.INSTANCE.equals(ctype, o.ctype)
+        && Internal.INSTANCE.equals(packed, o.packed)
+        && Internal.INSTANCE.equals(jstype, o.jstype)
+        && Internal.INSTANCE.equals(lazy, o.lazy)
+        && Internal.INSTANCE.equals(deprecated, o.deprecated)
+        && Internal.INSTANCE.equals(weak, o.weak)
         && uninterpreted_option.equals(o.uninterpreted_option)
-        && Internal.equals(my_field_option_one, o.my_field_option_one)
-        && Internal.equals(my_field_option_two, o.my_field_option_two)
-        && Internal.equals(my_field_option_three, o.my_field_option_three)
-        && Internal.equals(my_field_option_four, o.my_field_option_four)
-        && Internal.equals(squareup_protos_extension_collision_1_a, o.squareup_protos_extension_collision_1_a)
-        && Internal.equals(b, o.b)
-        && Internal.equals(squareup_protos_extension_collision_2_a, o.squareup_protos_extension_collision_2_a)
-        && Internal.equals(c, o.c)
-        && Internal.equals(redacted, o.redacted);
+        && Internal.INSTANCE.equals(my_field_option_one, o.my_field_option_one)
+        && Internal.INSTANCE.equals(my_field_option_two, o.my_field_option_two)
+        && Internal.INSTANCE.equals(my_field_option_three, o.my_field_option_three)
+        && Internal.INSTANCE.equals(my_field_option_four, o.my_field_option_four)
+        && Internal.INSTANCE.equals(squareup_protos_extension_collision_1_a, o.squareup_protos_extension_collision_1_a)
+        && Internal.INSTANCE.equals(b, o.b)
+        && Internal.INSTANCE.equals(squareup_protos_extension_collision_2_a, o.squareup_protos_extension_collision_2_a)
+        && Internal.INSTANCE.equals(c, o.c)
+        && Internal.INSTANCE.equals(redacted, o.redacted);
   }
 
   @Override
@@ -397,7 +397,7 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
     public Boolean redacted;
 
     public Builder() {
-      uninterpreted_option = Internal.newMutableList();
+      uninterpreted_option = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -499,7 +499,7 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
      * The parser stores options it doesn't recognize here. See above.
      */
     public Builder uninterpreted_option(List<UninterpretedOption> uninterpreted_option) {
-      Internal.checkElementsNotNull(uninterpreted_option);
+      Internal.INSTANCE.checkElementsNotNull(uninterpreted_option);
       this.uninterpreted_option = uninterpreted_option;
       return this;
     }
@@ -764,7 +764,7 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
     @Override
     public FieldOptions redact(FieldOptions value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
       if (builder.my_field_option_four != null) builder.my_field_option_four = FooBar.ADAPTER.redact(builder.my_field_option_four);
       builder.clearUnknownFields();
       return builder.build();

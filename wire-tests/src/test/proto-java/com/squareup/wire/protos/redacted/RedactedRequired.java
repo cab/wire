@@ -94,7 +94,7 @@ public final class RedactedRequired extends Message<RedactedRequired, RedactedRe
     @Override
     public RedactedRequired build() {
       if (a == null) {
-        throw Internal.missingRequiredFields(a, "a");
+        throw Internal.INSTANCE.missingRequiredFields(a, "a");
       }
       return new RedactedRequired(a, super.buildUnknownFields());
     }

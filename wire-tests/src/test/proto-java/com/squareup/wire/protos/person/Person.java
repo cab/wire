@@ -79,7 +79,7 @@ public final class Person extends Message<Person, Person.Builder> {
     this.name = name;
     this.id = id;
     this.email = email;
-    this.phone = Internal.immutableCopyOf("phone", phone);
+    this.phone = Internal.INSTANCE.immutableCopyOf("phone", phone);
   }
 
   @Override
@@ -88,7 +88,7 @@ public final class Person extends Message<Person, Person.Builder> {
     builder.name = name;
     builder.id = id;
     builder.email = email;
-    builder.phone = Internal.copyOf("phone", phone);
+    builder.phone = Internal.INSTANCE.copyOf("phone", phone);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -101,7 +101,7 @@ public final class Person extends Message<Person, Person.Builder> {
     return unknownFields().equals(o.unknownFields())
         && name.equals(o.name)
         && id.equals(o.id)
-        && Internal.equals(email, o.email)
+        && Internal.INSTANCE.equals(email, o.email)
         && phone.equals(o.phone);
   }
 
@@ -139,7 +139,7 @@ public final class Person extends Message<Person, Person.Builder> {
     public List<PhoneNumber> phone;
 
     public Builder() {
-      phone = Internal.newMutableList();
+      phone = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -170,7 +170,7 @@ public final class Person extends Message<Person, Person.Builder> {
      * A list of the customer's phone numbers.
      */
     public Builder phone(List<PhoneNumber> phone) {
-      Internal.checkElementsNotNull(phone);
+      Internal.INSTANCE.checkElementsNotNull(phone);
       this.phone = phone;
       return this;
     }
@@ -179,7 +179,7 @@ public final class Person extends Message<Person, Person.Builder> {
     public Person build() {
       if (name == null
           || id == null) {
-        throw Internal.missingRequiredFields(name, "name",
+        throw Internal.INSTANCE.missingRequiredFields(name, "name",
             id, "id");
       }
       return new Person(name, id, email, phone, super.buildUnknownFields());
@@ -287,7 +287,7 @@ public final class Person extends Message<Person, Person.Builder> {
       PhoneNumber o = (PhoneNumber) other;
       return unknownFields().equals(o.unknownFields())
           && number.equals(o.number)
-          && Internal.equals(type, o.type);
+          && Internal.INSTANCE.equals(type, o.type);
     }
 
     @Override
@@ -337,7 +337,7 @@ public final class Person extends Message<Person, Person.Builder> {
       @Override
       public PhoneNumber build() {
         if (number == null) {
-          throw Internal.missingRequiredFields(number, "number");
+          throw Internal.INSTANCE.missingRequiredFields(number, "number");
         }
         return new PhoneNumber(number, type, super.buildUnknownFields());
       }
@@ -444,7 +444,7 @@ public final class Person extends Message<Person, Person.Builder> {
     @Override
     public Person redact(Person value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.phone, PhoneNumber.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.phone, PhoneNumber.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

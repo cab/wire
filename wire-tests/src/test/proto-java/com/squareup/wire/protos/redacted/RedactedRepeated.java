@@ -51,15 +51,15 @@ public final class RedactedRepeated extends Message<RedactedRepeated, RedactedRe
 
   public RedactedRepeated(List<String> a, List<Redacted> b, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.a = Internal.immutableCopyOf("a", a);
-    this.b = Internal.immutableCopyOf("b", b);
+    this.a = Internal.INSTANCE.immutableCopyOf("a", a);
+    this.b = Internal.INSTANCE.immutableCopyOf("b", b);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.a = Internal.copyOf("a", a);
-    builder.b = Internal.copyOf("b", b);
+    builder.a = Internal.INSTANCE.copyOf("a", a);
+    builder.b = Internal.INSTANCE.copyOf("b", b);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -100,12 +100,12 @@ public final class RedactedRepeated extends Message<RedactedRepeated, RedactedRe
     public List<Redacted> b;
 
     public Builder() {
-      a = Internal.newMutableList();
-      b = Internal.newMutableList();
+      a = Internal.INSTANCE.newMutableList();
+      b = Internal.INSTANCE.newMutableList();
     }
 
     public Builder a(List<String> a) {
-      Internal.checkElementsNotNull(a);
+      Internal.INSTANCE.checkElementsNotNull(a);
       this.a = a;
       return this;
     }
@@ -114,7 +114,7 @@ public final class RedactedRepeated extends Message<RedactedRepeated, RedactedRe
      * Values in the repeated type need redacting.
      */
     public Builder b(List<Redacted> b) {
-      Internal.checkElementsNotNull(b);
+      Internal.INSTANCE.checkElementsNotNull(b);
       this.b = b;
       return this;
     }
@@ -167,7 +167,7 @@ public final class RedactedRepeated extends Message<RedactedRepeated, RedactedRe
     public RedactedRepeated redact(RedactedRepeated value) {
       Builder builder = value.newBuilder();
       builder.a = Collections.emptyList();
-      Internal.redactElements(builder.b, Redacted.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.b, Redacted.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

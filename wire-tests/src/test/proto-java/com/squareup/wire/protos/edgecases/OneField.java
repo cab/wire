@@ -52,7 +52,7 @@ public final class OneField extends Message<OneField, OneField.Builder> {
     if (!(other instanceof OneField)) return false;
     OneField o = (OneField) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(opt_int32, o.opt_int32);
+        && Internal.INSTANCE.equals(opt_int32, o.opt_int32);
   }
 
   @Override

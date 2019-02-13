@@ -70,7 +70,7 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
     super(ADAPTER, unknownFields);
     this.deprecated = deprecated;
     this.idempotency_level = idempotency_level;
-    this.uninterpreted_option = Internal.immutableCopyOf("uninterpreted_option", uninterpreted_option);
+    this.uninterpreted_option = Internal.INSTANCE.immutableCopyOf("uninterpreted_option", uninterpreted_option);
   }
 
   @Override
@@ -78,7 +78,7 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
     Builder builder = new Builder();
     builder.deprecated = deprecated;
     builder.idempotency_level = idempotency_level;
-    builder.uninterpreted_option = Internal.copyOf("uninterpreted_option", uninterpreted_option);
+    builder.uninterpreted_option = Internal.INSTANCE.copyOf("uninterpreted_option", uninterpreted_option);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -89,8 +89,8 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
     if (!(other instanceof MethodOptions)) return false;
     MethodOptions o = (MethodOptions) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(deprecated, o.deprecated)
-        && Internal.equals(idempotency_level, o.idempotency_level)
+        && Internal.INSTANCE.equals(deprecated, o.deprecated)
+        && Internal.INSTANCE.equals(idempotency_level, o.idempotency_level)
         && uninterpreted_option.equals(o.uninterpreted_option);
   }
 
@@ -124,7 +124,7 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
     public List<UninterpretedOption> uninterpreted_option;
 
     public Builder() {
-      uninterpreted_option = Internal.newMutableList();
+      uninterpreted_option = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -151,7 +151,7 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
      * The parser stores options it doesn't recognize here. See above.
      */
     public Builder uninterpreted_option(List<UninterpretedOption> uninterpreted_option) {
-      Internal.checkElementsNotNull(uninterpreted_option);
+      Internal.INSTANCE.checkElementsNotNull(uninterpreted_option);
       this.uninterpreted_option = uninterpreted_option;
       return this;
     }
@@ -268,7 +268,7 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
     @Override
     public MethodOptions redact(MethodOptions value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

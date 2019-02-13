@@ -168,11 +168,11 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
     this.bar = bar;
     this.baz = baz;
     this.qux = qux;
-    this.fred = Internal.immutableCopyOf("fred", fred);
+    this.fred = Internal.INSTANCE.immutableCopyOf("fred", fred);
     this.daisy = daisy;
-    this.nested = Internal.immutableCopyOf("nested", nested);
+    this.nested = Internal.INSTANCE.immutableCopyOf("nested", nested);
     this.ext = ext;
-    this.rep = Internal.immutableCopyOf("rep", rep);
+    this.rep = Internal.INSTANCE.immutableCopyOf("rep", rep);
   }
 
   @Override
@@ -182,11 +182,11 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
     builder.bar = bar;
     builder.baz = baz;
     builder.qux = qux;
-    builder.fred = Internal.copyOf("fred", fred);
+    builder.fred = Internal.INSTANCE.copyOf("fred", fred);
     builder.daisy = daisy;
-    builder.nested = Internal.copyOf("nested", nested);
+    builder.nested = Internal.INSTANCE.copyOf("nested", nested);
     builder.ext = ext;
-    builder.rep = Internal.copyOf("rep", rep);
+    builder.rep = Internal.INSTANCE.copyOf("rep", rep);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -197,14 +197,14 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
     if (!(other instanceof FooBar)) return false;
     FooBar o = (FooBar) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(foo, o.foo)
-        && Internal.equals(bar, o.bar)
-        && Internal.equals(baz, o.baz)
-        && Internal.equals(qux, o.qux)
+        && Internal.INSTANCE.equals(foo, o.foo)
+        && Internal.INSTANCE.equals(bar, o.bar)
+        && Internal.INSTANCE.equals(baz, o.baz)
+        && Internal.INSTANCE.equals(qux, o.qux)
         && fred.equals(o.fred)
-        && Internal.equals(daisy, o.daisy)
+        && Internal.INSTANCE.equals(daisy, o.daisy)
         && nested.equals(o.nested)
-        && Internal.equals(ext, o.ext)
+        && Internal.INSTANCE.equals(ext, o.ext)
         && rep.equals(o.rep);
   }
 
@@ -262,9 +262,9 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
     public List<FooBarBazEnum> rep;
 
     public Builder() {
-      fred = Internal.newMutableList();
-      nested = Internal.newMutableList();
-      rep = Internal.newMutableList();
+      fred = Internal.INSTANCE.newMutableList();
+      nested = Internal.INSTANCE.newMutableList();
+      rep = Internal.INSTANCE.newMutableList();
     }
 
     public Builder foo(Integer foo) {
@@ -288,7 +288,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
     }
 
     public Builder fred(List<Float> fred) {
-      Internal.checkElementsNotNull(fred);
+      Internal.INSTANCE.checkElementsNotNull(fred);
       this.fred = fred;
       return this;
     }
@@ -299,7 +299,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
     }
 
     public Builder nested(List<FooBar> nested) {
-      Internal.checkElementsNotNull(nested);
+      Internal.INSTANCE.checkElementsNotNull(nested);
       this.nested = nested;
       return this;
     }
@@ -310,7 +310,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
     }
 
     public Builder rep(List<FooBarBazEnum> rep) {
-      Internal.checkElementsNotNull(rep);
+      Internal.INSTANCE.checkElementsNotNull(rep);
       this.rep = rep;
       return this;
     }
@@ -357,7 +357,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
       if (!(other instanceof Nested)) return false;
       Nested o = (Nested) other;
       return unknownFields().equals(o.unknownFields())
-          && Internal.equals(value, o.value);
+          && Internal.INSTANCE.equals(value, o.value);
     }
 
     @Override
@@ -464,13 +464,13 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
 
     public More(List<Integer> serial, ByteString unknownFields) {
       super(ADAPTER, unknownFields);
-      this.serial = Internal.immutableCopyOf("serial", serial);
+      this.serial = Internal.INSTANCE.immutableCopyOf("serial", serial);
     }
 
     @Override
     public Builder newBuilder() {
       Builder builder = new Builder();
-      builder.serial = Internal.copyOf("serial", serial);
+      builder.serial = Internal.INSTANCE.copyOf("serial", serial);
       builder.addUnknownFields(unknownFields());
       return builder;
     }
@@ -506,11 +506,11 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
       public List<Integer> serial;
 
       public Builder() {
-        serial = Internal.newMutableList();
+        serial = Internal.INSTANCE.newMutableList();
       }
 
       public Builder serial(List<Integer> serial) {
-        Internal.checkElementsNotNull(serial);
+        Internal.INSTANCE.checkElementsNotNull(serial);
         this.serial = serial;
         return this;
       }

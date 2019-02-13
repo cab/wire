@@ -21,7 +21,6 @@ import java.io.InputStream
 import java.io.OutputStream
 import java.util.Collections
 
-import com.squareup.wire.Preconditions.checkNotNull
 import okio.*
 import java.lang.Double.doubleToLongBits
 import java.lang.Float.floatToIntBits
@@ -74,14 +73,12 @@ abstract class ProtoAdapter<E>(private val fieldEncoding: FieldEncoding, interna
     /** Encode `value` and write it to `stream`.  */
     @Throws(IOException::class)
     fun encode(sink: BufferedSink, value: E) {
-        checkNotNull(value, "value == null")
-        checkNotNull(sink, "sink == null")
+        checkNotNull(sink) { "sink == null" }
         encode(ProtoWriter(sink), value)
     }
 
     /** Encode `value` as a `byte[]`.  */
     fun encode(value: E): ByteArray {
-        checkNotNull(value, "value == null")
         val buffer = Buffer()
         try {
             encode(buffer, value)
@@ -95,8 +92,7 @@ abstract class ProtoAdapter<E>(private val fieldEncoding: FieldEncoding, interna
     /** Encode `value` and write it to `stream`.  */
     @Throws(IOException::class)
     fun encode(stream: OutputStream, value: E) {
-        checkNotNull(value, "value == null")
-        checkNotNull(stream, "stream == null")
+        checkNotNull(stream) { "stream == null" }
         val buffer = stream.sink().buffer()
         encode(buffer, value)
         buffer.emit()
@@ -109,28 +105,28 @@ abstract class ProtoAdapter<E>(private val fieldEncoding: FieldEncoding, interna
     /** Read an encoded message from `bytes`.  */
     @Throws(IOException::class)
     fun decode(bytes: ByteArray): E {
-        checkNotNull(bytes, "bytes == null")
+        checkNotNull(bytes) { "bytes == null" }
         return decode(Buffer().write(bytes))
     }
 
     /** Read an encoded message from `bytes`.  */
     @Throws(IOException::class)
     fun decode(bytes: ByteString): E {
-        checkNotNull(bytes, "bytes == null")
+        checkNotNull(bytes) { "bytes == null" }
         return decode(Buffer().write(bytes))
     }
 
     /** Read an encoded message from `stream`.  */
     @Throws(IOException::class)
     fun decode(stream: InputStream): E {
-        checkNotNull(stream, "stream == null")
+        checkNotNull(stream) { "stream == null" }
         return decode(stream.source().buffer())
     }
 
     /** Read an encoded message from `source`.  */
     @Throws(IOException::class)
     fun decode(source: BufferedSource): E {
-        checkNotNull(source, "source == null")
+        checkNotNull(source) { "source == null" }
         return decode(ProtoReader(source))
     }
 

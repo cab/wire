@@ -67,9 +67,9 @@ public final class RedactedChild extends Message<RedactedChild, RedactedChild.Bu
     if (!(other instanceof RedactedChild)) return false;
     RedactedChild o = (RedactedChild) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(a, o.a)
-        && Internal.equals(b, o.b)
-        && Internal.equals(c, o.c);
+        && Internal.INSTANCE.equals(a, o.a)
+        && Internal.INSTANCE.equals(b, o.b)
+        && Internal.INSTANCE.equals(c, o.c);
   }
 
   @Override

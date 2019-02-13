@@ -51,7 +51,7 @@ public final class LetsDataResponse extends Message<LetsDataResponse, LetsDataRe
     if (!(other instanceof LetsDataResponse)) return false;
     LetsDataResponse o = (LetsDataResponse) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(data, o.data);
+        && Internal.INSTANCE.equals(data, o.data);
   }
 
   @Override

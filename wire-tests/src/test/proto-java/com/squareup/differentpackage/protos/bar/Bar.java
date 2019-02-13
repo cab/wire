@@ -143,7 +143,7 @@ public final class Bar extends Message<Bar, Bar.Builder> {
         if (!(other instanceof Moo)) return false;
         Moo o = (Moo) other;
         return unknownFields().equals(o.unknownFields())
-            && Internal.equals(boo, o.boo);
+            && Internal.INSTANCE.equals(boo, o.boo);
       }
 
       @Override

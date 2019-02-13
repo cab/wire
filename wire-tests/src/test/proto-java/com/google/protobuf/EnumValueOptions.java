@@ -90,7 +90,7 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
       Boolean foreign_enum_value_option, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
     this.deprecated = deprecated;
-    this.uninterpreted_option = Internal.immutableCopyOf("uninterpreted_option", uninterpreted_option);
+    this.uninterpreted_option = Internal.INSTANCE.immutableCopyOf("uninterpreted_option", uninterpreted_option);
     this.enum_value_option = enum_value_option;
     this.complex_enum_value_option = complex_enum_value_option;
     this.foreign_enum_value_option = foreign_enum_value_option;
@@ -100,7 +100,7 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
   public Builder newBuilder() {
     Builder builder = new Builder();
     builder.deprecated = deprecated;
-    builder.uninterpreted_option = Internal.copyOf("uninterpreted_option", uninterpreted_option);
+    builder.uninterpreted_option = Internal.INSTANCE.copyOf("uninterpreted_option", uninterpreted_option);
     builder.enum_value_option = enum_value_option;
     builder.complex_enum_value_option = complex_enum_value_option;
     builder.foreign_enum_value_option = foreign_enum_value_option;
@@ -114,11 +114,11 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
     if (!(other instanceof EnumValueOptions)) return false;
     EnumValueOptions o = (EnumValueOptions) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(deprecated, o.deprecated)
+        && Internal.INSTANCE.equals(deprecated, o.deprecated)
         && uninterpreted_option.equals(o.uninterpreted_option)
-        && Internal.equals(enum_value_option, o.enum_value_option)
-        && Internal.equals(complex_enum_value_option, o.complex_enum_value_option)
-        && Internal.equals(foreign_enum_value_option, o.foreign_enum_value_option);
+        && Internal.INSTANCE.equals(enum_value_option, o.enum_value_option)
+        && Internal.INSTANCE.equals(complex_enum_value_option, o.complex_enum_value_option)
+        && Internal.INSTANCE.equals(foreign_enum_value_option, o.foreign_enum_value_option);
   }
 
   @Override
@@ -159,7 +159,7 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
     public Boolean foreign_enum_value_option;
 
     public Builder() {
-      uninterpreted_option = Internal.newMutableList();
+      uninterpreted_option = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -177,7 +177,7 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
      * The parser stores options it doesn't recognize here. See above.
      */
     public Builder uninterpreted_option(List<UninterpretedOption> uninterpreted_option) {
-      Internal.checkElementsNotNull(uninterpreted_option);
+      Internal.INSTANCE.checkElementsNotNull(uninterpreted_option);
       this.uninterpreted_option = uninterpreted_option;
       return this;
     }
@@ -253,7 +253,7 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
     @Override
     public EnumValueOptions redact(EnumValueOptions value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
       if (builder.complex_enum_value_option != null) builder.complex_enum_value_option = FooBar.More.ADAPTER.redact(builder.complex_enum_value_option);
       builder.clearUnknownFields();
       return builder.build();

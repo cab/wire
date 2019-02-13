@@ -52,17 +52,17 @@ public final class RepeatedPackedAndMap extends Message<RepeatedPackedAndMap, Re
   public RepeatedPackedAndMap(List<Integer> rep_int32, List<Integer> pack_int32,
       Map<Integer, Integer> map_int32_int32, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.rep_int32 = Internal.immutableCopyOf("rep_int32", rep_int32);
-    this.pack_int32 = Internal.immutableCopyOf("pack_int32", pack_int32);
-    this.map_int32_int32 = Internal.immutableCopyOf("map_int32_int32", map_int32_int32);
+    this.rep_int32 = Internal.INSTANCE.immutableCopyOf("rep_int32", rep_int32);
+    this.pack_int32 = Internal.INSTANCE.immutableCopyOf("pack_int32", pack_int32);
+    this.map_int32_int32 = Internal.INSTANCE.immutableCopyOf("map_int32_int32", map_int32_int32);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.rep_int32 = Internal.copyOf("rep_int32", rep_int32);
-    builder.pack_int32 = Internal.copyOf("pack_int32", pack_int32);
-    builder.map_int32_int32 = Internal.copyOf("map_int32_int32", map_int32_int32);
+    builder.rep_int32 = Internal.INSTANCE.copyOf("rep_int32", rep_int32);
+    builder.pack_int32 = Internal.INSTANCE.copyOf("pack_int32", pack_int32);
+    builder.map_int32_int32 = Internal.INSTANCE.copyOf("map_int32_int32", map_int32_int32);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -108,25 +108,25 @@ public final class RepeatedPackedAndMap extends Message<RepeatedPackedAndMap, Re
     public Map<Integer, Integer> map_int32_int32;
 
     public Builder() {
-      rep_int32 = Internal.newMutableList();
-      pack_int32 = Internal.newMutableList();
-      map_int32_int32 = Internal.newMutableMap();
+      rep_int32 = Internal.INSTANCE.newMutableList();
+      pack_int32 = Internal.INSTANCE.newMutableList();
+      map_int32_int32 = Internal.INSTANCE.newMutableMap();
     }
 
     public Builder rep_int32(List<Integer> rep_int32) {
-      Internal.checkElementsNotNull(rep_int32);
+      Internal.INSTANCE.checkElementsNotNull(rep_int32);
       this.rep_int32 = rep_int32;
       return this;
     }
 
     public Builder pack_int32(List<Integer> pack_int32) {
-      Internal.checkElementsNotNull(pack_int32);
+      Internal.INSTANCE.checkElementsNotNull(pack_int32);
       this.pack_int32 = pack_int32;
       return this;
     }
 
     public Builder map_int32_int32(Map<Integer, Integer> map_int32_int32) {
-      Internal.checkElementsNotNull(map_int32_int32);
+      Internal.INSTANCE.checkElementsNotNull(map_int32_int32);
       this.map_int32_int32 = map_int32_int32;
       return this;
     }

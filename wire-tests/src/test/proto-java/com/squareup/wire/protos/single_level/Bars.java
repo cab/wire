@@ -34,13 +34,13 @@ public final class Bars extends Message<Bars, Bars.Builder> {
 
   public Bars(List<Bar> bars, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.bars = Internal.immutableCopyOf("bars", bars);
+    this.bars = Internal.INSTANCE.immutableCopyOf("bars", bars);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.bars = Internal.copyOf("bars", bars);
+    builder.bars = Internal.INSTANCE.copyOf("bars", bars);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -76,11 +76,11 @@ public final class Bars extends Message<Bars, Bars.Builder> {
     public List<Bar> bars;
 
     public Builder() {
-      bars = Internal.newMutableList();
+      bars = Internal.INSTANCE.newMutableList();
     }
 
     public Builder bars(List<Bar> bars) {
-      Internal.checkElementsNotNull(bars);
+      Internal.INSTANCE.checkElementsNotNull(bars);
       this.bars = bars;
       return this;
     }
@@ -129,7 +129,7 @@ public final class Bars extends Message<Bars, Bars.Builder> {
     @Override
     public Bars redact(Bars value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.bars, Bar.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.bars, Bar.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

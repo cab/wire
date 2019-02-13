@@ -181,16 +181,16 @@ public final class FieldDescriptorProto extends Message<FieldDescriptorProto, Fi
     if (!(other instanceof FieldDescriptorProto)) return false;
     FieldDescriptorProto o = (FieldDescriptorProto) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(name, o.name)
-        && Internal.equals(number, o.number)
-        && Internal.equals(label, o.label)
-        && Internal.equals(type, o.type)
-        && Internal.equals(type_name, o.type_name)
-        && Internal.equals(extendee, o.extendee)
-        && Internal.equals(default_value, o.default_value)
-        && Internal.equals(oneof_index, o.oneof_index)
-        && Internal.equals(json_name, o.json_name)
-        && Internal.equals(options, o.options);
+        && Internal.INSTANCE.equals(name, o.name)
+        && Internal.INSTANCE.equals(number, o.number)
+        && Internal.INSTANCE.equals(label, o.label)
+        && Internal.INSTANCE.equals(type, o.type)
+        && Internal.INSTANCE.equals(type_name, o.type_name)
+        && Internal.INSTANCE.equals(extendee, o.extendee)
+        && Internal.INSTANCE.equals(default_value, o.default_value)
+        && Internal.INSTANCE.equals(oneof_index, o.oneof_index)
+        && Internal.INSTANCE.equals(json_name, o.json_name)
+        && Internal.INSTANCE.equals(options, o.options);
   }
 
   @Override

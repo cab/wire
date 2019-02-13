@@ -50,7 +50,7 @@ public final class Foo extends Message<Foo, Foo.Builder> {
     if (!(other instanceof Foo)) return false;
     Foo o = (Foo) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(moo, o.moo);
+        && Internal.INSTANCE.equals(moo, o.moo);
   }
 
   @Override

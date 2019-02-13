@@ -34,13 +34,13 @@ public final class Mappy extends Message<Mappy, Mappy.Builder> {
 
   public Mappy(Map<String, Thing> things, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.things = Internal.immutableCopyOf("things", things);
+    this.things = Internal.INSTANCE.immutableCopyOf("things", things);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.things = Internal.copyOf("things", things);
+    builder.things = Internal.INSTANCE.copyOf("things", things);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -76,11 +76,11 @@ public final class Mappy extends Message<Mappy, Mappy.Builder> {
     public Map<String, Thing> things;
 
     public Builder() {
-      things = Internal.newMutableMap();
+      things = Internal.INSTANCE.newMutableMap();
     }
 
     public Builder things(Map<String, Thing> things) {
-      Internal.checkElementsNotNull(things);
+      Internal.INSTANCE.checkElementsNotNull(things);
       this.things = things;
       return this;
     }
@@ -131,7 +131,7 @@ public final class Mappy extends Message<Mappy, Mappy.Builder> {
     @Override
     public Mappy redact(Mappy value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.things, Thing.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.things, Thing.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

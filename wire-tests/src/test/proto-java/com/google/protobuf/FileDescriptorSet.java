@@ -38,13 +38,13 @@ public final class FileDescriptorSet extends Message<FileDescriptorSet, FileDesc
 
   public FileDescriptorSet(List<FileDescriptorProto> file, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.file = Internal.immutableCopyOf("file", file);
+    this.file = Internal.INSTANCE.immutableCopyOf("file", file);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.file = Internal.copyOf("file", file);
+    builder.file = Internal.INSTANCE.copyOf("file", file);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -80,11 +80,11 @@ public final class FileDescriptorSet extends Message<FileDescriptorSet, FileDesc
     public List<FileDescriptorProto> file;
 
     public Builder() {
-      file = Internal.newMutableList();
+      file = Internal.INSTANCE.newMutableList();
     }
 
     public Builder file(List<FileDescriptorProto> file) {
-      Internal.checkElementsNotNull(file);
+      Internal.INSTANCE.checkElementsNotNull(file);
       this.file = file;
       return this;
     }
@@ -133,7 +133,7 @@ public final class FileDescriptorSet extends Message<FileDescriptorSet, FileDesc
     @Override
     public FileDescriptorSet redact(FileDescriptorSet value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.file, FileDescriptorProto.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.file, FileDescriptorProto.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

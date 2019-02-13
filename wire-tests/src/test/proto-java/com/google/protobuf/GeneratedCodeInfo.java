@@ -44,13 +44,13 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
 
   public GeneratedCodeInfo(List<Annotation> annotation, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.annotation = Internal.immutableCopyOf("annotation", annotation);
+    this.annotation = Internal.INSTANCE.immutableCopyOf("annotation", annotation);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.annotation = Internal.copyOf("annotation", annotation);
+    builder.annotation = Internal.INSTANCE.copyOf("annotation", annotation);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -86,7 +86,7 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
     public List<Annotation> annotation;
 
     public Builder() {
-      annotation = Internal.newMutableList();
+      annotation = Internal.INSTANCE.newMutableList();
     }
 
     /**
@@ -94,7 +94,7 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
      * of its generating .proto file.
      */
     public Builder annotation(List<Annotation> annotation) {
-      Internal.checkElementsNotNull(annotation);
+      Internal.INSTANCE.checkElementsNotNull(annotation);
       this.annotation = annotation;
       return this;
     }
@@ -164,7 +164,7 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
     public Annotation(List<Integer> path, String source_file, Integer begin, Integer end,
         ByteString unknownFields) {
       super(ADAPTER, unknownFields);
-      this.path = Internal.immutableCopyOf("path", path);
+      this.path = Internal.INSTANCE.immutableCopyOf("path", path);
       this.source_file = source_file;
       this.begin = begin;
       this.end = end;
@@ -173,7 +173,7 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
     @Override
     public Builder newBuilder() {
       Builder builder = new Builder();
-      builder.path = Internal.copyOf("path", path);
+      builder.path = Internal.INSTANCE.copyOf("path", path);
       builder.source_file = source_file;
       builder.begin = begin;
       builder.end = end;
@@ -188,9 +188,9 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
       Annotation o = (Annotation) other;
       return unknownFields().equals(o.unknownFields())
           && path.equals(o.path)
-          && Internal.equals(source_file, o.source_file)
-          && Internal.equals(begin, o.begin)
-          && Internal.equals(end, o.end);
+          && Internal.INSTANCE.equals(source_file, o.source_file)
+          && Internal.INSTANCE.equals(begin, o.begin)
+          && Internal.INSTANCE.equals(end, o.end);
     }
 
     @Override
@@ -227,7 +227,7 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
       public Integer end;
 
       public Builder() {
-        path = Internal.newMutableList();
+        path = Internal.INSTANCE.newMutableList();
       }
 
       /**
@@ -235,7 +235,7 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
        * is formatted the same as SourceCodeInfo.Location.path.
        */
       public Builder path(List<Integer> path) {
-        Internal.checkElementsNotNull(path);
+        Internal.INSTANCE.checkElementsNotNull(path);
         this.path = path;
         return this;
       }
@@ -364,7 +364,7 @@ public final class GeneratedCodeInfo extends Message<GeneratedCodeInfo, Generate
     @Override
     public GeneratedCodeInfo redact(GeneratedCodeInfo value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.annotation, Annotation.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.annotation, Annotation.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }

@@ -60,8 +60,8 @@ public final class E extends Message<E, E.Builder> {
     if (!(other instanceof E)) return false;
     E o = (E) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(f, o.f)
-        && Internal.equals(g, o.g);
+        && Internal.INSTANCE.equals(f, o.f)
+        && Internal.INSTANCE.equals(g, o.g);
   }
 
   @Override
@@ -144,7 +144,7 @@ public final class E extends Message<E, E.Builder> {
       if (!(other instanceof F)) return false;
       F o = (F) other;
       return unknownFields().equals(o.unknownFields())
-          && Internal.equals(i, o.i);
+          && Internal.INSTANCE.equals(i, o.i);
     }
 
     @Override

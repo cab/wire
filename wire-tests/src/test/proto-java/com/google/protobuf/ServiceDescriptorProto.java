@@ -54,7 +54,7 @@ public final class ServiceDescriptorProto extends Message<ServiceDescriptorProto
       ServiceOptions options, ByteString unknownFields) {
     super(ADAPTER, unknownFields);
     this.name = name;
-    this.method = Internal.immutableCopyOf("method", method);
+    this.method = Internal.INSTANCE.immutableCopyOf("method", method);
     this.options = options;
   }
 
@@ -62,7 +62,7 @@ public final class ServiceDescriptorProto extends Message<ServiceDescriptorProto
   public Builder newBuilder() {
     Builder builder = new Builder();
     builder.name = name;
-    builder.method = Internal.copyOf("method", method);
+    builder.method = Internal.INSTANCE.copyOf("method", method);
     builder.options = options;
     builder.addUnknownFields(unknownFields());
     return builder;
@@ -74,9 +74,9 @@ public final class ServiceDescriptorProto extends Message<ServiceDescriptorProto
     if (!(other instanceof ServiceDescriptorProto)) return false;
     ServiceDescriptorProto o = (ServiceDescriptorProto) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(name, o.name)
+        && Internal.INSTANCE.equals(name, o.name)
         && method.equals(o.method)
-        && Internal.equals(options, o.options);
+        && Internal.INSTANCE.equals(options, o.options);
   }
 
   @Override
@@ -109,7 +109,7 @@ public final class ServiceDescriptorProto extends Message<ServiceDescriptorProto
     public ServiceOptions options;
 
     public Builder() {
-      method = Internal.newMutableList();
+      method = Internal.INSTANCE.newMutableList();
     }
 
     public Builder name(String name) {
@@ -118,7 +118,7 @@ public final class ServiceDescriptorProto extends Message<ServiceDescriptorProto
     }
 
     public Builder method(List<MethodDescriptorProto> method) {
-      Internal.checkElementsNotNull(method);
+      Internal.INSTANCE.checkElementsNotNull(method);
       this.method = method;
       return this;
     }
@@ -178,7 +178,7 @@ public final class ServiceDescriptorProto extends Message<ServiceDescriptorProto
     @Override
     public ServiceDescriptorProto redact(ServiceDescriptorProto value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.method, MethodDescriptorProto.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.method, MethodDescriptorProto.ADAPTER);
       if (builder.options != null) builder.options = ServiceOptions.ADAPTER.redact(builder.options);
       builder.clearUnknownFields();
       return builder.build();

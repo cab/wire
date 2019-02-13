@@ -85,7 +85,7 @@ public final class B extends Message<B, B.Builder> {
     @Override
     public B build() {
       if (c == null) {
-        throw Internal.missingRequiredFields(c, "c");
+        throw Internal.INSTANCE.missingRequiredFields(c, "c");
       }
       return new B(c, super.buildUnknownFields());
     }

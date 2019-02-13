@@ -52,7 +52,7 @@ public final class VersionOne extends Message<VersionOne, VersionOne.Builder> {
     if (!(other instanceof VersionOne)) return false;
     VersionOne o = (VersionOne) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(i, o.i);
+        && Internal.INSTANCE.equals(i, o.i);
   }
 
   @Override

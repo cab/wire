@@ -60,8 +60,8 @@ public final class Recursive extends Message<Recursive, Recursive.Builder> {
     if (!(other instanceof Recursive)) return false;
     Recursive o = (Recursive) other;
     return unknownFields().equals(o.unknownFields())
-        && Internal.equals(value, o.value)
-        && Internal.equals(recursive, o.recursive);
+        && Internal.INSTANCE.equals(value, o.value)
+        && Internal.INSTANCE.equals(recursive, o.recursive);
   }
 
   @Override

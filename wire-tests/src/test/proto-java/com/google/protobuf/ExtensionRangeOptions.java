@@ -38,13 +38,13 @@ public final class ExtensionRangeOptions extends Message<ExtensionRangeOptions, 
   public ExtensionRangeOptions(List<UninterpretedOption> uninterpreted_option,
       ByteString unknownFields) {
     super(ADAPTER, unknownFields);
-    this.uninterpreted_option = Internal.immutableCopyOf("uninterpreted_option", uninterpreted_option);
+    this.uninterpreted_option = Internal.INSTANCE.immutableCopyOf("uninterpreted_option", uninterpreted_option);
   }
 
   @Override
   public Builder newBuilder() {
     Builder builder = new Builder();
-    builder.uninterpreted_option = Internal.copyOf("uninterpreted_option", uninterpreted_option);
+    builder.uninterpreted_option = Internal.INSTANCE.copyOf("uninterpreted_option", uninterpreted_option);
     builder.addUnknownFields(unknownFields());
     return builder;
   }
@@ -80,14 +80,14 @@ public final class ExtensionRangeOptions extends Message<ExtensionRangeOptions, 
     public List<UninterpretedOption> uninterpreted_option;
 
     public Builder() {
-      uninterpreted_option = Internal.newMutableList();
+      uninterpreted_option = Internal.INSTANCE.newMutableList();
     }
 
     /**
      * The parser stores options it doesn't recognize here. See above.
      */
     public Builder uninterpreted_option(List<UninterpretedOption> uninterpreted_option) {
-      Internal.checkElementsNotNull(uninterpreted_option);
+      Internal.INSTANCE.checkElementsNotNull(uninterpreted_option);
       this.uninterpreted_option = uninterpreted_option;
       return this;
     }
@@ -136,7 +136,7 @@ public final class ExtensionRangeOptions extends Message<ExtensionRangeOptions, 
     @Override
     public ExtensionRangeOptions redact(ExtensionRangeOptions value) {
       Builder builder = value.newBuilder();
-      Internal.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
+      Internal.INSTANCE.redactElements(builder.uninterpreted_option, UninterpretedOption.ADAPTER);
       builder.clearUnknownFields();
       return builder.build();
     }
