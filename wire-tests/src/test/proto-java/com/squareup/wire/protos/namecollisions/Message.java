@@ -5,7 +5,6 @@ package com.squareup.wire.protos.namecollisions;
 import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -159,7 +158,7 @@ public final class Message extends com.squareup.wire.Message<Message, Message.Bu
 
   @Override
   public int hashCode() {
-    int result_ = super.hashCode;
+    int result_ = super.getHashCode();
     if (result_ == 0) {
       result_ = unknownFields().hashCode();
       result_ = result_ * 37 + (unknownFields != null ? unknownFields.hashCode() : 0);
@@ -172,7 +171,7 @@ public final class Message extends com.squareup.wire.Message<Message, Message.Bu
       result_ = result_ * 37 + (MESSAGE_OPTIONS_ != null ? MESSAGE_OPTIONS_.hashCode() : 0);
       result_ = result_ * 37 + (this_ != null ? this_.hashCode() : 0);
       result_ = result_ * 37 + (message != null ? message.hashCode() : 0);
-      super.hashCode = result_;
+      super.setHashCode(result_);
     }
     return result_;
   }
@@ -280,31 +279,31 @@ public final class Message extends com.squareup.wire.Message<Message, Message.Bu
 
     @Override
     public int encodedSize(Message value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.unknownFields)
-          + ProtoAdapter.STRING.encodedSizeWithTag(2, value.other)
-          + ProtoAdapter.STRING.encodedSizeWithTag(3, value.o)
-          + ProtoAdapter.STRING.encodedSizeWithTag(4, value.result)
-          + ProtoAdapter.STRING.encodedSizeWithTag(5, value.hashCode)
-          + ProtoAdapter.STRING.encodedSizeWithTag(6, value.serialVersionUID_)
-          + ProtoAdapter.STRING.encodedSizeWithTag(7, value.ADAPTER_)
-          + ProtoAdapter.STRING.encodedSizeWithTag(8, value.MESSAGE_OPTIONS_)
-          + ProtoAdapter.STRING.encodedSizeWithTag(9, value.this_)
-          + ProtoAdapter.STRING.encodedSizeWithTag(10, value.message)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.unknownFields)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(2, value.other)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(3, value.o)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(4, value.result)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(5, value.hashCode)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(6, value.serialVersionUID_)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(7, value.ADAPTER_)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(8, value.MESSAGE_OPTIONS_)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(9, value.this_)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(10, value.message)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, Message value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.unknownFields);
-      ProtoAdapter.STRING.encodeWithTag(writer, 2, value.other);
-      ProtoAdapter.STRING.encodeWithTag(writer, 3, value.o);
-      ProtoAdapter.STRING.encodeWithTag(writer, 4, value.result);
-      ProtoAdapter.STRING.encodeWithTag(writer, 5, value.hashCode);
-      ProtoAdapter.STRING.encodeWithTag(writer, 6, value.serialVersionUID_);
-      ProtoAdapter.STRING.encodeWithTag(writer, 7, value.ADAPTER_);
-      ProtoAdapter.STRING.encodeWithTag(writer, 8, value.MESSAGE_OPTIONS_);
-      ProtoAdapter.STRING.encodeWithTag(writer, 9, value.this_);
-      ProtoAdapter.STRING.encodeWithTag(writer, 10, value.message);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.unknownFields);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 2, value.other);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 3, value.o);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 4, value.result);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 5, value.hashCode);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 6, value.serialVersionUID_);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 7, value.ADAPTER_);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 8, value.MESSAGE_OPTIONS_);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 9, value.this_);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 10, value.message);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -314,16 +313,16 @@ public final class Message extends com.squareup.wire.Message<Message, Message.Bu
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.unknownFields(ProtoAdapter.STRING.decode(reader)); break;
-          case 2: builder.other(ProtoAdapter.STRING.decode(reader)); break;
-          case 3: builder.o(ProtoAdapter.STRING.decode(reader)); break;
-          case 4: builder.result(ProtoAdapter.STRING.decode(reader)); break;
-          case 5: builder.hashCode(ProtoAdapter.STRING.decode(reader)); break;
-          case 6: builder.serialVersionUID_(ProtoAdapter.STRING.decode(reader)); break;
-          case 7: builder.ADAPTER_(ProtoAdapter.STRING.decode(reader)); break;
-          case 8: builder.MESSAGE_OPTIONS_(ProtoAdapter.STRING.decode(reader)); break;
-          case 9: builder.this_(ProtoAdapter.STRING.decode(reader)); break;
-          case 10: builder.message(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.unknownFields(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 2: builder.other(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 3: builder.o(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 4: builder.result(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 5: builder.hashCode(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 6: builder.serialVersionUID_(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 7: builder.ADAPTER_(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 8: builder.MESSAGE_OPTIONS_(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 9: builder.this_(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 10: builder.message(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

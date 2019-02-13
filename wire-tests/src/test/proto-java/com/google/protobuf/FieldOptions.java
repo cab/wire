@@ -7,7 +7,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireEnum;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
@@ -318,7 +317,7 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (ctype != null ? ctype.hashCode() : 0);
@@ -337,7 +336,7 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
       result = result * 37 + (squareup_protos_extension_collision_2_a != null ? squareup_protos_extension_collision_2_a.hashCode() : 0);
       result = result * 37 + (c != null ? c.hashCode() : 0);
       result = result * 37 + (redacted != null ? redacted.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -669,42 +668,42 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
     @Override
     public int encodedSize(FieldOptions value) {
       return CType.ADAPTER.encodedSizeWithTag(1, value.ctype)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(2, value.packed)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(2, value.packed)
           + JSType.ADAPTER.encodedSizeWithTag(6, value.jstype)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(5, value.lazy)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(3, value.deprecated)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(10, value.weak)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(5, value.lazy)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(3, value.deprecated)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(10, value.weak)
           + UninterpretedOption.ADAPTER.asRepeated().encodedSizeWithTag(999, value.uninterpreted_option)
-          + ProtoAdapter.INT32.encodedSizeWithTag(60001, value.my_field_option_one)
-          + ProtoAdapter.FLOAT.encodedSizeWithTag(60002, value.my_field_option_two)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(60001, value.my_field_option_one)
+          + ProtoAdapter.Companion.getFLOAT().encodedSizeWithTag(60002, value.my_field_option_two)
           + FooBar.FooBarBazEnum.ADAPTER.encodedSizeWithTag(60003, value.my_field_option_three)
           + FooBar.ADAPTER.encodedSizeWithTag(60004, value.my_field_option_four)
-          + ProtoAdapter.STRING.encodedSizeWithTag(22101, value.squareup_protos_extension_collision_1_a)
-          + ProtoAdapter.STRING.encodedSizeWithTag(22102, value.b)
-          + ProtoAdapter.STRING.encodedSizeWithTag(22103, value.squareup_protos_extension_collision_2_a)
-          + ProtoAdapter.STRING.encodedSizeWithTag(22104, value.c)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(22200, value.redacted)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(22101, value.squareup_protos_extension_collision_1_a)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(22102, value.b)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(22103, value.squareup_protos_extension_collision_2_a)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(22104, value.c)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(22200, value.redacted)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, FieldOptions value) throws IOException {
       CType.ADAPTER.encodeWithTag(writer, 1, value.ctype);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 2, value.packed);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 2, value.packed);
       JSType.ADAPTER.encodeWithTag(writer, 6, value.jstype);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 5, value.lazy);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 3, value.deprecated);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 10, value.weak);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 5, value.lazy);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 3, value.deprecated);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 10, value.weak);
       UninterpretedOption.ADAPTER.asRepeated().encodeWithTag(writer, 999, value.uninterpreted_option);
-      ProtoAdapter.INT32.encodeWithTag(writer, 60001, value.my_field_option_one);
-      ProtoAdapter.FLOAT.encodeWithTag(writer, 60002, value.my_field_option_two);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 60001, value.my_field_option_one);
+      ProtoAdapter.Companion.getFLOAT().encodeWithTag(writer, 60002, value.my_field_option_two);
       FooBar.FooBarBazEnum.ADAPTER.encodeWithTag(writer, 60003, value.my_field_option_three);
       FooBar.ADAPTER.encodeWithTag(writer, 60004, value.my_field_option_four);
-      ProtoAdapter.STRING.encodeWithTag(writer, 22101, value.squareup_protos_extension_collision_1_a);
-      ProtoAdapter.STRING.encodeWithTag(writer, 22102, value.b);
-      ProtoAdapter.STRING.encodeWithTag(writer, 22103, value.squareup_protos_extension_collision_2_a);
-      ProtoAdapter.STRING.encodeWithTag(writer, 22104, value.c);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 22200, value.redacted);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 22101, value.squareup_protos_extension_collision_1_a);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 22102, value.b);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 22103, value.squareup_protos_extension_collision_2_a);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 22104, value.c);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 22200, value.redacted);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -718,35 +717,35 @@ public final class FieldOptions extends Message<FieldOptions, FieldOptions.Build
             try {
               builder.ctype(CType.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
-          case 2: builder.packed(ProtoAdapter.BOOL.decode(reader)); break;
-          case 3: builder.deprecated(ProtoAdapter.BOOL.decode(reader)); break;
-          case 5: builder.lazy(ProtoAdapter.BOOL.decode(reader)); break;
+          case 2: builder.packed(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 3: builder.deprecated(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 5: builder.lazy(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 6: {
             try {
               builder.jstype(JSType.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
-          case 10: builder.weak(ProtoAdapter.BOOL.decode(reader)); break;
+          case 10: builder.weak(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 999: builder.uninterpreted_option.add(UninterpretedOption.ADAPTER.decode(reader)); break;
-          case 22101: builder.squareup_protos_extension_collision_1_a(ProtoAdapter.STRING.decode(reader)); break;
-          case 22102: builder.b(ProtoAdapter.STRING.decode(reader)); break;
-          case 22103: builder.squareup_protos_extension_collision_2_a(ProtoAdapter.STRING.decode(reader)); break;
-          case 22104: builder.c(ProtoAdapter.STRING.decode(reader)); break;
-          case 22200: builder.redacted(ProtoAdapter.BOOL.decode(reader)); break;
-          case 60001: builder.my_field_option_one(ProtoAdapter.INT32.decode(reader)); break;
-          case 60002: builder.my_field_option_two(ProtoAdapter.FLOAT.decode(reader)); break;
+          case 22101: builder.squareup_protos_extension_collision_1_a(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 22102: builder.b(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 22103: builder.squareup_protos_extension_collision_2_a(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 22104: builder.c(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 22200: builder.redacted(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 60001: builder.my_field_option_one(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 60002: builder.my_field_option_two(ProtoAdapter.Companion.getFLOAT().decode(reader)); break;
           case 60003: {
             try {
               builder.my_field_option_three(FooBar.FooBarBazEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }

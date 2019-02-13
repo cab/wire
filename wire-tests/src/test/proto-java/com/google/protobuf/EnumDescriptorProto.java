@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -113,7 +112,7 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (name != null ? name.hashCode() : 0);
@@ -121,7 +120,7 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
       result = result * 37 + (options != null ? options.hashCode() : 0);
       result = result * 37 + reserved_range.hashCode();
       result = result * 37 + reserved_name.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -263,12 +262,12 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + (start != null ? start.hashCode() : 0);
         result = result * 37 + (end != null ? end.hashCode() : 0);
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }
@@ -318,15 +317,15 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
 
       @Override
       public int encodedSize(EnumReservedRange value) {
-        return ProtoAdapter.INT32.encodedSizeWithTag(1, value.start)
-            + ProtoAdapter.INT32.encodedSizeWithTag(2, value.end)
+        return ProtoAdapter.Companion.getINT32().encodedSizeWithTag(1, value.start)
+            + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(2, value.end)
             + value.unknownFields().size();
       }
 
       @Override
       public void encode(ProtoWriter writer, EnumReservedRange value) throws IOException {
-        ProtoAdapter.INT32.encodeWithTag(writer, 1, value.start);
-        ProtoAdapter.INT32.encodeWithTag(writer, 2, value.end);
+        ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 1, value.start);
+        ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 2, value.end);
         writer.writeBytes(value.unknownFields());
       }
 
@@ -336,8 +335,8 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
         long token = reader.beginMessage();
         for (int tag; (tag = reader.nextTag()) != -1;) {
           switch (tag) {
-            case 1: builder.start(ProtoAdapter.INT32.decode(reader)); break;
-            case 2: builder.end(ProtoAdapter.INT32.decode(reader)); break;
+            case 1: builder.start(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+            case 2: builder.end(ProtoAdapter.Companion.getINT32().decode(reader)); break;
             default: {
               FieldEncoding fieldEncoding = reader.peekFieldEncoding();
               Object value = fieldEncoding.rawProtoAdapter().decode(reader);
@@ -365,21 +364,21 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
 
     @Override
     public int encodedSize(EnumDescriptorProto value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.name)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.name)
           + EnumValueDescriptorProto.ADAPTER.asRepeated().encodedSizeWithTag(2, value.value)
           + EnumOptions.ADAPTER.encodedSizeWithTag(3, value.options)
           + EnumReservedRange.ADAPTER.asRepeated().encodedSizeWithTag(4, value.reserved_range)
-          + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(5, value.reserved_name)
+          + ProtoAdapter.Companion.getSTRING().asRepeated().encodedSizeWithTag(5, value.reserved_name)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, EnumDescriptorProto value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.name);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.name);
       EnumValueDescriptorProto.ADAPTER.asRepeated().encodeWithTag(writer, 2, value.value);
       EnumOptions.ADAPTER.encodeWithTag(writer, 3, value.options);
       EnumReservedRange.ADAPTER.asRepeated().encodeWithTag(writer, 4, value.reserved_range);
-      ProtoAdapter.STRING.asRepeated().encodeWithTag(writer, 5, value.reserved_name);
+      ProtoAdapter.Companion.getSTRING().asRepeated().encodeWithTag(writer, 5, value.reserved_name);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -389,11 +388,11 @@ public final class EnumDescriptorProto extends Message<EnumDescriptorProto, Enum
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.name(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.name(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 2: builder.value.add(EnumValueDescriptorProto.ADAPTER.decode(reader)); break;
           case 3: builder.options(EnumOptions.ADAPTER.decode(reader)); break;
           case 4: builder.reserved_range.add(EnumReservedRange.ADAPTER.decode(reader)); break;
-          case 5: builder.reserved_name.add(ProtoAdapter.STRING.decode(reader)); break;
+          case 5: builder.reserved_name.add(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

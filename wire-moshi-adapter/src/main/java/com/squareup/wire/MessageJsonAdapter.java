@@ -35,7 +35,7 @@ class MessageJsonAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
   private final JsonAdapter<?>[] jsonAdapters;
 
   @SuppressWarnings("unchecked") MessageJsonAdapter(Moshi moshi, Type type) {
-    this.messageAdapter = RuntimeMessageAdapter.create((Class<M>) type);
+    this.messageAdapter = RuntimeMessageAdapter.Companion.create((Class<M>) type);
 
     this.fieldBindings = messageAdapter.fieldBindings()
         .values()
@@ -43,7 +43,7 @@ class MessageJsonAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
 
     String[] names = new String[fieldBindings.length];
     for (int i = 0; i < fieldBindings.length; i++) {
-      names[i] = fieldBindings[i].name;
+      names[i] = fieldBindings[i].getName();
     }
     this.options = JsonReader.Options.of(names);
 
@@ -51,16 +51,16 @@ class MessageJsonAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
     for (int i = 0; i < fieldBindings.length; i++) {
       FieldBinding<M, B> fieldBinding = fieldBindings[i];
 
-      Type fieldType = fieldBinding.singleAdapter().javaType;
+      Type fieldType = fieldBinding.singleAdapter().getJavaType();
       if (fieldBinding.isMap()) {
-        Class<?> keyType = fieldBinding.keyAdapter().javaType;
+        Class<?> keyType = fieldBinding.keyAdapter().getJavaType();
         fieldType = Types.newParameterizedType(Map.class, keyType, fieldType);
-      } else if (fieldBinding.label.isRepeated()) {
+      } else if (fieldBinding.getLabel().isRepeated()) {
         fieldType = Types.newParameterizedType(List.class, fieldType);
       }
 
       Class<? extends Annotation>[] qualifiers = new Class[0];
-      if (fieldBinding.singleAdapter() == ProtoAdapter.UINT64) {
+      if (fieldBinding.singleAdapter() == ProtoAdapter.Companion.getUINT64()) {
         qualifiers = new Class[] {Uint64.class};
       }
 
@@ -77,7 +77,7 @@ class MessageJsonAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
     out.beginObject();
     for (int i = 0; i < fieldBindings.length; i++) {
       FieldBinding<M, B> fieldBinding = fieldBindings[i];
-      out.name(fieldBinding.name);
+      out.name(fieldBinding.getName());
       Object value = fieldBinding.get(message);
       ((JsonAdapter) jsonAdapters[i]).toJson(out, value);
     }

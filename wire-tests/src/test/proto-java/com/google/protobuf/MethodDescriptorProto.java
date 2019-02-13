@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -127,7 +126,7 @@ public final class MethodDescriptorProto extends Message<MethodDescriptorProto, 
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (name != null ? name.hashCode() : 0);
@@ -136,7 +135,7 @@ public final class MethodDescriptorProto extends Message<MethodDescriptorProto, 
       result = result * 37 + (options != null ? options.hashCode() : 0);
       result = result * 37 + (client_streaming != null ? client_streaming.hashCode() : 0);
       result = result * 37 + (server_streaming != null ? server_streaming.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -222,23 +221,23 @@ public final class MethodDescriptorProto extends Message<MethodDescriptorProto, 
 
     @Override
     public int encodedSize(MethodDescriptorProto value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.name)
-          + ProtoAdapter.STRING.encodedSizeWithTag(2, value.input_type)
-          + ProtoAdapter.STRING.encodedSizeWithTag(3, value.output_type)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.name)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(2, value.input_type)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(3, value.output_type)
           + MethodOptions.ADAPTER.encodedSizeWithTag(4, value.options)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(5, value.client_streaming)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(6, value.server_streaming)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(5, value.client_streaming)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(6, value.server_streaming)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, MethodDescriptorProto value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.name);
-      ProtoAdapter.STRING.encodeWithTag(writer, 2, value.input_type);
-      ProtoAdapter.STRING.encodeWithTag(writer, 3, value.output_type);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.name);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 2, value.input_type);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 3, value.output_type);
       MethodOptions.ADAPTER.encodeWithTag(writer, 4, value.options);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 5, value.client_streaming);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 6, value.server_streaming);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 5, value.client_streaming);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 6, value.server_streaming);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -248,12 +247,12 @@ public final class MethodDescriptorProto extends Message<MethodDescriptorProto, 
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.name(ProtoAdapter.STRING.decode(reader)); break;
-          case 2: builder.input_type(ProtoAdapter.STRING.decode(reader)); break;
-          case 3: builder.output_type(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.name(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 2: builder.input_type(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 3: builder.output_type(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 4: builder.options(MethodOptions.ADAPTER.decode(reader)); break;
-          case 5: builder.client_streaming(ProtoAdapter.BOOL.decode(reader)); break;
-          case 6: builder.server_streaming(ProtoAdapter.BOOL.decode(reader)); break;
+          case 5: builder.client_streaming(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 6: builder.server_streaming(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

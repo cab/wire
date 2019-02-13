@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -81,13 +80,13 @@ public final class RepeatedPackedAndMap extends Message<RepeatedPackedAndMap, Re
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + rep_int32.hashCode();
       result = result * 37 + pack_int32.hashCode();
       result = result * 37 + map_int32_int32.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -139,7 +138,7 @@ public final class RepeatedPackedAndMap extends Message<RepeatedPackedAndMap, Re
   }
 
   private static final class ProtoAdapter_RepeatedPackedAndMap extends ProtoAdapter<RepeatedPackedAndMap> {
-    private final ProtoAdapter<Map<Integer, Integer>> map_int32_int32 = ProtoAdapter.newMapAdapter(ProtoAdapter.INT32, ProtoAdapter.INT32);
+    private final ProtoAdapter<Map<Integer, Integer>> map_int32_int32 = ProtoAdapter.Companion.newMapAdapter(ProtoAdapter.Companion.getINT32(), ProtoAdapter.Companion.getINT32());
 
     public ProtoAdapter_RepeatedPackedAndMap() {
       super(FieldEncoding.LENGTH_DELIMITED, RepeatedPackedAndMap.class);
@@ -147,16 +146,16 @@ public final class RepeatedPackedAndMap extends Message<RepeatedPackedAndMap, Re
 
     @Override
     public int encodedSize(RepeatedPackedAndMap value) {
-      return ProtoAdapter.INT32.asRepeated().encodedSizeWithTag(201, value.rep_int32)
-          + ProtoAdapter.INT32.asPacked().encodedSizeWithTag(301, value.pack_int32)
+      return ProtoAdapter.Companion.getINT32().asRepeated().encodedSizeWithTag(201, value.rep_int32)
+          + ProtoAdapter.Companion.getINT32().asPacked().encodedSizeWithTag(301, value.pack_int32)
           + map_int32_int32.encodedSizeWithTag(401, value.map_int32_int32)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, RepeatedPackedAndMap value) throws IOException {
-      ProtoAdapter.INT32.asRepeated().encodeWithTag(writer, 201, value.rep_int32);
-      ProtoAdapter.INT32.asPacked().encodeWithTag(writer, 301, value.pack_int32);
+      ProtoAdapter.Companion.getINT32().asRepeated().encodeWithTag(writer, 201, value.rep_int32);
+      ProtoAdapter.Companion.getINT32().asPacked().encodeWithTag(writer, 301, value.pack_int32);
       map_int32_int32.encodeWithTag(writer, 401, value.map_int32_int32);
       writer.writeBytes(value.unknownFields());
     }
@@ -167,8 +166,8 @@ public final class RepeatedPackedAndMap extends Message<RepeatedPackedAndMap, Re
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 201: builder.rep_int32.add(ProtoAdapter.INT32.decode(reader)); break;
-          case 301: builder.pack_int32.add(ProtoAdapter.INT32.decode(reader)); break;
+          case 201: builder.rep_int32.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 301: builder.pack_int32.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
           case 401: builder.map_int32_int32.putAll(map_int32_int32.decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();

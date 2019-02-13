@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -130,7 +129,7 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (f != null ? f.hashCode() : 0);
@@ -139,7 +138,7 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
       result = result * 37 + (bazext != null ? bazext.hashCode() : 0);
       result = result * 37 + (nested_message_ext != null ? nested_message_ext.hashCode() : 0);
       result = result * 37 + (nested_enum_ext != null ? nested_enum_ext.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -217,10 +216,10 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
 
     @Override
     public int encodedSize(ExternalMessage value) {
-      return ProtoAdapter.FLOAT.encodedSizeWithTag(1, value.f)
-          + ProtoAdapter.INT32.asRepeated().encodedSizeWithTag(125, value.fooext)
-          + ProtoAdapter.INT32.encodedSizeWithTag(126, value.barext)
-          + ProtoAdapter.INT32.encodedSizeWithTag(127, value.bazext)
+      return ProtoAdapter.Companion.getFLOAT().encodedSizeWithTag(1, value.f)
+          + ProtoAdapter.Companion.getINT32().asRepeated().encodedSizeWithTag(125, value.fooext)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(126, value.barext)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(127, value.bazext)
           + SimpleMessage.NestedMessage.ADAPTER.encodedSizeWithTag(128, value.nested_message_ext)
           + SimpleMessage.NestedEnum.ADAPTER.encodedSizeWithTag(129, value.nested_enum_ext)
           + value.unknownFields().size();
@@ -228,10 +227,10 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
 
     @Override
     public void encode(ProtoWriter writer, ExternalMessage value) throws IOException {
-      ProtoAdapter.FLOAT.encodeWithTag(writer, 1, value.f);
-      ProtoAdapter.INT32.asRepeated().encodeWithTag(writer, 125, value.fooext);
-      ProtoAdapter.INT32.encodeWithTag(writer, 126, value.barext);
-      ProtoAdapter.INT32.encodeWithTag(writer, 127, value.bazext);
+      ProtoAdapter.Companion.getFLOAT().encodeWithTag(writer, 1, value.f);
+      ProtoAdapter.Companion.getINT32().asRepeated().encodeWithTag(writer, 125, value.fooext);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 126, value.barext);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 127, value.bazext);
       SimpleMessage.NestedMessage.ADAPTER.encodeWithTag(writer, 128, value.nested_message_ext);
       SimpleMessage.NestedEnum.ADAPTER.encodeWithTag(writer, 129, value.nested_enum_ext);
       writer.writeBytes(value.unknownFields());
@@ -243,16 +242,16 @@ public final class ExternalMessage extends Message<ExternalMessage, ExternalMess
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.f(ProtoAdapter.FLOAT.decode(reader)); break;
-          case 125: builder.fooext.add(ProtoAdapter.INT32.decode(reader)); break;
-          case 126: builder.barext(ProtoAdapter.INT32.decode(reader)); break;
-          case 127: builder.bazext(ProtoAdapter.INT32.decode(reader)); break;
+          case 1: builder.f(ProtoAdapter.Companion.getFLOAT().decode(reader)); break;
+          case 125: builder.fooext.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 126: builder.barext(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 127: builder.bazext(ProtoAdapter.Companion.getINT32().decode(reader)); break;
           case 128: builder.nested_message_ext(SimpleMessage.NestedMessage.ADAPTER.decode(reader)); break;
           case 129: {
             try {
               builder.nested_enum_ext(SimpleMessage.NestedEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }

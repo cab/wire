@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -111,14 +110,14 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (allow_alias != null ? allow_alias.hashCode() : 0);
       result = result * 37 + (deprecated != null ? deprecated.hashCode() : 0);
       result = result * 37 + uninterpreted_option.hashCode();
       result = result * 37 + (enum_option != null ? enum_option.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -194,19 +193,19 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
 
     @Override
     public int encodedSize(EnumOptions value) {
-      return ProtoAdapter.BOOL.encodedSizeWithTag(2, value.allow_alias)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(3, value.deprecated)
+      return ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(2, value.allow_alias)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(3, value.deprecated)
           + UninterpretedOption.ADAPTER.asRepeated().encodedSizeWithTag(999, value.uninterpreted_option)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(71000, value.enum_option)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(71000, value.enum_option)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, EnumOptions value) throws IOException {
-      ProtoAdapter.BOOL.encodeWithTag(writer, 2, value.allow_alias);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 3, value.deprecated);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 2, value.allow_alias);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 3, value.deprecated);
       UninterpretedOption.ADAPTER.asRepeated().encodeWithTag(writer, 999, value.uninterpreted_option);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 71000, value.enum_option);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 71000, value.enum_option);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -216,10 +215,10 @@ public final class EnumOptions extends Message<EnumOptions, EnumOptions.Builder>
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 2: builder.allow_alias(ProtoAdapter.BOOL.decode(reader)); break;
-          case 3: builder.deprecated(ProtoAdapter.BOOL.decode(reader)); break;
+          case 2: builder.allow_alias(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 3: builder.deprecated(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 999: builder.uninterpreted_option.add(UninterpretedOption.ADAPTER.decode(reader)); break;
-          case 71000: builder.enum_option(ProtoAdapter.BOOL.decode(reader)); break;
+          case 71000: builder.enum_option(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

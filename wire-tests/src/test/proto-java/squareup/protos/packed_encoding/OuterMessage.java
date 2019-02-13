@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -68,12 +67,12 @@ public final class OuterMessage extends Message<OuterMessage, OuterMessage.Build
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (outer_number_before != null ? outer_number_before.hashCode() : 0);
       result = result * 37 + (embedded_message != null ? embedded_message.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -117,14 +116,14 @@ public final class OuterMessage extends Message<OuterMessage, OuterMessage.Build
 
     @Override
     public int encodedSize(OuterMessage value) {
-      return ProtoAdapter.INT32.encodedSizeWithTag(1, value.outer_number_before)
+      return ProtoAdapter.Companion.getINT32().encodedSizeWithTag(1, value.outer_number_before)
           + EmbeddedMessage.ADAPTER.encodedSizeWithTag(2, value.embedded_message)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, OuterMessage value) throws IOException {
-      ProtoAdapter.INT32.encodeWithTag(writer, 1, value.outer_number_before);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 1, value.outer_number_before);
       EmbeddedMessage.ADAPTER.encodeWithTag(writer, 2, value.embedded_message);
       writer.writeBytes(value.unknownFields());
     }
@@ -135,7 +134,7 @@ public final class OuterMessage extends Message<OuterMessage, OuterMessage.Build
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.outer_number_before(ProtoAdapter.INT32.decode(reader)); break;
+          case 1: builder.outer_number_before(ProtoAdapter.Companion.getINT32().decode(reader)); break;
           case 2: builder.embedded_message(EmbeddedMessage.ADAPTER.decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();

@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import com.squareup.wire.protos.foreign.ForeignEnum;
@@ -58,11 +57,11 @@ public final class ChildPackage extends Message<ChildPackage, ChildPackage.Build
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (inner_foreign_enum != null ? inner_foreign_enum.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -118,7 +117,7 @@ public final class ChildPackage extends Message<ChildPackage, ChildPackage.Build
             try {
               builder.inner_foreign_enum(ForeignEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }

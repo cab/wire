@@ -7,7 +7,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireEnum;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
@@ -375,7 +374,7 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (java_package != null ? java_package.hashCode() : 0);
@@ -397,7 +396,7 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
       result = result * 37 + (php_class_prefix != null ? php_class_prefix.hashCode() : 0);
       result = result * 37 + (php_namespace != null ? php_namespace.hashCode() : 0);
       result = result * 37 + uninterpreted_option.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -724,48 +723,48 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
 
     @Override
     public int encodedSize(FileOptions value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.java_package)
-          + ProtoAdapter.STRING.encodedSizeWithTag(8, value.java_outer_classname)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(10, value.java_multiple_files)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(20, value.java_generate_equals_and_hash)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(27, value.java_string_check_utf8)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.java_package)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(8, value.java_outer_classname)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(10, value.java_multiple_files)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(20, value.java_generate_equals_and_hash)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(27, value.java_string_check_utf8)
           + OptimizeMode.ADAPTER.encodedSizeWithTag(9, value.optimize_for)
-          + ProtoAdapter.STRING.encodedSizeWithTag(11, value.go_package)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(16, value.cc_generic_services)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(17, value.java_generic_services)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(18, value.py_generic_services)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(42, value.php_generic_services)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(23, value.deprecated)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(31, value.cc_enable_arenas)
-          + ProtoAdapter.STRING.encodedSizeWithTag(36, value.objc_class_prefix)
-          + ProtoAdapter.STRING.encodedSizeWithTag(37, value.csharp_namespace)
-          + ProtoAdapter.STRING.encodedSizeWithTag(39, value.swift_prefix)
-          + ProtoAdapter.STRING.encodedSizeWithTag(40, value.php_class_prefix)
-          + ProtoAdapter.STRING.encodedSizeWithTag(41, value.php_namespace)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(11, value.go_package)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(16, value.cc_generic_services)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(17, value.java_generic_services)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(18, value.py_generic_services)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(42, value.php_generic_services)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(23, value.deprecated)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(31, value.cc_enable_arenas)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(36, value.objc_class_prefix)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(37, value.csharp_namespace)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(39, value.swift_prefix)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(40, value.php_class_prefix)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(41, value.php_namespace)
           + UninterpretedOption.ADAPTER.asRepeated().encodedSizeWithTag(999, value.uninterpreted_option)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, FileOptions value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.java_package);
-      ProtoAdapter.STRING.encodeWithTag(writer, 8, value.java_outer_classname);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 10, value.java_multiple_files);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 20, value.java_generate_equals_and_hash);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 27, value.java_string_check_utf8);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.java_package);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 8, value.java_outer_classname);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 10, value.java_multiple_files);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 20, value.java_generate_equals_and_hash);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 27, value.java_string_check_utf8);
       OptimizeMode.ADAPTER.encodeWithTag(writer, 9, value.optimize_for);
-      ProtoAdapter.STRING.encodeWithTag(writer, 11, value.go_package);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 16, value.cc_generic_services);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 17, value.java_generic_services);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 18, value.py_generic_services);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 42, value.php_generic_services);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 23, value.deprecated);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 31, value.cc_enable_arenas);
-      ProtoAdapter.STRING.encodeWithTag(writer, 36, value.objc_class_prefix);
-      ProtoAdapter.STRING.encodeWithTag(writer, 37, value.csharp_namespace);
-      ProtoAdapter.STRING.encodeWithTag(writer, 39, value.swift_prefix);
-      ProtoAdapter.STRING.encodeWithTag(writer, 40, value.php_class_prefix);
-      ProtoAdapter.STRING.encodeWithTag(writer, 41, value.php_namespace);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 11, value.go_package);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 16, value.cc_generic_services);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 17, value.java_generic_services);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 18, value.py_generic_services);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 42, value.php_generic_services);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 23, value.deprecated);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 31, value.cc_enable_arenas);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 36, value.objc_class_prefix);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 37, value.csharp_namespace);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 39, value.swift_prefix);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 40, value.php_class_prefix);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 41, value.php_namespace);
       UninterpretedOption.ADAPTER.asRepeated().encodeWithTag(writer, 999, value.uninterpreted_option);
       writer.writeBytes(value.unknownFields());
     }
@@ -776,31 +775,31 @@ public final class FileOptions extends Message<FileOptions, FileOptions.Builder>
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.java_package(ProtoAdapter.STRING.decode(reader)); break;
-          case 8: builder.java_outer_classname(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.java_package(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 8: builder.java_outer_classname(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 9: {
             try {
               builder.optimize_for(OptimizeMode.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
-          case 10: builder.java_multiple_files(ProtoAdapter.BOOL.decode(reader)); break;
-          case 11: builder.go_package(ProtoAdapter.STRING.decode(reader)); break;
-          case 16: builder.cc_generic_services(ProtoAdapter.BOOL.decode(reader)); break;
-          case 17: builder.java_generic_services(ProtoAdapter.BOOL.decode(reader)); break;
-          case 18: builder.py_generic_services(ProtoAdapter.BOOL.decode(reader)); break;
-          case 20: builder.java_generate_equals_and_hash(ProtoAdapter.BOOL.decode(reader)); break;
-          case 23: builder.deprecated(ProtoAdapter.BOOL.decode(reader)); break;
-          case 27: builder.java_string_check_utf8(ProtoAdapter.BOOL.decode(reader)); break;
-          case 31: builder.cc_enable_arenas(ProtoAdapter.BOOL.decode(reader)); break;
-          case 36: builder.objc_class_prefix(ProtoAdapter.STRING.decode(reader)); break;
-          case 37: builder.csharp_namespace(ProtoAdapter.STRING.decode(reader)); break;
-          case 39: builder.swift_prefix(ProtoAdapter.STRING.decode(reader)); break;
-          case 40: builder.php_class_prefix(ProtoAdapter.STRING.decode(reader)); break;
-          case 41: builder.php_namespace(ProtoAdapter.STRING.decode(reader)); break;
-          case 42: builder.php_generic_services(ProtoAdapter.BOOL.decode(reader)); break;
+          case 10: builder.java_multiple_files(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 11: builder.go_package(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 16: builder.cc_generic_services(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 17: builder.java_generic_services(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 18: builder.py_generic_services(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 20: builder.java_generate_equals_and_hash(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 23: builder.deprecated(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 27: builder.java_string_check_utf8(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 31: builder.cc_enable_arenas(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 36: builder.objc_class_prefix(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 37: builder.csharp_namespace(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 39: builder.swift_prefix(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 40: builder.php_class_prefix(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 41: builder.php_namespace(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 42: builder.php_generic_services(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 999: builder.uninterpreted_option.add(UninterpretedOption.ADAPTER.decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();

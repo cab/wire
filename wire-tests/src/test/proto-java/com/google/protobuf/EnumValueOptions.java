@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import com.squareup.wire.protos.custom_options.FooBar;
@@ -124,7 +123,7 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (deprecated != null ? deprecated.hashCode() : 0);
@@ -132,7 +131,7 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
       result = result * 37 + (enum_value_option != null ? enum_value_option.hashCode() : 0);
       result = result * 37 + (complex_enum_value_option != null ? complex_enum_value_option.hashCode() : 0);
       result = result * 37 + (foreign_enum_value_option != null ? foreign_enum_value_option.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -211,21 +210,21 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
 
     @Override
     public int encodedSize(EnumValueOptions value) {
-      return ProtoAdapter.BOOL.encodedSizeWithTag(1, value.deprecated)
+      return ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(1, value.deprecated)
           + UninterpretedOption.ADAPTER.asRepeated().encodedSizeWithTag(999, value.uninterpreted_option)
-          + ProtoAdapter.INT32.encodedSizeWithTag(70000, value.enum_value_option)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(70000, value.enum_value_option)
           + FooBar.More.ADAPTER.encodedSizeWithTag(70001, value.complex_enum_value_option)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(70002, value.foreign_enum_value_option)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(70002, value.foreign_enum_value_option)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, EnumValueOptions value) throws IOException {
-      ProtoAdapter.BOOL.encodeWithTag(writer, 1, value.deprecated);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 1, value.deprecated);
       UninterpretedOption.ADAPTER.asRepeated().encodeWithTag(writer, 999, value.uninterpreted_option);
-      ProtoAdapter.INT32.encodeWithTag(writer, 70000, value.enum_value_option);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 70000, value.enum_value_option);
       FooBar.More.ADAPTER.encodeWithTag(writer, 70001, value.complex_enum_value_option);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 70002, value.foreign_enum_value_option);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 70002, value.foreign_enum_value_option);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -235,11 +234,11 @@ public final class EnumValueOptions extends Message<EnumValueOptions, EnumValueO
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.deprecated(ProtoAdapter.BOOL.decode(reader)); break;
+          case 1: builder.deprecated(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 999: builder.uninterpreted_option.add(UninterpretedOption.ADAPTER.decode(reader)); break;
-          case 70000: builder.enum_value_option(ProtoAdapter.INT32.decode(reader)); break;
+          case 70000: builder.enum_value_option(ProtoAdapter.Companion.getINT32().decode(reader)); break;
           case 70001: builder.complex_enum_value_option(FooBar.More.ADAPTER.decode(reader)); break;
-          case 70002: builder.foreign_enum_value_option(ProtoAdapter.BOOL.decode(reader)); break;
+          case 70002: builder.foreign_enum_value_option(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

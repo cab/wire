@@ -49,11 +49,11 @@ class MessageTypeAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
   @SuppressWarnings("unchecked")
   MessageTypeAdapter(Gson gson, TypeToken<M> type) {
     this.gson = gson;
-    this.messageAdapter = RuntimeMessageAdapter.create((Class<M>) type.getRawType());
+    this.messageAdapter = RuntimeMessageAdapter.Companion.create((Class<M>) type.getRawType());
 
     Map<String, FieldBinding<M, B>> fieldBindings = new LinkedHashMap<>();
     for (FieldBinding<M, B> binding : messageAdapter.fieldBindings().values()) {
-      fieldBindings.put(binding.name, binding);
+      fieldBindings.put(binding.getName(), binding);
     }
     this.fieldBindings = unmodifiableMap(fieldBindings);
   }
@@ -71,8 +71,8 @@ class MessageTypeAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
       if (value == null) {
         continue;
       }
-      out.name(tagBinding.name);
-      emitJson(out, value, tagBinding.singleAdapter(), tagBinding.label);
+      out.name(tagBinding.getName());
+      emitJson(out, value, tagBinding.singleAdapter(), tagBinding.getLabel());
     }
     out.endObject();
   }
@@ -80,7 +80,7 @@ class MessageTypeAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
   @SuppressWarnings("unchecked")
   private void emitJson(JsonWriter out, Object value, ProtoAdapter<?> adapter, Label label)
       throws IOException {
-    if (adapter == ProtoAdapter.UINT64) {
+    if (adapter == ProtoAdapter.Companion.getUINT64()) {
       if (label.isRepeated()) {
         List<Long> longs = (List<Long>) value;
         out.beginArray();
@@ -134,12 +134,12 @@ class MessageTypeAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
   }
 
   private Object parseValue(FieldBinding<?, ?> fieldBinding, JsonElement element) {
-    if (fieldBinding.label.isRepeated()) {
+    if (fieldBinding.getLabel().isRepeated()) {
       if (element.isJsonNull()) {
         return Collections.emptyList();
       }
 
-      Class<?> itemType = fieldBinding.singleAdapter().javaType;
+      Class<?> itemType = fieldBinding.singleAdapter().getJavaType();
 
       JsonArray array = element.getAsJsonArray();
       List<Object> result = new ArrayList<>(array.size());
@@ -154,8 +154,8 @@ class MessageTypeAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
         return Collections.emptyMap();
       }
 
-      Class<?> keyType = fieldBinding.keyAdapter().javaType;
-      Class<?> valueType = fieldBinding.singleAdapter().javaType;
+      Class<?> keyType = fieldBinding.keyAdapter().getJavaType();
+      Class<?> valueType = fieldBinding.singleAdapter().getJavaType();
 
       JsonObject object = element.getAsJsonObject();
       Map<Object, Object> result = new LinkedHashMap<>(object.size());
@@ -167,7 +167,7 @@ class MessageTypeAdapter<M extends Message<M, B>, B extends Message.Builder<M, B
       return result;
     }
 
-    Class<?> elementType = fieldBinding.singleAdapter().javaType;
+    Class<?> elementType = fieldBinding.singleAdapter().getJavaType();
     return gson.fromJson(element, elementType);
   }
 }

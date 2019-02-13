@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -142,7 +141,7 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + name.hashCode();
@@ -152,7 +151,7 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
       result = result * 37 + (double_value != null ? double_value.hashCode() : 0);
       result = result * 37 + (string_value != null ? string_value.hashCode() : 0);
       result = result * 37 + (aggregate_value != null ? aggregate_value.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -296,12 +295,12 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + name_part.hashCode();
         result = result * 37 + is_extension.hashCode();
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }
@@ -350,15 +349,15 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
 
       @Override
       public int encodedSize(NamePart value) {
-        return ProtoAdapter.STRING.encodedSizeWithTag(1, value.name_part)
-            + ProtoAdapter.BOOL.encodedSizeWithTag(2, value.is_extension)
+        return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.name_part)
+            + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(2, value.is_extension)
             + value.unknownFields().size();
       }
 
       @Override
       public void encode(ProtoWriter writer, NamePart value) throws IOException {
-        ProtoAdapter.STRING.encodeWithTag(writer, 1, value.name_part);
-        ProtoAdapter.BOOL.encodeWithTag(writer, 2, value.is_extension);
+        ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.name_part);
+        ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 2, value.is_extension);
         writer.writeBytes(value.unknownFields());
       }
 
@@ -368,8 +367,8 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
         long token = reader.beginMessage();
         for (int tag; (tag = reader.nextTag()) != -1;) {
           switch (tag) {
-            case 1: builder.name_part(ProtoAdapter.STRING.decode(reader)); break;
-            case 2: builder.is_extension(ProtoAdapter.BOOL.decode(reader)); break;
+            case 1: builder.name_part(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+            case 2: builder.is_extension(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
             default: {
               FieldEncoding fieldEncoding = reader.peekFieldEncoding();
               Object value = fieldEncoding.rawProtoAdapter().decode(reader);
@@ -398,24 +397,24 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
     @Override
     public int encodedSize(UninterpretedOption value) {
       return NamePart.ADAPTER.asRepeated().encodedSizeWithTag(2, value.name)
-          + ProtoAdapter.STRING.encodedSizeWithTag(3, value.identifier_value)
-          + ProtoAdapter.UINT64.encodedSizeWithTag(4, value.positive_int_value)
-          + ProtoAdapter.INT64.encodedSizeWithTag(5, value.negative_int_value)
-          + ProtoAdapter.DOUBLE.encodedSizeWithTag(6, value.double_value)
-          + ProtoAdapter.BYTES.encodedSizeWithTag(7, value.string_value)
-          + ProtoAdapter.STRING.encodedSizeWithTag(8, value.aggregate_value)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(3, value.identifier_value)
+          + ProtoAdapter.Companion.getUINT64().encodedSizeWithTag(4, value.positive_int_value)
+          + ProtoAdapter.Companion.getINT64().encodedSizeWithTag(5, value.negative_int_value)
+          + ProtoAdapter.Companion.getDOUBLE().encodedSizeWithTag(6, value.double_value)
+          + ProtoAdapter.Companion.getBYTES().encodedSizeWithTag(7, value.string_value)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(8, value.aggregate_value)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, UninterpretedOption value) throws IOException {
       NamePart.ADAPTER.asRepeated().encodeWithTag(writer, 2, value.name);
-      ProtoAdapter.STRING.encodeWithTag(writer, 3, value.identifier_value);
-      ProtoAdapter.UINT64.encodeWithTag(writer, 4, value.positive_int_value);
-      ProtoAdapter.INT64.encodeWithTag(writer, 5, value.negative_int_value);
-      ProtoAdapter.DOUBLE.encodeWithTag(writer, 6, value.double_value);
-      ProtoAdapter.BYTES.encodeWithTag(writer, 7, value.string_value);
-      ProtoAdapter.STRING.encodeWithTag(writer, 8, value.aggregate_value);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 3, value.identifier_value);
+      ProtoAdapter.Companion.getUINT64().encodeWithTag(writer, 4, value.positive_int_value);
+      ProtoAdapter.Companion.getINT64().encodeWithTag(writer, 5, value.negative_int_value);
+      ProtoAdapter.Companion.getDOUBLE().encodeWithTag(writer, 6, value.double_value);
+      ProtoAdapter.Companion.getBYTES().encodeWithTag(writer, 7, value.string_value);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 8, value.aggregate_value);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -426,12 +425,12 @@ public final class UninterpretedOption extends Message<UninterpretedOption, Unin
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
           case 2: builder.name.add(NamePart.ADAPTER.decode(reader)); break;
-          case 3: builder.identifier_value(ProtoAdapter.STRING.decode(reader)); break;
-          case 4: builder.positive_int_value(ProtoAdapter.UINT64.decode(reader)); break;
-          case 5: builder.negative_int_value(ProtoAdapter.INT64.decode(reader)); break;
-          case 6: builder.double_value(ProtoAdapter.DOUBLE.decode(reader)); break;
-          case 7: builder.string_value(ProtoAdapter.BYTES.decode(reader)); break;
-          case 8: builder.aggregate_value(ProtoAdapter.STRING.decode(reader)); break;
+          case 3: builder.identifier_value(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 4: builder.positive_int_value(ProtoAdapter.Companion.getUINT64().decode(reader)); break;
+          case 5: builder.negative_int_value(ProtoAdapter.Companion.getINT64().decode(reader)); break;
+          case 6: builder.double_value(ProtoAdapter.Companion.getDOUBLE().decode(reader)); break;
+          case 7: builder.string_value(ProtoAdapter.Companion.getBYTES().decode(reader)); break;
+          case 8: builder.aggregate_value(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

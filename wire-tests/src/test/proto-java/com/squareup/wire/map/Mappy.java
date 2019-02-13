@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -57,11 +56,11 @@ public final class Mappy extends Message<Mappy, Mappy.Builder> {
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + things.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -93,7 +92,7 @@ public final class Mappy extends Message<Mappy, Mappy.Builder> {
   }
 
   private static final class ProtoAdapter_Mappy extends ProtoAdapter<Mappy> {
-    private final ProtoAdapter<Map<String, Thing>> things = ProtoAdapter.newMapAdapter(ProtoAdapter.STRING, Thing.ADAPTER);
+    private final ProtoAdapter<Map<String, Thing>> things = ProtoAdapter.Companion.newMapAdapter(ProtoAdapter.Companion.getSTRING(), Thing.ADAPTER);
 
     public ProtoAdapter_Mappy() {
       super(FieldEncoding.LENGTH_DELIMITED, Mappy.class);

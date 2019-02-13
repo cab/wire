@@ -7,7 +7,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -74,12 +73,12 @@ public final class RedactedExtension extends Message<RedactedExtension, Redacted
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (d != null ? d.hashCode() : 0);
       result = result * 37 + (e != null ? e.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -123,15 +122,15 @@ public final class RedactedExtension extends Message<RedactedExtension, Redacted
 
     @Override
     public int encodedSize(RedactedExtension value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.d)
-          + ProtoAdapter.STRING.encodedSizeWithTag(2, value.e)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.d)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(2, value.e)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, RedactedExtension value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.d);
-      ProtoAdapter.STRING.encodeWithTag(writer, 2, value.e);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.d);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 2, value.e);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -141,8 +140,8 @@ public final class RedactedExtension extends Message<RedactedExtension, Redacted
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.d(ProtoAdapter.STRING.decode(reader)); break;
-          case 2: builder.e(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.d(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 2: builder.e(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

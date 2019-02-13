@@ -47,7 +47,7 @@ public final class MapTest {
   public static List<Object[]> parameters() {
     return Arrays.asList(
         new Object[] { "Generated", Mappy.ADAPTER },
-        new Object[] { "Runtime", RuntimeMessageAdapter.create(Mappy.class) }
+        new Object[] { "Runtime", RuntimeMessageAdapter.Companion.create(Mappy.class) }
     );
   }
 

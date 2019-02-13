@@ -33,7 +33,7 @@ public final class ProtoAdapterTest {
         .build();
     ByteString encoded = ByteString.decodeHex("0a0b4f6d6172204c6974746c651063");
 
-    ProtoAdapter<Person> personAdapter = ProtoAdapter.get(Person.class);
+    ProtoAdapter<Person> personAdapter = ProtoAdapter.Companion.get(Person.class);
     assertThat(ByteString.of(personAdapter.encode(person))).isEqualTo(encoded);
     assertThat(personAdapter.decode(encoded)).isEqualTo(person);
   }
@@ -44,14 +44,14 @@ public final class ProtoAdapterTest {
         .name("Omar Little")
         .build();
 
-    ProtoAdapter<Person> instanceAdapter = ProtoAdapter.get(person);
-    ProtoAdapter<Person> classAdapter = ProtoAdapter.get(Person.class);
+    ProtoAdapter<Person> instanceAdapter = ProtoAdapter.Companion.get(person);
+    ProtoAdapter<Person> classAdapter = ProtoAdapter.Companion.get(Person.class);
 
     assertThat(instanceAdapter).isSameAs(classAdapter);
   }
 
   @Test public void repeatedHelpersCacheInstances() {
-    ProtoAdapter<?> adapter = ProtoAdapter.UINT64;
+    ProtoAdapter<?> adapter = ProtoAdapter.Companion.getUINT64();
     assertThat(adapter.asRepeated()).isSameAs(adapter.asRepeated());
     assertThat(adapter.asPacked()).isSameAs(adapter.asPacked());
   }

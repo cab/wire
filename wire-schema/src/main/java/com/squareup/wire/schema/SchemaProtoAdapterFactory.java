@@ -18,7 +18,7 @@ package com.squareup.wire.schema;
 import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -38,21 +38,21 @@ final class SchemaProtoAdapterFactory {
     this.schema = schema;
     this.includeUnknown = includeUnknown;
 
-    adapterMap.put(ProtoType.BOOL, ProtoAdapter.BOOL);
-    adapterMap.put(ProtoType.BYTES, ProtoAdapter.BYTES);
-    adapterMap.put(ProtoType.DOUBLE, ProtoAdapter.DOUBLE);
-    adapterMap.put(ProtoType.FLOAT, ProtoAdapter.FLOAT);
-    adapterMap.put(ProtoType.FIXED32, ProtoAdapter.FIXED32);
-    adapterMap.put(ProtoType.FIXED64, ProtoAdapter.FIXED64);
-    adapterMap.put(ProtoType.INT32, ProtoAdapter.INT32);
-    adapterMap.put(ProtoType.INT64, ProtoAdapter.INT64);
-    adapterMap.put(ProtoType.SFIXED32, ProtoAdapter.SFIXED32);
-    adapterMap.put(ProtoType.SFIXED64, ProtoAdapter.SFIXED64);
-    adapterMap.put(ProtoType.SINT32, ProtoAdapter.SINT32);
-    adapterMap.put(ProtoType.SINT64, ProtoAdapter.SINT64);
-    adapterMap.put(ProtoType.STRING, ProtoAdapter.STRING);
-    adapterMap.put(ProtoType.UINT32, ProtoAdapter.UINT32);
-    adapterMap.put(ProtoType.UINT64, ProtoAdapter.UINT64);
+    adapterMap.put(ProtoType.BOOL, ProtoAdapter.Companion.getBOOL());
+    adapterMap.put(ProtoType.BYTES, ProtoAdapter.Companion.getBYTES());
+    adapterMap.put(ProtoType.DOUBLE, ProtoAdapter.Companion.getDOUBLE());
+    adapterMap.put(ProtoType.FLOAT, ProtoAdapter.Companion.getFLOAT());
+    adapterMap.put(ProtoType.FIXED32, ProtoAdapter.Companion.getFIXED32());
+    adapterMap.put(ProtoType.FIXED64, ProtoAdapter.Companion.getFIXED64());
+    adapterMap.put(ProtoType.INT32, ProtoAdapter.Companion.getINT32());
+    adapterMap.put(ProtoType.INT64, ProtoAdapter.Companion.getINT64());
+    adapterMap.put(ProtoType.SFIXED32, ProtoAdapter.Companion.getSFIXED32());
+    adapterMap.put(ProtoType.SFIXED64, ProtoAdapter.Companion.getSFIXED64());
+    adapterMap.put(ProtoType.SINT32, ProtoAdapter.Companion.getSINT32());
+    adapterMap.put(ProtoType.SINT64, ProtoAdapter.Companion.getSINT64());
+    adapterMap.put(ProtoType.STRING, ProtoAdapter.Companion.getSTRING());
+    adapterMap.put(ProtoType.UINT32, ProtoAdapter.Companion.getUINT32());
+    adapterMap.put(ProtoType.UINT64, ProtoAdapter.Companion.getUINT64());
   }
 
   public ProtoAdapter<Object> get(ProtoType protoType) {
@@ -115,7 +115,7 @@ final class SchemaProtoAdapterFactory {
     }
 
     @Override public Object decode(ProtoReader reader) throws IOException {
-      Integer value = ProtoAdapter.UINT32.decode(reader);
+      Integer value = ProtoAdapter.Companion.getUINT32().decode(reader);
       EnumConstant constant = enumType.constant(value);
       return constant != null ? constant.name() : value;
     }

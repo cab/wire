@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -92,13 +91,13 @@ public final class OneOfMessage extends Message<OneOfMessage, OneOfMessage.Build
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (foo != null ? foo.hashCode() : 0);
       result = result * 37 + (bar != null ? bar.hashCode() : 0);
       result = result * 37 + (baz != null ? baz.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -165,17 +164,17 @@ public final class OneOfMessage extends Message<OneOfMessage, OneOfMessage.Build
 
     @Override
     public int encodedSize(OneOfMessage value) {
-      return ProtoAdapter.INT32.encodedSizeWithTag(1, value.foo)
-          + ProtoAdapter.STRING.encodedSizeWithTag(3, value.bar)
-          + ProtoAdapter.STRING.encodedSizeWithTag(4, value.baz)
+      return ProtoAdapter.Companion.getINT32().encodedSizeWithTag(1, value.foo)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(3, value.bar)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(4, value.baz)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, OneOfMessage value) throws IOException {
-      ProtoAdapter.INT32.encodeWithTag(writer, 1, value.foo);
-      ProtoAdapter.STRING.encodeWithTag(writer, 3, value.bar);
-      ProtoAdapter.STRING.encodeWithTag(writer, 4, value.baz);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 1, value.foo);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 3, value.bar);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 4, value.baz);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -185,9 +184,9 @@ public final class OneOfMessage extends Message<OneOfMessage, OneOfMessage.Build
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.foo(ProtoAdapter.INT32.decode(reader)); break;
-          case 3: builder.bar(ProtoAdapter.STRING.decode(reader)); break;
-          case 4: builder.baz(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.foo(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 3: builder.bar(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 4: builder.baz(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

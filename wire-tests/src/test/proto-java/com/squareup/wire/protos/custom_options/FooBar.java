@@ -9,7 +9,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireEnum;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
@@ -211,7 +210,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (foo != null ? foo.hashCode() : 0);
@@ -223,7 +222,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
       result = result * 37 + nested.hashCode();
       result = result * 37 + (ext != null ? ext.hashCode() : 0);
       result = result * 37 + rep.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -363,11 +362,11 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + (value != null ? value.hashCode() : 0);
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }
@@ -423,7 +422,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
               try {
                 builder.value(FooBarBazEnum.ADAPTER.decode(reader));
               } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-                builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+                builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
               }
               break;
             }
@@ -487,11 +486,11 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + serial.hashCode();
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }
@@ -529,13 +528,13 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
 
       @Override
       public int encodedSize(More value) {
-        return ProtoAdapter.INT32.asRepeated().encodedSizeWithTag(1, value.serial)
+        return ProtoAdapter.Companion.getINT32().asRepeated().encodedSizeWithTag(1, value.serial)
             + value.unknownFields().size();
       }
 
       @Override
       public void encode(ProtoWriter writer, More value) throws IOException {
-        ProtoAdapter.INT32.asRepeated().encodeWithTag(writer, 1, value.serial);
+        ProtoAdapter.Companion.getINT32().asRepeated().encodeWithTag(writer, 1, value.serial);
         writer.writeBytes(value.unknownFields());
       }
 
@@ -545,7 +544,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
         long token = reader.beginMessage();
         for (int tag; (tag = reader.nextTag()) != -1;) {
           switch (tag) {
-            case 1: builder.serial.add(ProtoAdapter.INT32.decode(reader)); break;
+            case 1: builder.serial.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
             default: {
               FieldEncoding fieldEncoding = reader.peekFieldEncoding();
               Object value = fieldEncoding.rawProtoAdapter().decode(reader);
@@ -635,12 +634,12 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
 
     @Override
     public int encodedSize(FooBar value) {
-      return ProtoAdapter.INT32.encodedSizeWithTag(1, value.foo)
-          + ProtoAdapter.STRING.encodedSizeWithTag(2, value.bar)
+      return ProtoAdapter.Companion.getINT32().encodedSizeWithTag(1, value.foo)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(2, value.bar)
           + Nested.ADAPTER.encodedSizeWithTag(3, value.baz)
-          + ProtoAdapter.UINT64.encodedSizeWithTag(4, value.qux)
-          + ProtoAdapter.FLOAT.asRepeated().encodedSizeWithTag(5, value.fred)
-          + ProtoAdapter.DOUBLE.encodedSizeWithTag(6, value.daisy)
+          + ProtoAdapter.Companion.getUINT64().encodedSizeWithTag(4, value.qux)
+          + ProtoAdapter.Companion.getFLOAT().asRepeated().encodedSizeWithTag(5, value.fred)
+          + ProtoAdapter.Companion.getDOUBLE().encodedSizeWithTag(6, value.daisy)
           + FooBar.ADAPTER.asRepeated().encodedSizeWithTag(7, value.nested)
           + FooBarBazEnum.ADAPTER.encodedSizeWithTag(101, value.ext)
           + FooBarBazEnum.ADAPTER.asRepeated().encodedSizeWithTag(102, value.rep)
@@ -649,12 +648,12 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
 
     @Override
     public void encode(ProtoWriter writer, FooBar value) throws IOException {
-      ProtoAdapter.INT32.encodeWithTag(writer, 1, value.foo);
-      ProtoAdapter.STRING.encodeWithTag(writer, 2, value.bar);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 1, value.foo);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 2, value.bar);
       Nested.ADAPTER.encodeWithTag(writer, 3, value.baz);
-      ProtoAdapter.UINT64.encodeWithTag(writer, 4, value.qux);
-      ProtoAdapter.FLOAT.asRepeated().encodeWithTag(writer, 5, value.fred);
-      ProtoAdapter.DOUBLE.encodeWithTag(writer, 6, value.daisy);
+      ProtoAdapter.Companion.getUINT64().encodeWithTag(writer, 4, value.qux);
+      ProtoAdapter.Companion.getFLOAT().asRepeated().encodeWithTag(writer, 5, value.fred);
+      ProtoAdapter.Companion.getDOUBLE().encodeWithTag(writer, 6, value.daisy);
       FooBar.ADAPTER.asRepeated().encodeWithTag(writer, 7, value.nested);
       FooBarBazEnum.ADAPTER.encodeWithTag(writer, 101, value.ext);
       FooBarBazEnum.ADAPTER.asRepeated().encodeWithTag(writer, 102, value.rep);
@@ -667,18 +666,18 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.foo(ProtoAdapter.INT32.decode(reader)); break;
-          case 2: builder.bar(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.foo(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 2: builder.bar(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 3: builder.baz(Nested.ADAPTER.decode(reader)); break;
-          case 4: builder.qux(ProtoAdapter.UINT64.decode(reader)); break;
-          case 5: builder.fred.add(ProtoAdapter.FLOAT.decode(reader)); break;
-          case 6: builder.daisy(ProtoAdapter.DOUBLE.decode(reader)); break;
+          case 4: builder.qux(ProtoAdapter.Companion.getUINT64().decode(reader)); break;
+          case 5: builder.fred.add(ProtoAdapter.Companion.getFLOAT().decode(reader)); break;
+          case 6: builder.daisy(ProtoAdapter.Companion.getDOUBLE().decode(reader)); break;
           case 7: builder.nested.add(FooBar.ADAPTER.decode(reader)); break;
           case 101: {
             try {
               builder.ext(FooBarBazEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
@@ -686,7 +685,7 @@ public final class FooBar extends Message<FooBar, FooBar.Builder> {
             try {
               builder.rep.add(FooBarBazEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }

@@ -8,7 +8,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireEnum;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
@@ -228,7 +227,7 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
 
   @Override
   public int hashCode() {
-    int result_ = super.hashCode;
+    int result_ = super.getHashCode();
     if (result_ == 0) {
       result_ = unknownFields().hashCode();
       result_ = result_ * 37 + (optional_int32 != null ? optional_int32.hashCode() : 0);
@@ -243,7 +242,7 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
       result_ = result_ * 37 + (result != null ? result.hashCode() : 0);
       result_ = result_ * 37 + (other != null ? other.hashCode() : 0);
       result_ = result_ * 37 + (o != null ? o.hashCode() : 0);
-      super.hashCode = result_;
+      super.setHashCode(result_);
     }
     return result_;
   }
@@ -444,11 +443,11 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + (bb != null ? bb.hashCode() : 0);
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }
@@ -487,13 +486,13 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
 
       @Override
       public int encodedSize(NestedMessage value) {
-        return ProtoAdapter.INT32.encodedSizeWithTag(1, value.bb)
+        return ProtoAdapter.Companion.getINT32().encodedSizeWithTag(1, value.bb)
             + value.unknownFields().size();
       }
 
       @Override
       public void encode(ProtoWriter writer, NestedMessage value) throws IOException {
-        ProtoAdapter.INT32.encodeWithTag(writer, 1, value.bb);
+        ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 1, value.bb);
         writer.writeBytes(value.unknownFields());
       }
 
@@ -503,7 +502,7 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
         long token = reader.beginMessage();
         for (int tag; (tag = reader.nextTag()) != -1;) {
           switch (tag) {
-            case 1: builder.bb(ProtoAdapter.INT32.decode(reader)); break;
+            case 1: builder.bb(ProtoAdapter.Companion.getINT32().decode(reader)); break;
             default: {
               FieldEncoding fieldEncoding = reader.peekFieldEncoding();
               Object value = fieldEncoding.rawProtoAdapter().decode(reader);
@@ -585,35 +584,35 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
 
     @Override
     public int encodedSize(SimpleMessage value) {
-      return ProtoAdapter.INT32.encodedSizeWithTag(1, value.optional_int32)
+      return ProtoAdapter.Companion.getINT32().encodedSizeWithTag(1, value.optional_int32)
           + NestedMessage.ADAPTER.encodedSizeWithTag(2, value.optional_nested_msg)
           + ExternalMessage.ADAPTER.encodedSizeWithTag(3, value.optional_external_msg)
           + NestedEnum.ADAPTER.encodedSizeWithTag(4, value.default_nested_enum)
-          + ProtoAdapter.INT32.encodedSizeWithTag(5, value.required_int32)
-          + ProtoAdapter.DOUBLE.asRepeated().encodedSizeWithTag(6, value.repeated_double)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(5, value.required_int32)
+          + ProtoAdapter.Companion.getDOUBLE().asRepeated().encodedSizeWithTag(6, value.repeated_double)
           + ForeignEnum.ADAPTER.encodedSizeWithTag(7, value.default_foreign_enum)
           + ForeignEnum.ADAPTER.encodedSizeWithTag(8, value.no_default_foreign_enum)
-          + ProtoAdapter.STRING.encodedSizeWithTag(9, value.package_)
-          + ProtoAdapter.STRING.encodedSizeWithTag(10, value.result)
-          + ProtoAdapter.STRING.encodedSizeWithTag(11, value.other)
-          + ProtoAdapter.STRING.encodedSizeWithTag(12, value.o)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(9, value.package_)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(10, value.result)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(11, value.other)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(12, value.o)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, SimpleMessage value) throws IOException {
-      ProtoAdapter.INT32.encodeWithTag(writer, 1, value.optional_int32);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 1, value.optional_int32);
       NestedMessage.ADAPTER.encodeWithTag(writer, 2, value.optional_nested_msg);
       ExternalMessage.ADAPTER.encodeWithTag(writer, 3, value.optional_external_msg);
       NestedEnum.ADAPTER.encodeWithTag(writer, 4, value.default_nested_enum);
-      ProtoAdapter.INT32.encodeWithTag(writer, 5, value.required_int32);
-      ProtoAdapter.DOUBLE.asRepeated().encodeWithTag(writer, 6, value.repeated_double);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 5, value.required_int32);
+      ProtoAdapter.Companion.getDOUBLE().asRepeated().encodeWithTag(writer, 6, value.repeated_double);
       ForeignEnum.ADAPTER.encodeWithTag(writer, 7, value.default_foreign_enum);
       ForeignEnum.ADAPTER.encodeWithTag(writer, 8, value.no_default_foreign_enum);
-      ProtoAdapter.STRING.encodeWithTag(writer, 9, value.package_);
-      ProtoAdapter.STRING.encodeWithTag(writer, 10, value.result);
-      ProtoAdapter.STRING.encodeWithTag(writer, 11, value.other);
-      ProtoAdapter.STRING.encodeWithTag(writer, 12, value.o);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 9, value.package_);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 10, value.result);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 11, value.other);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 12, value.o);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -623,24 +622,24 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.optional_int32(ProtoAdapter.INT32.decode(reader)); break;
+          case 1: builder.optional_int32(ProtoAdapter.Companion.getINT32().decode(reader)); break;
           case 2: builder.optional_nested_msg(NestedMessage.ADAPTER.decode(reader)); break;
           case 3: builder.optional_external_msg(ExternalMessage.ADAPTER.decode(reader)); break;
           case 4: {
             try {
               builder.default_nested_enum(NestedEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
-          case 5: builder.required_int32(ProtoAdapter.INT32.decode(reader)); break;
-          case 6: builder.repeated_double.add(ProtoAdapter.DOUBLE.decode(reader)); break;
+          case 5: builder.required_int32(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 6: builder.repeated_double.add(ProtoAdapter.Companion.getDOUBLE().decode(reader)); break;
           case 7: {
             try {
               builder.default_foreign_enum(ForeignEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
@@ -648,14 +647,14 @@ public final class SimpleMessage extends Message<SimpleMessage, SimpleMessage.Bu
             try {
               builder.no_default_foreign_enum(ForeignEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
-          case 9: builder.package_(ProtoAdapter.STRING.decode(reader)); break;
-          case 10: builder.result(ProtoAdapter.STRING.decode(reader)); break;
-          case 11: builder.other(ProtoAdapter.STRING.decode(reader)); break;
-          case 12: builder.o(ProtoAdapter.STRING.decode(reader)); break;
+          case 9: builder.package_(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 10: builder.result(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 11: builder.other(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 12: builder.o(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

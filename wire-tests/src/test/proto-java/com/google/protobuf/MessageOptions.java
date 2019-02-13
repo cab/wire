@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import com.squareup.wire.protos.custom_options.FooBar;
@@ -260,7 +259,7 @@ public final class MessageOptions extends Message<MessageOptions, MessageOptions
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (message_set_wire_format != null ? message_set_wire_format.hashCode() : 0);
@@ -275,7 +274,7 @@ public final class MessageOptions extends Message<MessageOptions, MessageOptions
       result = result * 37 + (my_message_option_five != null ? my_message_option_five.hashCode() : 0);
       result = result * 37 + (my_message_option_six != null ? my_message_option_six.hashCode() : 0);
       result = result * 37 + (foreign_message_option != null ? foreign_message_option.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -459,13 +458,13 @@ public final class MessageOptions extends Message<MessageOptions, MessageOptions
 
     @Override
     public int encodedSize(MessageOptions value) {
-      return ProtoAdapter.BOOL.encodedSizeWithTag(1, value.message_set_wire_format)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(2, value.no_standard_descriptor_accessor)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(3, value.deprecated)
-          + ProtoAdapter.BOOL.encodedSizeWithTag(7, value.map_entry)
+      return ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(1, value.message_set_wire_format)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(2, value.no_standard_descriptor_accessor)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(3, value.deprecated)
+          + ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(7, value.map_entry)
           + UninterpretedOption.ADAPTER.asRepeated().encodedSizeWithTag(999, value.uninterpreted_option)
           + FooBar.ADAPTER.encodedSizeWithTag(50001, value.my_message_option_one)
-          + ProtoAdapter.FLOAT.encodedSizeWithTag(50002, value.my_message_option_two)
+          + ProtoAdapter.Companion.getFLOAT().encodedSizeWithTag(50002, value.my_message_option_two)
           + FooBar.ADAPTER.encodedSizeWithTag(50003, value.my_message_option_three)
           + FooBar.FooBarBazEnum.ADAPTER.encodedSizeWithTag(50004, value.my_message_option_four)
           + FooBar.ADAPTER.encodedSizeWithTag(50005, value.my_message_option_five)
@@ -476,13 +475,13 @@ public final class MessageOptions extends Message<MessageOptions, MessageOptions
 
     @Override
     public void encode(ProtoWriter writer, MessageOptions value) throws IOException {
-      ProtoAdapter.BOOL.encodeWithTag(writer, 1, value.message_set_wire_format);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 2, value.no_standard_descriptor_accessor);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 3, value.deprecated);
-      ProtoAdapter.BOOL.encodeWithTag(writer, 7, value.map_entry);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 1, value.message_set_wire_format);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 2, value.no_standard_descriptor_accessor);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 3, value.deprecated);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 7, value.map_entry);
       UninterpretedOption.ADAPTER.asRepeated().encodeWithTag(writer, 999, value.uninterpreted_option);
       FooBar.ADAPTER.encodeWithTag(writer, 50001, value.my_message_option_one);
-      ProtoAdapter.FLOAT.encodeWithTag(writer, 50002, value.my_message_option_two);
+      ProtoAdapter.Companion.getFLOAT().encodeWithTag(writer, 50002, value.my_message_option_two);
       FooBar.ADAPTER.encodeWithTag(writer, 50003, value.my_message_option_three);
       FooBar.FooBarBazEnum.ADAPTER.encodeWithTag(writer, 50004, value.my_message_option_four);
       FooBar.ADAPTER.encodeWithTag(writer, 50005, value.my_message_option_five);
@@ -497,19 +496,19 @@ public final class MessageOptions extends Message<MessageOptions, MessageOptions
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.message_set_wire_format(ProtoAdapter.BOOL.decode(reader)); break;
-          case 2: builder.no_standard_descriptor_accessor(ProtoAdapter.BOOL.decode(reader)); break;
-          case 3: builder.deprecated(ProtoAdapter.BOOL.decode(reader)); break;
-          case 7: builder.map_entry(ProtoAdapter.BOOL.decode(reader)); break;
+          case 1: builder.message_set_wire_format(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 2: builder.no_standard_descriptor_accessor(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 3: builder.deprecated(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
+          case 7: builder.map_entry(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 999: builder.uninterpreted_option.add(UninterpretedOption.ADAPTER.decode(reader)); break;
           case 50001: builder.my_message_option_one(FooBar.ADAPTER.decode(reader)); break;
-          case 50002: builder.my_message_option_two(ProtoAdapter.FLOAT.decode(reader)); break;
+          case 50002: builder.my_message_option_two(ProtoAdapter.Companion.getFLOAT().decode(reader)); break;
           case 50003: builder.my_message_option_three(FooBar.ADAPTER.decode(reader)); break;
           case 50004: {
             try {
               builder.my_message_option_four(FooBar.FooBarBazEnum.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }

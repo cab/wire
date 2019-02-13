@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -210,7 +209,7 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (name != null ? name.hashCode() : 0);
@@ -225,7 +224,7 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
       result = result * 37 + (options != null ? options.hashCode() : 0);
       result = result * 37 + (source_code_info != null ? source_code_info.hashCode() : 0);
       result = result * 37 + (syntax != null ? syntax.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -392,35 +391,35 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
 
     @Override
     public int encodedSize(FileDescriptorProto value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.name)
-          + ProtoAdapter.STRING.encodedSizeWithTag(2, value.package_)
-          + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(3, value.dependency)
-          + ProtoAdapter.INT32.asRepeated().encodedSizeWithTag(10, value.public_dependency)
-          + ProtoAdapter.INT32.asRepeated().encodedSizeWithTag(11, value.weak_dependency)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.name)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(2, value.package_)
+          + ProtoAdapter.Companion.getSTRING().asRepeated().encodedSizeWithTag(3, value.dependency)
+          + ProtoAdapter.Companion.getINT32().asRepeated().encodedSizeWithTag(10, value.public_dependency)
+          + ProtoAdapter.Companion.getINT32().asRepeated().encodedSizeWithTag(11, value.weak_dependency)
           + DescriptorProto.ADAPTER.asRepeated().encodedSizeWithTag(4, value.message_type)
           + EnumDescriptorProto.ADAPTER.asRepeated().encodedSizeWithTag(5, value.enum_type)
           + ServiceDescriptorProto.ADAPTER.asRepeated().encodedSizeWithTag(6, value.service)
           + FieldDescriptorProto.ADAPTER.asRepeated().encodedSizeWithTag(7, value.extension)
           + FileOptions.ADAPTER.encodedSizeWithTag(8, value.options)
           + SourceCodeInfo.ADAPTER.encodedSizeWithTag(9, value.source_code_info)
-          + ProtoAdapter.STRING.encodedSizeWithTag(12, value.syntax)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(12, value.syntax)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, FileDescriptorProto value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.name);
-      ProtoAdapter.STRING.encodeWithTag(writer, 2, value.package_);
-      ProtoAdapter.STRING.asRepeated().encodeWithTag(writer, 3, value.dependency);
-      ProtoAdapter.INT32.asRepeated().encodeWithTag(writer, 10, value.public_dependency);
-      ProtoAdapter.INT32.asRepeated().encodeWithTag(writer, 11, value.weak_dependency);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.name);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 2, value.package_);
+      ProtoAdapter.Companion.getSTRING().asRepeated().encodeWithTag(writer, 3, value.dependency);
+      ProtoAdapter.Companion.getINT32().asRepeated().encodeWithTag(writer, 10, value.public_dependency);
+      ProtoAdapter.Companion.getINT32().asRepeated().encodeWithTag(writer, 11, value.weak_dependency);
       DescriptorProto.ADAPTER.asRepeated().encodeWithTag(writer, 4, value.message_type);
       EnumDescriptorProto.ADAPTER.asRepeated().encodeWithTag(writer, 5, value.enum_type);
       ServiceDescriptorProto.ADAPTER.asRepeated().encodeWithTag(writer, 6, value.service);
       FieldDescriptorProto.ADAPTER.asRepeated().encodeWithTag(writer, 7, value.extension);
       FileOptions.ADAPTER.encodeWithTag(writer, 8, value.options);
       SourceCodeInfo.ADAPTER.encodeWithTag(writer, 9, value.source_code_info);
-      ProtoAdapter.STRING.encodeWithTag(writer, 12, value.syntax);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 12, value.syntax);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -430,18 +429,18 @@ public final class FileDescriptorProto extends Message<FileDescriptorProto, File
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.name(ProtoAdapter.STRING.decode(reader)); break;
-          case 2: builder.package_(ProtoAdapter.STRING.decode(reader)); break;
-          case 3: builder.dependency.add(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.name(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 2: builder.package_(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 3: builder.dependency.add(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 4: builder.message_type.add(DescriptorProto.ADAPTER.decode(reader)); break;
           case 5: builder.enum_type.add(EnumDescriptorProto.ADAPTER.decode(reader)); break;
           case 6: builder.service.add(ServiceDescriptorProto.ADAPTER.decode(reader)); break;
           case 7: builder.extension.add(FieldDescriptorProto.ADAPTER.decode(reader)); break;
           case 8: builder.options(FileOptions.ADAPTER.decode(reader)); break;
           case 9: builder.source_code_info(SourceCodeInfo.ADAPTER.decode(reader)); break;
-          case 10: builder.public_dependency.add(ProtoAdapter.INT32.decode(reader)); break;
-          case 11: builder.weak_dependency.add(ProtoAdapter.INT32.decode(reader)); break;
-          case 12: builder.syntax(ProtoAdapter.STRING.decode(reader)); break;
+          case 10: builder.public_dependency.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 11: builder.weak_dependency.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 12: builder.syntax(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

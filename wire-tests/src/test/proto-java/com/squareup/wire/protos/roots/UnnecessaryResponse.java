@@ -6,7 +6,7 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
+
 import java.io.IOException;
 import java.lang.Object;
 import java.lang.Override;

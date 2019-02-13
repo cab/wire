@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -109,11 +108,11 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + location.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -355,7 +354,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + path.hashCode();
@@ -363,7 +362,7 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
         result = result * 37 + (leading_comments != null ? leading_comments.hashCode() : 0);
         result = result * 37 + (trailing_comments != null ? trailing_comments.hashCode() : 0);
         result = result * 37 + leading_detached_comments.hashCode();
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }
@@ -518,21 +517,21 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
 
       @Override
       public int encodedSize(Location value) {
-        return ProtoAdapter.INT32.asPacked().encodedSizeWithTag(1, value.path)
-            + ProtoAdapter.INT32.asPacked().encodedSizeWithTag(2, value.span)
-            + ProtoAdapter.STRING.encodedSizeWithTag(3, value.leading_comments)
-            + ProtoAdapter.STRING.encodedSizeWithTag(4, value.trailing_comments)
-            + ProtoAdapter.STRING.asRepeated().encodedSizeWithTag(6, value.leading_detached_comments)
+        return ProtoAdapter.Companion.getINT32().asPacked().encodedSizeWithTag(1, value.path)
+            + ProtoAdapter.Companion.getINT32().asPacked().encodedSizeWithTag(2, value.span)
+            + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(3, value.leading_comments)
+            + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(4, value.trailing_comments)
+            + ProtoAdapter.Companion.getSTRING().asRepeated().encodedSizeWithTag(6, value.leading_detached_comments)
             + value.unknownFields().size();
       }
 
       @Override
       public void encode(ProtoWriter writer, Location value) throws IOException {
-        ProtoAdapter.INT32.asPacked().encodeWithTag(writer, 1, value.path);
-        ProtoAdapter.INT32.asPacked().encodeWithTag(writer, 2, value.span);
-        ProtoAdapter.STRING.encodeWithTag(writer, 3, value.leading_comments);
-        ProtoAdapter.STRING.encodeWithTag(writer, 4, value.trailing_comments);
-        ProtoAdapter.STRING.asRepeated().encodeWithTag(writer, 6, value.leading_detached_comments);
+        ProtoAdapter.Companion.getINT32().asPacked().encodeWithTag(writer, 1, value.path);
+        ProtoAdapter.Companion.getINT32().asPacked().encodeWithTag(writer, 2, value.span);
+        ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 3, value.leading_comments);
+        ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 4, value.trailing_comments);
+        ProtoAdapter.Companion.getSTRING().asRepeated().encodeWithTag(writer, 6, value.leading_detached_comments);
         writer.writeBytes(value.unknownFields());
       }
 
@@ -542,11 +541,11 @@ public final class SourceCodeInfo extends Message<SourceCodeInfo, SourceCodeInfo
         long token = reader.beginMessage();
         for (int tag; (tag = reader.nextTag()) != -1;) {
           switch (tag) {
-            case 1: builder.path.add(ProtoAdapter.INT32.decode(reader)); break;
-            case 2: builder.span.add(ProtoAdapter.INT32.decode(reader)); break;
-            case 3: builder.leading_comments(ProtoAdapter.STRING.decode(reader)); break;
-            case 4: builder.trailing_comments(ProtoAdapter.STRING.decode(reader)); break;
-            case 6: builder.leading_detached_comments.add(ProtoAdapter.STRING.decode(reader)); break;
+            case 1: builder.path.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+            case 2: builder.span.add(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+            case 3: builder.leading_comments(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+            case 4: builder.trailing_comments(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+            case 6: builder.leading_detached_comments.add(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
             default: {
               FieldEncoding fieldEncoding = reader.peekFieldEncoding();
               Object value = fieldEncoding.rawProtoAdapter().decode(reader);

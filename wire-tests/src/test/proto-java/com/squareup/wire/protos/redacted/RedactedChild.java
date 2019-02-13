@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -75,13 +74,13 @@ public final class RedactedChild extends Message<RedactedChild, RedactedChild.Bu
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (a != null ? a.hashCode() : 0);
       result = result * 37 + (b != null ? b.hashCode() : 0);
       result = result * 37 + (c != null ? c.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -133,7 +132,7 @@ public final class RedactedChild extends Message<RedactedChild, RedactedChild.Bu
 
     @Override
     public int encodedSize(RedactedChild value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.a)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.a)
           + Redacted.ADAPTER.encodedSizeWithTag(2, value.b)
           + NotRedacted.ADAPTER.encodedSizeWithTag(3, value.c)
           + value.unknownFields().size();
@@ -141,7 +140,7 @@ public final class RedactedChild extends Message<RedactedChild, RedactedChild.Bu
 
     @Override
     public void encode(ProtoWriter writer, RedactedChild value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.a);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.a);
       Redacted.ADAPTER.encodeWithTag(writer, 2, value.b);
       NotRedacted.ADAPTER.encodeWithTag(writer, 3, value.c);
       writer.writeBytes(value.unknownFields());
@@ -153,7 +152,7 @@ public final class RedactedChild extends Message<RedactedChild, RedactedChild.Bu
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.a(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.a(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 2: builder.b(Redacted.ADAPTER.decode(reader)); break;
           case 3: builder.c(NotRedacted.ADAPTER.decode(reader)); break;
           default: {

@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Square Inc.
+ * Copyright 2019 Square Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.squareup.wire;
+package com.squareup.wire
 
-public interface TagHandler {
-  Object UNKNOWN_TAG = new Object();
-
-  /**
-   * Reads a value from the calling reader. Returns {@link #UNKNOWN_TAG} if
-   * no value was read, or any other value otherwise.
-   */
-  Object decodeMessage(int tag);
-}
+@Target(AnnotationTarget.FUNCTION)
+@Retention(AnnotationRetention.RUNTIME)
+annotation class WireRpc(
+  val path: String,
+  val requestAdapter: String,
+  val responseAdapter: String
+)

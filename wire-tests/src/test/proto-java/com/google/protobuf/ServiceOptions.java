@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -83,12 +82,12 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (deprecated != null ? deprecated.hashCode() : 0);
       result = result * 37 + uninterpreted_option.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -147,14 +146,14 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
 
     @Override
     public int encodedSize(ServiceOptions value) {
-      return ProtoAdapter.BOOL.encodedSizeWithTag(33, value.deprecated)
+      return ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(33, value.deprecated)
           + UninterpretedOption.ADAPTER.asRepeated().encodedSizeWithTag(999, value.uninterpreted_option)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, ServiceOptions value) throws IOException {
-      ProtoAdapter.BOOL.encodeWithTag(writer, 33, value.deprecated);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 33, value.deprecated);
       UninterpretedOption.ADAPTER.asRepeated().encodeWithTag(writer, 999, value.uninterpreted_option);
       writer.writeBytes(value.unknownFields());
     }
@@ -165,7 +164,7 @@ public final class ServiceOptions extends Message<ServiceOptions, ServiceOptions
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 33: builder.deprecated(ProtoAdapter.BOOL.decode(reader)); break;
+          case 33: builder.deprecated(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 999: builder.uninterpreted_option.add(UninterpretedOption.ADAPTER.decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();

@@ -7,7 +7,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireEnum;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
@@ -97,13 +96,13 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (deprecated != null ? deprecated.hashCode() : 0);
       result = result * 37 + (idempotency_level != null ? idempotency_level.hashCode() : 0);
       result = result * 37 + uninterpreted_option.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -225,7 +224,7 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
 
     @Override
     public int encodedSize(MethodOptions value) {
-      return ProtoAdapter.BOOL.encodedSizeWithTag(33, value.deprecated)
+      return ProtoAdapter.Companion.getBOOL().encodedSizeWithTag(33, value.deprecated)
           + IdempotencyLevel.ADAPTER.encodedSizeWithTag(34, value.idempotency_level)
           + UninterpretedOption.ADAPTER.asRepeated().encodedSizeWithTag(999, value.uninterpreted_option)
           + value.unknownFields().size();
@@ -233,7 +232,7 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
 
     @Override
     public void encode(ProtoWriter writer, MethodOptions value) throws IOException {
-      ProtoAdapter.BOOL.encodeWithTag(writer, 33, value.deprecated);
+      ProtoAdapter.Companion.getBOOL().encodeWithTag(writer, 33, value.deprecated);
       IdempotencyLevel.ADAPTER.encodeWithTag(writer, 34, value.idempotency_level);
       UninterpretedOption.ADAPTER.asRepeated().encodeWithTag(writer, 999, value.uninterpreted_option);
       writer.writeBytes(value.unknownFields());
@@ -245,12 +244,12 @@ public final class MethodOptions extends Message<MethodOptions, MethodOptions.Bu
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 33: builder.deprecated(ProtoAdapter.BOOL.decode(reader)); break;
+          case 33: builder.deprecated(ProtoAdapter.Companion.getBOOL().decode(reader)); break;
           case 34: {
             try {
               builder.idempotency_level(IdempotencyLevel.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }

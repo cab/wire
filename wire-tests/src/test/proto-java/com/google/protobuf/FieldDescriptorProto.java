@@ -7,7 +7,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireEnum;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
@@ -196,7 +195,7 @@ public final class FieldDescriptorProto extends Message<FieldDescriptorProto, Fi
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (name != null ? name.hashCode() : 0);
@@ -209,7 +208,7 @@ public final class FieldDescriptorProto extends Message<FieldDescriptorProto, Fi
       result = result * 37 + (oneof_index != null ? oneof_index.hashCode() : 0);
       result = result * 37 + (json_name != null ? json_name.hashCode() : 0);
       result = result * 37 + (options != null ? options.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -515,30 +514,30 @@ public final class FieldDescriptorProto extends Message<FieldDescriptorProto, Fi
 
     @Override
     public int encodedSize(FieldDescriptorProto value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.name)
-          + ProtoAdapter.INT32.encodedSizeWithTag(3, value.number)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.name)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(3, value.number)
           + Label.ADAPTER.encodedSizeWithTag(4, value.label)
           + Type.ADAPTER.encodedSizeWithTag(5, value.type)
-          + ProtoAdapter.STRING.encodedSizeWithTag(6, value.type_name)
-          + ProtoAdapter.STRING.encodedSizeWithTag(2, value.extendee)
-          + ProtoAdapter.STRING.encodedSizeWithTag(7, value.default_value)
-          + ProtoAdapter.INT32.encodedSizeWithTag(9, value.oneof_index)
-          + ProtoAdapter.STRING.encodedSizeWithTag(10, value.json_name)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(6, value.type_name)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(2, value.extendee)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(7, value.default_value)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(9, value.oneof_index)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(10, value.json_name)
           + FieldOptions.ADAPTER.encodedSizeWithTag(8, value.options)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, FieldDescriptorProto value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.name);
-      ProtoAdapter.INT32.encodeWithTag(writer, 3, value.number);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.name);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 3, value.number);
       Label.ADAPTER.encodeWithTag(writer, 4, value.label);
       Type.ADAPTER.encodeWithTag(writer, 5, value.type);
-      ProtoAdapter.STRING.encodeWithTag(writer, 6, value.type_name);
-      ProtoAdapter.STRING.encodeWithTag(writer, 2, value.extendee);
-      ProtoAdapter.STRING.encodeWithTag(writer, 7, value.default_value);
-      ProtoAdapter.INT32.encodeWithTag(writer, 9, value.oneof_index);
-      ProtoAdapter.STRING.encodeWithTag(writer, 10, value.json_name);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 6, value.type_name);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 2, value.extendee);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 7, value.default_value);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 9, value.oneof_index);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 10, value.json_name);
       FieldOptions.ADAPTER.encodeWithTag(writer, 8, value.options);
       writer.writeBytes(value.unknownFields());
     }
@@ -549,14 +548,14 @@ public final class FieldDescriptorProto extends Message<FieldDescriptorProto, Fi
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.name(ProtoAdapter.STRING.decode(reader)); break;
-          case 2: builder.extendee(ProtoAdapter.STRING.decode(reader)); break;
-          case 3: builder.number(ProtoAdapter.INT32.decode(reader)); break;
+          case 1: builder.name(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 2: builder.extendee(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 3: builder.number(ProtoAdapter.Companion.getINT32().decode(reader)); break;
           case 4: {
             try {
               builder.label(Label.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
@@ -564,15 +563,15 @@ public final class FieldDescriptorProto extends Message<FieldDescriptorProto, Fi
             try {
               builder.type(Type.ADAPTER.decode(reader));
             } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+              builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
             }
             break;
           }
-          case 6: builder.type_name(ProtoAdapter.STRING.decode(reader)); break;
-          case 7: builder.default_value(ProtoAdapter.STRING.decode(reader)); break;
+          case 6: builder.type_name(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 7: builder.default_value(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 8: builder.options(FieldOptions.ADAPTER.decode(reader)); break;
-          case 9: builder.oneof_index(ProtoAdapter.INT32.decode(reader)); break;
-          case 10: builder.json_name(ProtoAdapter.STRING.decode(reader)); break;
+          case 9: builder.oneof_index(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 10: builder.json_name(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

@@ -28,9 +28,9 @@ public final class ProtoReaderTest {
     ProtoReader reader = new ProtoReader(new Buffer().write(packedEncoded));
     long token = reader.beginMessage();
     assertThat(reader.nextTag()).isEqualTo(90);
-    assertThat(ProtoAdapter.INT32.decode(reader)).isEqualTo(601);
+    assertThat(ProtoAdapter.Companion.getINT32().decode(reader)).isEqualTo(601);
     assertThat(reader.nextTag()).isEqualTo(90);
-    assertThat(ProtoAdapter.INT32.decode(reader)).isEqualTo(701);
+    assertThat(ProtoAdapter.Companion.getINT32().decode(reader)).isEqualTo(701);
     assertThat(reader.nextTag()).isEqualTo(-1);
     reader.endMessage(token);
   }

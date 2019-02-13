@@ -7,7 +7,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireEnum;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
@@ -108,14 +107,14 @@ public final class Person extends Message<Person, Person.Builder> {
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + name.hashCode();
       result = result * 37 + id.hashCode();
       result = result * 37 + (email != null ? email.hashCode() : 0);
       result = result * 37 + phone.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -293,12 +292,12 @@ public final class Person extends Message<Person, Person.Builder> {
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + number.hashCode();
         result = result * 37 + (type != null ? type.hashCode() : 0);
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }
@@ -351,14 +350,14 @@ public final class Person extends Message<Person, Person.Builder> {
 
       @Override
       public int encodedSize(PhoneNumber value) {
-        return ProtoAdapter.STRING.encodedSizeWithTag(1, value.number)
+        return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.number)
             + PhoneType.ADAPTER.encodedSizeWithTag(2, value.type)
             + value.unknownFields().size();
       }
 
       @Override
       public void encode(ProtoWriter writer, PhoneNumber value) throws IOException {
-        ProtoAdapter.STRING.encodeWithTag(writer, 1, value.number);
+        ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.number);
         PhoneType.ADAPTER.encodeWithTag(writer, 2, value.type);
         writer.writeBytes(value.unknownFields());
       }
@@ -369,12 +368,12 @@ public final class Person extends Message<Person, Person.Builder> {
         long token = reader.beginMessage();
         for (int tag; (tag = reader.nextTag()) != -1;) {
           switch (tag) {
-            case 1: builder.number(ProtoAdapter.STRING.decode(reader)); break;
+            case 1: builder.number(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
             case 2: {
               try {
                 builder.type(PhoneType.ADAPTER.decode(reader));
               } catch (ProtoAdapter.EnumConstantNotFoundException e) {
-                builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.value);
+                builder.addUnknownField(tag, FieldEncoding.VARINT, (long) e.getValue());
               }
               break;
             }
@@ -405,18 +404,18 @@ public final class Person extends Message<Person, Person.Builder> {
 
     @Override
     public int encodedSize(Person value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.name)
-          + ProtoAdapter.INT32.encodedSizeWithTag(2, value.id)
-          + ProtoAdapter.STRING.encodedSizeWithTag(3, value.email)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.name)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(2, value.id)
+          + ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(3, value.email)
           + PhoneNumber.ADAPTER.asRepeated().encodedSizeWithTag(4, value.phone)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, Person value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.name);
-      ProtoAdapter.INT32.encodeWithTag(writer, 2, value.id);
-      ProtoAdapter.STRING.encodeWithTag(writer, 3, value.email);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.name);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 2, value.id);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 3, value.email);
       PhoneNumber.ADAPTER.asRepeated().encodeWithTag(writer, 4, value.phone);
       writer.writeBytes(value.unknownFields());
     }
@@ -427,9 +426,9 @@ public final class Person extends Message<Person, Person.Builder> {
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.name(ProtoAdapter.STRING.decode(reader)); break;
-          case 2: builder.id(ProtoAdapter.INT32.decode(reader)); break;
-          case 3: builder.email(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.name(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
+          case 2: builder.id(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 3: builder.email(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           case 4: builder.phone.add(PhoneNumber.ADAPTER.decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();

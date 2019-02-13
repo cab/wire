@@ -7,7 +7,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -65,11 +64,11 @@ public final class RedactedRequired extends Message<RedactedRequired, RedactedRe
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + a.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -108,13 +107,13 @@ public final class RedactedRequired extends Message<RedactedRequired, RedactedRe
 
     @Override
     public int encodedSize(RedactedRequired value) {
-      return ProtoAdapter.STRING.encodedSizeWithTag(1, value.a)
+      return ProtoAdapter.Companion.getSTRING().encodedSizeWithTag(1, value.a)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, RedactedRequired value) throws IOException {
-      ProtoAdapter.STRING.encodeWithTag(writer, 1, value.a);
+      ProtoAdapter.Companion.getSTRING().encodeWithTag(writer, 1, value.a);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -124,7 +123,7 @@ public final class RedactedRequired extends Message<RedactedRequired, RedactedRe
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.a(ProtoAdapter.STRING.decode(reader)); break;
+          case 1: builder.a(ProtoAdapter.Companion.getSTRING().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);

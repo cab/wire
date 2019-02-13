@@ -20,7 +20,7 @@ import java.util.Map;
 import okio.ByteString;
 
 public final class AllTypes extends Message<AllTypes, AllTypes.Builder> {
-  public static final ProtoAdapter<AllTypes> ADAPTER = ProtoAdapter.newMessageAdapter(AllTypes.class);
+  public static final ProtoAdapter<AllTypes> ADAPTER = ProtoAdapter.Companion.newMessageAdapter(AllTypes.class);
 
   private static final long serialVersionUID = 0L;
 
@@ -1650,7 +1650,7 @@ public final class AllTypes extends Message<AllTypes, AllTypes.Builder> {
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (opt_int32 != null ? opt_int32.hashCode() : 0);
@@ -1790,7 +1790,7 @@ public final class AllTypes extends Message<AllTypes, AllTypes.Builder> {
       result = result * 37 + ext_map_string_string.hashCode();
       result = result * 37 + ext_map_string_message.hashCode();
       result = result * 37 + ext_map_string_enum.hashCode();
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -2942,7 +2942,7 @@ public final class AllTypes extends Message<AllTypes, AllTypes.Builder> {
   public enum NestedEnum implements WireEnum {
     A(1);
 
-    public static final ProtoAdapter<NestedEnum> ADAPTER = ProtoAdapter.newEnumAdapter(NestedEnum.class);
+    public static final ProtoAdapter<NestedEnum> ADAPTER = ProtoAdapter.Companion.newEnumAdapter(NestedEnum.class);
 
     private final int value;
 
@@ -2967,7 +2967,7 @@ public final class AllTypes extends Message<AllTypes, AllTypes.Builder> {
   }
 
   public static final class NestedMessage extends Message<NestedMessage, NestedMessage.Builder> {
-    public static final ProtoAdapter<NestedMessage> ADAPTER = ProtoAdapter.newMessageAdapter(NestedMessage.class);
+    public static final ProtoAdapter<NestedMessage> ADAPTER = ProtoAdapter.Companion.newMessageAdapter(NestedMessage.class);
 
     private static final long serialVersionUID = 0L;
 
@@ -3007,11 +3007,11 @@ public final class AllTypes extends Message<AllTypes, AllTypes.Builder> {
 
     @Override
     public int hashCode() {
-      int result = super.hashCode;
+      int result = super.getHashCode();
       if (result == 0) {
         result = unknownFields().hashCode();
         result = result * 37 + (a != null ? a.hashCode() : 0);
-        super.hashCode = result;
+        super.setHashCode(result);
       }
       return result;
     }

@@ -6,7 +6,6 @@ import com.squareup.wire.FieldEncoding;
 import com.squareup.wire.Message;
 import com.squareup.wire.ProtoAdapter;
 import com.squareup.wire.ProtoReader;
-import com.squareup.wire.ProtoWriter;
 import com.squareup.wire.WireField;
 import com.squareup.wire.internal.Internal;
 import java.io.IOException;
@@ -72,12 +71,12 @@ public final class ForeignMessage extends Message<ForeignMessage, ForeignMessage
 
   @Override
   public int hashCode() {
-    int result = super.hashCode;
+    int result = super.getHashCode();
     if (result == 0) {
       result = unknownFields().hashCode();
       result = result * 37 + (i != null ? i.hashCode() : 0);
       result = result * 37 + (j != null ? j.hashCode() : 0);
-      super.hashCode = result;
+      super.setHashCode(result);
     }
     return result;
   }
@@ -121,15 +120,15 @@ public final class ForeignMessage extends Message<ForeignMessage, ForeignMessage
 
     @Override
     public int encodedSize(ForeignMessage value) {
-      return ProtoAdapter.INT32.encodedSizeWithTag(1, value.i)
-          + ProtoAdapter.INT32.encodedSizeWithTag(100, value.j)
+      return ProtoAdapter.Companion.getINT32().encodedSizeWithTag(1, value.i)
+          + ProtoAdapter.Companion.getINT32().encodedSizeWithTag(100, value.j)
           + value.unknownFields().size();
     }
 
     @Override
     public void encode(ProtoWriter writer, ForeignMessage value) throws IOException {
-      ProtoAdapter.INT32.encodeWithTag(writer, 1, value.i);
-      ProtoAdapter.INT32.encodeWithTag(writer, 100, value.j);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 1, value.i);
+      ProtoAdapter.Companion.getINT32().encodeWithTag(writer, 100, value.j);
       writer.writeBytes(value.unknownFields());
     }
 
@@ -139,8 +138,8 @@ public final class ForeignMessage extends Message<ForeignMessage, ForeignMessage
       long token = reader.beginMessage();
       for (int tag; (tag = reader.nextTag()) != -1;) {
         switch (tag) {
-          case 1: builder.i(ProtoAdapter.INT32.decode(reader)); break;
-          case 100: builder.j(ProtoAdapter.INT32.decode(reader)); break;
+          case 1: builder.i(ProtoAdapter.Companion.getINT32().decode(reader)); break;
+          case 100: builder.j(ProtoAdapter.Companion.getINT32().decode(reader)); break;
           default: {
             FieldEncoding fieldEncoding = reader.peekFieldEncoding();
             Object value = fieldEncoding.rawProtoAdapter().decode(reader);
