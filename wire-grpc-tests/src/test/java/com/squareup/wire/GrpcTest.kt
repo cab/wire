@@ -40,10 +40,10 @@ import java.util.concurrent.TimeUnit
 
 class GrpcTest {
   @JvmField @Rule val mockService = MockRouteGuideService()
-  @JvmField @Rule val timeout = Timeout(500, TimeUnit.SECONDS)
+  @JvmField @Rule val timeout = Timeout(10, TimeUnit.SECONDS)
 
-  lateinit var grpcClient: GrpcClient
-  lateinit var routeGuideService: RouteGuide
+  private lateinit var grpcClient: GrpcClient
+  private lateinit var routeGuideService: RouteGuide
 
   @Before
   fun setUp() {
@@ -71,7 +71,7 @@ class GrpcTest {
 
     runBlocking {
       val feature =
-          routeGuideService.GetFeature(coroutineContext, Point(latitude = 5, longitude = 6))
+          routeGuideService.GetFeature(Point(latitude = 5, longitude = 6))
       assertThat(feature).isEqualTo(Feature(name = "tree at 5,6"))
     }
   }
@@ -89,7 +89,7 @@ class GrpcTest {
     mockService.enqueue(ReceiveComplete)
 
     runBlocking {
-      val (requestChannel, deferredResponse) = routeGuideService.RecordRoute(coroutineContext)
+      val (requestChannel, deferredResponse) = routeGuideService.RecordRoute()
       requestChannel.send(Point(3, 3))
       requestChannel.send(Point(9, 6))
       requestChannel.close()
@@ -114,7 +114,7 @@ class GrpcTest {
 
     runBlocking {
       val responseChannel = routeGuideService.ListFeatures(
-          coroutineContext, Rectangle(lo = Point(0, 0), hi = Point(4, 5)))
+          Rectangle(lo = Point(0, 0), hi = Point(4, 5)))
       assertThat(responseChannel.receive()).isEqualTo(Feature(name = "tree"))
       assertThat(responseChannel.receive()).isEqualTo(Feature(name = "house"))
       assertThat(responseChannel.receiveOrNull()).isNull()
@@ -136,7 +136,7 @@ class GrpcTest {
     mockService.enqueue(ReceiveComplete)
 
     runBlocking {
-      val (requestChannel, responseChannel) = routeGuideService.RouteChat(coroutineContext)
+      val (requestChannel, responseChannel) = routeGuideService.RouteChat()
       requestChannel.send(RouteNote(message = "marco"))
       assertThat(responseChannel.receive()).isEqualTo(RouteNote(message = "polo"))
       requestChannel.send(RouteNote(message = "rené"))
