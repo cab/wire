@@ -27,11 +27,12 @@ kotlin {
     commonMain.dependencies {
       api 'org.jetbrains.kotlin:kotlin-stdlib-common'
       api 'org.jetbrains.kotlin:kotlin-reflect-common'
+      api deps.okio.common
     }
 
     jvmMain.dependencies {
       api 'org.jetbrains.kotlin:kotlin-stdlib'
-      api deps.okio
+      api deps.okio.jvm
       compileOnly deps.android
     }
   }

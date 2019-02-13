@@ -22,6 +22,7 @@ import java.io.Serializable
 import okio.Buffer
 import okio.BufferedSink
 import okio.ByteString
+import kotlin.jvm.Transient
 
 /** A protocol buffer message.  */
 abstract class Message<M : Message<M, B>, B : Message.Builder<M, B>> protected constructor(@field:Transient private val adapter: ProtoAdapter<M>,

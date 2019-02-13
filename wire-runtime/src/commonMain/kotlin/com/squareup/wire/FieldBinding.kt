@@ -15,16 +15,13 @@
  */
 package com.squareup.wire
 
-import java.lang.reflect.Field
-import java.lang.reflect.InvocationTargetException
-import java.lang.reflect.Method
-import kotlin.reflect.KProperty
+import kotlin.reflect.*
 
 /**
  * Read, write, and describe a tag within a message. This class knows how to assign fields to a
  * builder object, and how to extract values from a message object.
  */
-internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireField: WireField, private val messageField: KProperty<Any>, builderType: KClass<B>) {
+internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireField: WireField, private val messageField: KMutableProperty<Any>, builderType: KClass<B>) {
 
     val label: WireField.Label
     val name: String
@@ -32,8 +29,8 @@ internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireFi
     private val keyAdapterString: String
     private val adapterString: String
     val redacted: Boolean
-    private val builderField: Field
-    private val builderMethod: Method
+    private val builderField: KMutableProperty<Any>
+    private val builderMethod: KFunction<Any>
 
     // Delegate adapters are created lazily; otherwise we could stack overflow!
     private var singleAdapter: ProtoAdapter<*>? = null
@@ -43,21 +40,21 @@ internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireFi
     val isMap: Boolean
         get() = !keyAdapterString.isEmpty()
 
-    private fun getBuilderField(builderType: Class<*>, name: String): Field {
+    private fun getBuilderField(builderType: KClass<*>, name: String): KMutableProperty<Any> {
         try {
-            return builderType.getField(name)
-        } catch (e: NoSuchFieldException) {
-            throw AssertionError("No builder field " + builderType.name + "." + name)
+            return builderType.members.find { it.name == name && it is KMutableProperty }!! as KMutableProperty<Any> /* TODO(cab) */
+        } catch (e: NullPointerException) {
+            throw AssertionError("No builder field " + builderType.qualifiedName
+                    + "." + name)
         }
-
     }
 
-    private fun getBuilderMethod(builderType: Class<*>, name: String, type: Class<*>): Method {
+    private fun getBuilderMethod(builderType: KClass<*>, name: String, type: KType): KFunction<Any> {
         try {
-            return builderType.getMethod(name, type)
-        } catch (e: NoSuchMethodException) {
-            throw AssertionError("No builder method " + builderType.name + "." + name
-                    + "(" + type.name + ")")
+            return builderType.members.find { it.name == name && it is KFunction }!! as KFunction<Any> /* TODO(cab) */
+        } catch (e: NullPointerException) {
+            throw AssertionError("No builder method " + builderType.qualifiedName + "." + name
+                    + "(" + type.toString() + ")")
         }
 
     }
@@ -70,7 +67,7 @@ internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireFi
         this.adapterString = wireField.adapter
         this.redacted = wireField.redacted
         this.builderField = getBuilderField(builderType, name)
-        this.builderMethod = getBuilderMethod(builderType, name, messageField.type)
+        this.builderMethod = getBuilderMethod(builderType, name, messageField.returnType)
     }
 
     fun singleAdapter(): ProtoAdapter<*> {
@@ -122,37 +119,37 @@ internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireFi
 
     /** Assign a single value for required/optional fields, or a list for repeated/packed fields.  */
     operator fun set(builder: B, value: Any) {
-        try {
+//        try {
             if (label.isOneOf) {
                 // In order to maintain the 'oneof' invariant, call the builder setter method rather
                 // than setting the builder field directly.
-                builderMethod.invoke(builder, value)
+                builderMethod.call(builder, value)
             } else {
-                builderField.set(builder, value)
+                builderField.setter.call(builder, value)
             }
-        } catch (e: IllegalAccessException) {
-            throw AssertionError(e)
-        } catch (e: InvocationTargetException) {
-            throw AssertionError(e)
-        }
+//        } catch (e: IllegalAccessException) {
+//            throw AssertionError(e)
+//        } catch (e: InvocationTargetException) {
+//            throw AssertionError(e)
+//        }
 
     }
 
     operator fun get(message: M): Any {
-        try {
-            return messageField.get(message)
-        } catch (e: IllegalAccessException) {
-            throw AssertionError(e)
-        }
+//        try {
+            return messageField.getter.call(message)
+//        } catch (e: IllegalAccessException) {
+//            throw AssertionError(e)
+//        }
 
     }
 
     fun getFromBuilder(builder: B): Any {
-        try {
-            return builderField.get(builder)
-        } catch (e: IllegalAccessException) {
-            throw AssertionError(e)
-        }
+//        try {
+            return builderField.getter.call(builder)
+//        } catch (e: IllegalAccessException) {
+//            throw AssertionError(e)
+//        }
 
     }
 }
