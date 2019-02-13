@@ -18,12 +18,13 @@ package com.squareup.wire
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
+import kotlin.reflect.KProperty
 
 /**
  * Read, write, and describe a tag within a message. This class knows how to assign fields to a
  * builder object, and how to extract values from a message object.
  */
-internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireField: WireField, private val messageField: Field, builderType: Class<B>) {
+internal class FieldBinding<M : Message<M, B>, B : Message.Builder<M, B>>(wireField: WireField, private val messageField: KProperty<Any>, builderType: KClass<B>) {
 
     val label: WireField.Label
     val name: String

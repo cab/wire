@@ -24,8 +24,9 @@ import java.util.Collections
 import okio.*
 import java.lang.Double.doubleToLongBits
 import java.lang.Float.floatToIntBits
+import kotlin.reflect.KClass
 
-abstract class ProtoAdapter<E>(private val fieldEncoding: FieldEncoding, internal val javaType: Class<*>?) {
+abstract class ProtoAdapter<E>(private val fieldEncoding: FieldEncoding, internal val javaType: KClass<*>?) {
 
     internal var packedAdapter: ProtoAdapter<List<E>>? = null
     internal var repeatedAdapter: ProtoAdapter<List<E>>? = null

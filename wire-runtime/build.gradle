@@ -19,9 +19,14 @@ kotlin {
     }
   }
 
+  iosX64() {
+
+  }
+
   sourceSets {
     commonMain.dependencies {
       api 'org.jetbrains.kotlin:kotlin-stdlib-common'
+      api 'org.jetbrains.kotlin:kotlin-reflect-common'
     }
 
     jvmMain.dependencies {

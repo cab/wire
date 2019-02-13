@@ -9,7 +9,7 @@ import com.squareup.wire.ProtoAdapter
 import com.squareup.wire.ProtoReader
 import com.squareup.wire.ProtoWriter
 import com.squareup.wire.TagHandler
-import com.squareup.wire.WireEnum
+import WireEnum
 import kotlin.Int
 import kotlin.jvm.JvmField
 import kotlin.jvm.JvmStatic
