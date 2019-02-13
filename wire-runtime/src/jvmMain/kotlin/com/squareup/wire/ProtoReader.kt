@@ -395,7 +395,7 @@ class ProtoReader(private val source: BufferedSource) {
 
     /** Reads each tag, handles it, and returns a byte string with the unknown fields.  */
     @Throws(IOException::class)
-    fun forEachTag(tagHandler: TagHandler): ByteString {
+    fun forEachTag(tagHandler: TagHandlerFn): ByteString {
         // Lazily created if the current message has unknown fields.
         var unknownFieldsBuffer: Buffer? = null
         var unknownFieldsWriter: ProtoWriter? = null
@@ -408,7 +408,7 @@ class ProtoReader(private val source: BufferedSource) {
                 if (tag == -1) {
                     break
                 }
-                if (tagHandler.decodeMessage(tag) !== TagHandler.UNKNOWN_TAG) continue
+                if (tagHandler(tag) !== TagHandler.UNKNOWN_TAG) continue
                 if (unknownFieldsBuffer == null) {
                     unknownFieldsBuffer = Buffer()
                     unknownFieldsWriter = ProtoWriter(unknownFieldsBuffer!!)

@@ -1,4 +1,5 @@
 apply plugin: 'kotlin-multiplatform'
+apply plugin: 'maven-publish'
 //apply plugin: 'org.jetbrains.kotlin.jvm'
 //apply plugin: 'ru.vyarus.animalsniffer'
 
@@ -14,6 +15,7 @@ kotlin {
   jvm {
     apply {
       plugin "java"
+//      plugin 'com.vanniktech.maven.publish'
     }
   }
 

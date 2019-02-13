@@ -15,15 +15,8 @@
  */
 package com.squareup.wire
 
-interface TagHandler {
+typealias TagHandlerFn = (Int) -> Any
 
-    /**
-     * Reads a value from the calling reader. Returns [.UNKNOWN_TAG] if
-     * no value was read, or any other value otherwise.
-     */
-    fun decodeMessage(tag: Int): Any
-
-    companion object {
-        val UNKNOWN_TAG = Any()
-    }
+object TagHandler {
+  val UNKNOWN_TAG = Any()
 }

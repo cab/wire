@@ -20,8 +20,5 @@ package com.squareup.wire
  * deserialization.
  */
 interface WireEnum {
-    /**
-     * The tag value of an enum constant.
-     */
-    val value: Int
+    fun getValue(): Int
 }

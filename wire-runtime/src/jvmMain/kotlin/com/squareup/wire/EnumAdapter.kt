@@ -23,12 +23,12 @@ import java.io.IOException
 abstract class EnumAdapter<E : WireEnum> protected constructor(type: Class<E>) : ProtoAdapter<E>(FieldEncoding.VARINT, type) {
 
     override fun encodedSize(value: E): Int {
-        return ProtoWriter.varint32Size(value.value)
+        return ProtoWriter.varint32Size(value.getValue())
     }
 
     @Throws(IOException::class)
     override fun encode(writer: ProtoWriter, value: E) {
-        writer.writeVarint32(value.value)
+        writer.writeVarint32(value.getValue())
     }
 
     @Throws(IOException::class)
