@@ -22,7 +22,7 @@ configurations {
 dependencies {
   wire project(':wire-compiler')
   implementation project(':wire-runtime')
-  implementation deps.okio
+  implementation deps.okio.jvm
 }
 
 task generateProtos(type: JavaExec) {

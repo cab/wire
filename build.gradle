@@ -34,7 +34,7 @@ buildscript {
       ],
       'android': "com.google.android:android:${versions.android}",
       'guava': "com.google.guava:guava:${versions.guava}",
-      'okio': [
+      okio: [
         jvm: "com.squareup.okio:okio:${versions.okio}",
         common: "com.squareup.okio:okio-metadata:${versions.okio}",
       ],
@@ -106,6 +106,7 @@ allprojects {
 
   repositories {
     mavenCentral()
+    mavenLocal()
   }
 }
 

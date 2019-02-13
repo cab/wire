@@ -17,7 +17,7 @@ animalsniffer {
 dependencies {
   api project(':wire-runtime')
   api deps.gson
-  api deps.okio
+  api deps.okio.jvm
   compileOnly deps.jsr305
   testImplementation deps.junit
   testImplementation deps.assertj

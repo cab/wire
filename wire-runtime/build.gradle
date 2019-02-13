@@ -26,7 +26,7 @@ kotlin {
   sourceSets {
     commonMain.dependencies {
       api 'org.jetbrains.kotlin:kotlin-stdlib-common'
-      api 'org.jetbrains.kotlin:kotlin-reflect-common'
+      api kotlin("reflect")
       api deps.okio.common
     }
 

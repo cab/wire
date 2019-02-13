@@ -18,6 +18,7 @@ package com.squareup.wire
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Method
 
+
 /**
  * Converts values of an enum to and from integers using reflection.
  */
