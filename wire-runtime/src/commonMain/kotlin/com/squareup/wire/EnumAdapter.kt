@@ -15,7 +15,6 @@
  */
 package com.squareup.wire
 
-import java.io.IOException
 import kotlin.reflect.KClass
 
 /**
@@ -27,12 +26,12 @@ abstract class EnumAdapter<E : WireEnum> protected constructor(type: KClass<E>) 
         return ProtoWriter.varint32Size(value.getValue())
     }
 
-    @Throws(IOException::class)
+//    @Throws(IOException::class)
     override fun encode(writer: ProtoWriter, value: E) {
         writer.writeVarint32(value.getValue())
     }
 
-    @Throws(IOException::class)
+//    @Throws(IOException::class)
     override fun decode(reader: ProtoReader): E {
         val value = reader.readVarint32()
         return fromValue(value) ?: throw EnumConstantNotFoundException(value, javaType!! /* TODO(cab) -!! */)

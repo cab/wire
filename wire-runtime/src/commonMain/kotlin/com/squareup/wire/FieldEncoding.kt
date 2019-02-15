@@ -15,8 +15,12 @@
  */
 package com.squareup.wire
 
-import java.io.IOException
-import java.net.ProtocolException
+import com.squareup.wire.io.IOException
+import com.squareup.wire.io.ProtocolException
+import com.squareup.wire.io.Throws
+
+//import java.io.IOException
+//import java.net.ProtocolException
 
 enum class FieldEncoding private constructor(internal val value: Int) {
     VARINT(0), FIXED64(1), LENGTH_DELIMITED(2), FIXED32(5);

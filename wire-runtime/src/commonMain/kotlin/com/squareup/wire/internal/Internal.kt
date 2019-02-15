@@ -16,15 +16,12 @@
 package com.squareup.wire.internal
 
 import com.squareup.wire.ProtoAdapter
-import java.util.ArrayList
-import java.util.Collections
-import java.util.LinkedHashMap
 
 /** Methods for generated code use only. Not subject to public API rules.  */
 object Internal {
 
     fun <T> newMutableList(): List<T> {
-        return MutableOnWriteList(mutableListOf())
+        return mutableListOf()
     }
 
     fun <K, V> newMutableMap(): Map<K, V> {
@@ -33,8 +30,8 @@ object Internal {
 
     fun <T> copyOf(name: String, list: List<T>?): List<T> {
         if (list == null) throw NullPointerException("$name == null")
-        return if (list === emptyList<Any>() || list is ImmutableList) {
-            MutableOnWriteList(list as ImmutableList)
+        return if (list === emptyList<Any>() || list is List) {
+            list.toMutableList()
         } else ArrayList(list)
     }
 
@@ -44,22 +41,10 @@ object Internal {
     }
 
     fun <T> immutableCopyOf(name: String, list: List<T>?): List<T> {
-        var list: List<T>? = list ?: throw NullPointerException("$name == null")
-        if (list is MutableOnWriteList) {
-            list = (list as MutableOnWriteList<T>).mutableList
-        }
-        if (list === emptyList<Any>() || list is ImmutableList) {
-            return list
-        }
-        val result = ImmutableList(list!!) /* TODO(cab) -!! */
-        // Check after the list has been copied to defend against races.
-        if (result.contains(null)) {
-            throw IllegalArgumentException("$name.contains(null)")
-        }
-        return result
+        return list?.toList() ?: listOf()
     }
 
-    fun <K, V> immutableCopyOf(name: String, map: Map<K, V>?): Map<K, V> {
+    fun <K, V> immutableCopyOf(name: String, map: Map<K?, V?>?): Map<K, V> {
         if (map == null) throw NullPointerException("$name == null")
         if (map.isEmpty()) {
             return emptyMap()
@@ -72,7 +57,7 @@ object Internal {
         if (result.containsValue(null)) {
             throw IllegalArgumentException("$name.containsValue(null)")
         }
-        return Collections.unmodifiableMap(result)
+        return map as Map<K, V>
     }
 
     fun <T> redactElements(list: MutableList<T>, adapter: ProtoAdapter<T>) {

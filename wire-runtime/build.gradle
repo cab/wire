@@ -17,7 +17,7 @@ kotlin {
     fromPreset(presets.js, 'js')
     final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") \
                               ? presets.iosArm64 : presets.iosX64
-    fromPreset(iOSTarget, 'native') {
+    fromPreset(iOSTarget, 'ios') {
       binaries {
         framework('SharedCode')
       }
@@ -44,9 +44,24 @@ kotlin {
       implementation deps.kotlinxio.js
 
     }
+
     nativeMain.dependencies {
       implementation deps.kotlinxio.native
     }
+
+    nativeMain {
+      kotlin.srcDir('src/nativeMain/kotlin')
+    }
+
+    nativeTest {
+      kotlin.srcDir('src/nativeTest/kotlin')
+    }
+
+    // , targets.iosArm64, targets.linuxX64, targets.macosX64, targets.winX64
+    configure([targets.ios]) {
+          compilations.main.source(sourceSets.nativeMain)
+          compilations.test.source(sourceSets.nativeTest)
+      }
   }
 }
 //jar {

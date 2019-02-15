@@ -15,15 +15,12 @@
  */
 package com.squareup.wire
 
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
-
 /**
  * Annotates generated [Message] fields with metadata for serialization and
  * deserialization.
  */
 @Target(AnnotationTarget.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class WireField(
         /** The tag number used to store the field's value.  */
         val tag: Int,

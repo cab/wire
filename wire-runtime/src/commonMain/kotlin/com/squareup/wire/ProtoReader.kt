@@ -33,11 +33,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.squareup.wire
 
-import java.io.EOFException
-import java.io.IOException
-import java.net.ProtocolException
-import okio.Buffer
-import okio.BufferedSource
+import com.squareup.wire.io.*
 import okio.ByteString
 
 
@@ -49,7 +45,7 @@ class ProtoReader(private val source: BufferedSource) {
     /** The current position in the input source, starting at 0 and increasing monotonically.  */
     private var pos: Long = 0
     /** The absolute position of the end of the current message.  */
-    private var limit = java.lang.Long.MAX_VALUE
+    private var limit = Long.MAX_VALUE
     /** The current number of levels of message nesting.  */
     private var recursionDepth: Int = 0
     /** How to interpret the next read call.  */
@@ -64,7 +60,7 @@ class ProtoReader(private val source: BufferedSource) {
     /**
      * Begin a nested message. A call to this method will restrict the reader so that [ ][.nextTag] returns -1 when the message is complete. An accompanying call to [ ][.endMessage] must then occur with the opaque token returned from this method.
      */
-    @Throws(IOException::class)
+//    @Throws(IOException::class)
     fun beginMessage(): Long {
         if (state != STATE_LENGTH_DELIMITED) {
             throw IllegalStateException("Unexpected call to beginMessage()")

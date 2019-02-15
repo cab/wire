@@ -44,7 +44,7 @@ abstract class AndroidMessage<M : Message<M, B>, B : Message.Builder<M, B>> prot
         }
 
         override fun newArray(size: Int): kotlin.Array<M> {
-            return Array.newInstance(adapter.javaType, size) as kotlin.Array<M> /* TODO(cab) unchecked cast */
+            return Array.newInstance(adapter.javaClass, size) as kotlin.Array<M> /* TODO(cab) unchecked cast */
         }
     }
 

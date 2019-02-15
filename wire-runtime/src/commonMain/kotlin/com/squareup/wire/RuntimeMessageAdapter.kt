@@ -15,15 +15,14 @@
  */
 package com.squareup.wire
 
-import java.io.IOException
-import java.lang.reflect.Field
-import java.util.Collections
-import java.util.LinkedHashMap
 
 import com.squareup.wire.Message.Builder
 import com.squareup.wire.internal.Internal
+import kotlin.reflect.KClass
+import kotlin.reflect.KMutableProperty
+import kotlin.reflect.KProperty
 
-internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(private val messageType: Class<M>, private val builderType: Class<B>,
+internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(private val messageType: KClass<M>, private val builderType: KClass<B>,
                                                                            private val fieldBindings: Map<Int, FieldBinding<M, B>>) : ProtoAdapter<M>(FieldEncoding.LENGTH_DELIMITED, messageType) {
 
     fun fieldBindings(): Map<Int, FieldBinding<M, B>> {
@@ -31,13 +30,13 @@ internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(priva
     }
 
     fun newBuilder(): B {
-        try {
-            return builderType.newInstance()
-        } catch (e: IllegalAccessException) {
-            throw AssertionError(e)
-        } catch (e: InstantiationException) {
-            throw AssertionError(e)
-        }
+//        try {
+            return builderType.constructors.firstOrNull()!!.call()
+//        } catch (e: IllegalAccessException) {
+//            throw AssertionError(e)
+//        } catch (e: InstantiationException) {
+//            throw AssertionError(e)
+//        }
 
     }
 
@@ -56,7 +55,7 @@ internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(priva
         return size
     }
 
-    @Throws(IOException::class)
+//    @Throws(IOException::class)
     override fun encode(writer: ProtoWriter, message: M) {
         for (fieldBinding in fieldBindings.values) {
             val value = fieldBinding[message] ?: continue
@@ -69,11 +68,11 @@ internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(priva
         val builder = message.newBuilder()
         for (fieldBinding in fieldBindings.values) {
             if (fieldBinding.redacted && fieldBinding.label === WireField.Label.REQUIRED) {
-                throw UnsupportedOperationException(String.format(
-                        "Field '%s' in %s is required and cannot be redacted.",
-                        fieldBinding.name, javaType?.getName()))
+                throw UnsupportedOperationException(
+                        "Field '${fieldBinding.name}' in ${javaType?.qualifiedName} is required and cannot be redacted.")
             }
-            val isMessage = Message::class.java.isAssignableFrom(fieldBinding.singleAdapter().javaType)
+            // TODO(cab) is isInstance right? or do we need to find a way to use isSubclass
+            val isMessage = Message::class.isInstance(fieldBinding.singleAdapter().javaType)
             if (fieldBinding.redacted || isMessage && !fieldBinding.label.isRepeated) {
                 val builderValue = fieldBinding.getFromBuilder(builder)
                 if (builderValue != null) {
@@ -113,11 +112,11 @@ internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(priva
         }
 
         // Replace leading comma with class name and opening brace.
-        sb.replace(0, 2, messageType.simpleName + '{')
+        sb.replaceRange(0, 2, messageType.simpleName + '{')
         return sb.append('}').toString()
     }
 
-    @Throws(IOException::class)
+//    @Throws(IOException::class)
     override fun decode(reader: ProtoReader): M {
         val builder = newBuilder()
         val token = reader.beginMessage()
@@ -156,29 +155,23 @@ internal class RuntimeMessageAdapter<M : Message<M, B>, B : Builder<M, B>>(priva
         private val REDACTED = "\u2588\u2588"
 
         fun <M : Message<M, B>, B : Builder<M, B>> create(
-                messageType: Class<M>): RuntimeMessageAdapter<M, B> {
-            val builderType = getBuilderType(messageType)
+                messageType: KClass<M>): RuntimeMessageAdapter<M, B> {
+            val builderType = getBuilderType<M, B>()
             val fieldBindings = LinkedHashMap<Int, FieldBinding<M, B>>()
 
             // Create tag bindings for fields annotated with '@WireField'
-            for (messageField in messageType.declaredFields) {
-                val wireField = messageField.getAnnotation(WireField::class.java)
+            for (messageField in messageType.members.filter { it is KProperty }) {
+                val wireField = messageField.annotations.find { it is WireField } as WireField?
                 if (wireField != null) {
-                    fieldBindings[wireField.tag] = FieldBinding(wireField, messageField, builderType)
+                    fieldBindings[wireField.tag] = FieldBinding(wireField, messageField as KMutableProperty<Any>, builderType)
                 }
             }
 
             return RuntimeMessageAdapter(messageType, builderType,
-                    Collections.unmodifiableMap(fieldBindings))
+                    fieldBindings.toMap())
         }
-
-        private fun <M : Message<M, B>, B : Builder<M, B>> getBuilderType(
-                messageType: Class<M>): Class<B> {
-            try {
-                return Class.forName(messageType.name + "\$Builder") as Class<B>
-            } catch (e: ClassNotFoundException) {
-                throw IllegalArgumentException("No builder class found for message type " + messageType.name)
-            }
+        private inline fun <M : Message<M, B>, reified B : Builder<M, B>> getBuilderType(): KClass<B> {
+            return B::class
 
         }
     }

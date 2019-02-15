@@ -49,10 +49,11 @@ package com.squareup.wire
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-import okio.BufferedSink
+import com.squareup.wire.io.BufferedSink
+import com.squareup.wire.io.IOException
+import com.squareup.wire.io.Throws
 import okio.ByteString
 
-import java.io.IOException
 
 /**
  * Utilities for encoding and writing protocol message fields.
@@ -94,10 +95,10 @@ class ProtoWriter(private val sink: BufferedSink) {
     fun writeVarint32(value: Int) {
         var value = value
         while (value and 0x7f.inv() != 0) {
-            sink.writeByte(value and 0x7f or 0x80)
+            sink.writeByte((value and 0x7f or 0x80).toByte())
             value = value ushr 7
         }
-        sink.writeByte(value)
+        sink.writeByte(value.toByte())
     }
 
     /** Encode and write a varint.  */
@@ -105,10 +106,10 @@ class ProtoWriter(private val sink: BufferedSink) {
     fun writeVarint64(value: Long) {
         var value = value
         while (value and 0x7fL.inv() != 0L) {
-            sink.writeByte(value.toInt() and 0x7f or 0x80)
+            sink.writeByte((value.toInt() and 0x7f or 0x80).toByte())
             value = value ushr 7
         }
-        sink.writeByte(value.toInt())
+        sink.writeByte(value.toInt().toByte())
     }
 
     /** Write a little-endian 32-bit integer.  */

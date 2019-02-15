@@ -15,22 +15,21 @@
  */
 package com.squareup.wire
 
-import java.io.IOException
-import java.io.ObjectStreamException
-import java.io.Serializable
-import java.io.StreamCorruptedException
+import com.squareup.wire.io.IOException
+import com.squareup.wire.io.Throws
+import kotlin.reflect.KClass
 
-internal class MessageSerializedForm<M : Message<M, B>, B : Message.Builder<M, B>>(private val bytes: ByteArray, private val messageClass: Class<M>) : Serializable {
+internal class MessageSerializedForm<M : Message<M, B>, B : Message.Builder<M, B>>(private val bytes: ByteArray, private val messageClass: KClass<M>) /* : Serializable TODO(cab) */ {
 
-    @Throws(ObjectStreamException::class)
+//    @Throws(ObjectStreamException::class)
     fun readResolve(): Any {
         val adapter = ProtoAdapter[messageClass]
-        try {
+//        try {
             // Extensions will be decoded as unknown values.
             return adapter.decode(bytes)
-        } catch (e: IOException) {
-            throw StreamCorruptedException(e.message)
-        }
+//        } catch (e: IOException) {
+//            throw StreamCorruptedException(e.message)
+//        }
 
     }
 

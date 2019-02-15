@@ -15,19 +15,18 @@
  */
 package com.squareup.wire
 
-import java.io.IOException
-import java.io.ObjectStreamException
-import java.io.OutputStream
-import java.io.Serializable
-import okio.Buffer
-import okio.BufferedSink
+import com.squareup.wire.io.Buffer
+import com.squareup.wire.io.BufferedSink
+import com.squareup.wire.io.IOException
+import com.squareup.wire.io.Throws
 import okio.ByteString
 import kotlin.jvm.Transient
+import kotlin.reflect.KClass
 
 /** A protocol buffer message.  */
 abstract class Message<M : Message<M, B>, B : Message.Builder<M, B>> protected constructor(@field:Transient private val adapter: ProtoAdapter<M>,
                                                                                            /** Unknown fields, proto-encoded. We permit null to support magic deserialization.  */
-                                                                                           @field:Transient private val unknownFields: ByteString?) : Serializable {
+                                                                                           @field:Transient private val unknownFields: ByteString?) /* : Serializable TODO(cab) */ {
 
     /** If not `0` then the serialized size of this message.  */
     @Transient
@@ -66,9 +65,9 @@ abstract class Message<M : Message<M, B>, B : Message.Builder<M, B>> protected c
         return adapter.toString(this as M)
     }
 
-    @Throws(ObjectStreamException::class)
+//    @Throws(ObjectStreamException::class)
     protected fun writeReplace(): Any {
-        return MessageSerializedForm(encode(), javaClass as Class<M>) /* TODO(cab) unchecked cast */
+        return MessageSerializedForm(encode(), this::class as KClass<M>) /* TODO(cab) unchecked cast */
     }
 
     /** The [ProtoAdapter] for encoding and decoding messages of this type.  */
@@ -90,11 +89,12 @@ abstract class Message<M : Message<M, B>, B : Message.Builder<M, B>> protected c
     }
 
     /** Encode this message and write it to `stream`.  */
-    @Throws(IOException::class)
-    fun encode(stream: OutputStream) {
-
-        adapter.encode(stream, this as M)
-    }
+    // TODO(cab) jvm ext
+//    @Throws(IOException::class)
+//    fun encode(stream: OutputStream) {
+//
+//        adapter.encode(stream, this as M)
+//    }
 
     /**
      * Superclass for protocol buffer message builders.
