@@ -10,7 +10,7 @@ jar {
 }
 
 dependencies {
-  api project(':wire-runtime')
+  implementation project(':wire-runtime')
   implementation deps.okio.jvm
   api deps.guava
   annotationProcessor deps.autovalue.compiler

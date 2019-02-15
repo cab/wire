@@ -12,32 +12,43 @@ targetCompatibility = JavaVersion.VERSION_1_7
 //}
 
 kotlin {
-  jvm {
-    apply {
-      plugin "java"
-//      plugin 'com.vanniktech.maven.publish'
+  targets {
+    fromPreset(presets.jvm, 'jvm')
+    fromPreset(presets.js, 'js')
+    final def iOSTarget = System.getenv('SDK_NAME')?.startsWith("iphoneos") \
+                              ? presets.iosArm64 : presets.iosX64
+    fromPreset(iOSTarget, 'native') {
+      binaries {
+        framework('SharedCode')
+      }
     }
-  }
-
-  iosX64() {
-
   }
 
   sourceSets {
     commonMain.dependencies {
       api 'org.jetbrains.kotlin:kotlin-stdlib-common'
+      implementation deps.kotlinxio.common
       api kotlin("reflect")
       api deps.okio.common
     }
 
     jvmMain.dependencies {
       api 'org.jetbrains.kotlin:kotlin-stdlib'
+      implementation deps.kotlinxio.jvm
       api deps.okio.jvm
       compileOnly deps.android
     }
+
+    jsMain.dependencies {
+      implementation 'org.jetbrains.kotlin:kotlin-stdlib-js'
+      implementation deps.kotlinxio.js
+
+    }
+    nativeMain.dependencies {
+      implementation deps.kotlinxio.native
+    }
   }
 }
-
 //jar {
 //  manifest {
 //    attributes('Automatic-Module-Name': 'wire-runtime')

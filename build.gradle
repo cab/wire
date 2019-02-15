@@ -24,7 +24,8 @@ buildscript {
       'maven': '3.5.0',
       'mavenAnnotations': '3.5',
       'mavenPluginBuilder': '1.2.1',
-      'mavenPublish': '0.6.0'
+      'mavenPublish': '0.6.0',
+      'kotlinxio':'0.2.0-SNAPSHOT',
   ]
 
   ext.deps = [
@@ -64,6 +65,12 @@ buildscript {
           'coroutines': [
               'core': "org.jetbrains.kotlinx:kotlinx-coroutines-core:${versions.coroutines}"
           ]
+      ],
+      'kotlinxio': [
+          'jvm': "org.jetbrains.kotlinx:kotlinx-io-jvm:${versions.kotlinxio}",
+          'js': "org.jetbrains.kotlinx:kotlinx-io-js:${versions.kotlinxio}",
+          'native': "org.jetbrains.kotlinx:kotlinx-io-native:${versions.kotlinxio}",
+          'common': "org.jetbrains.kotlinx:kotlinx-io:${versions.kotlinxio}",
       ],
       'moshi': "com.squareup.moshi:moshi:${versions.moshi}",
       'junit': "junit:junit:${versions.junit}",
@@ -107,6 +114,7 @@ allprojects {
   repositories {
     mavenCentral()
     mavenLocal()
+    jcenter()
   }
 }
 
